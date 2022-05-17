@@ -2,34 +2,26 @@ import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import { resolve } from 'path'
 import { wrapperEnv } from './build/utils'
-import { createVitePlugins } from './build/vite/plugin'
+import createVitePlugins from './build/vite/plugin'
+import modifyVars from './build/theme/arco/modifyVars'
+import OUTPUT_DIR from './build/constant'
 
-import pkg from './package.json'
-const { dependencies, devDependencies, name, version } = pkg
-
-function pathResolve(dir: string) {
+function pathResolve(dir: string): string {
   return resolve(process.cwd(), '.', dir)
 }
 
 // https://vitejs.dev/config/
-
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
   const viteEnv = wrapperEnv(env)
 
-  const {
-    VITE_PUBLIC_PATH,
-    VITE_DROP_CONSOLE,
-    VITE_PORT,
-    VITE_GLOB_PROD_MOCK,
-    VITE_PROXY,
-  } = viteEnv
+  const { VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_PORT } = viteEnv
 
-  const prodMock = VITE_GLOB_PROD_MOCK
   const isBuild = command === 'build'
 
   return {
+    base: VITE_PUBLIC_PATH,
     resolve: {
       alias: [
         {
@@ -44,17 +36,37 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       dedupe: ['vue'],
     },
 
-    plugins: createVitePlugins(viteEnv, isBuild, prodMock),
+    server: {
+      host: false,
+      port: VITE_PORT,
+    },
 
+    //  Vite插件
+    plugins: createVitePlugins(viteEnv, isBuild),
+
+    // Css预处理
     css: {
       preprocessorOptions: {
         less: {
-          modifyVars: {
-            'arcoblue-6': '#3a49a8',
-          },
+          modifyVars,
           javascriptEnabled: true,
         },
       },
+    },
+
+    // 打包配置
+    build: {
+      target: 'es2015',
+      outDir: OUTPUT_DIR,
+      terserOptions: {
+        compress: {
+          keep_infinity: true,
+          drop_console: VITE_DROP_CONSOLE,
+        },
+      },
+      brotliSize: false,
+      chunkSizeWarningLimit: 2000,
+      minify: 'terser',
     },
   }
 }
