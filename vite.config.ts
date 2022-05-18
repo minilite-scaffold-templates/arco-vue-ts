@@ -29,7 +29,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           replacement: `${pathResolve('types')}/`,
         },
         {
-          find: '@',
+          find: '@/',
           replacement: `${pathResolve('src')}/`,
         },
       ],

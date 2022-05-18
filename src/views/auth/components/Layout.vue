@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
-  import useGlobSetting from '../../../hooks/setting'
+  import { useGlobSetting } from '../../../hooks/setting'
   import LoginForm from './LoginForm.vue'
   import RegisterForm from './RegisterForm.vue'
 

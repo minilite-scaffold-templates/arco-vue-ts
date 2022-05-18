@@ -68,6 +68,9 @@ declare global {
     VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none'
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean
   }
+  interface ImportMetaEnv extends ViteEnv {
+    __: unknown
+  }
 
   declare function parseInt(s: string | number, radix?: number): number
 
