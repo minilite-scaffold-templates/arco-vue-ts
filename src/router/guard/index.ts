@@ -5,7 +5,7 @@ import { Router } from 'vue-router'
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN
 
-const whitePathList = [LOGIN_PATH] // no redirect whitelist
+export const whitePathList = [LOGIN_PATH] // no redirect whitelist
 
 export function createRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
@@ -21,6 +21,8 @@ export function createRouterGuard(router: Router) {
     }
 
     const token = storage.get(ACCESS_TOKEN)
+
+    console.log('token', token)
 
     // 如果不存在token(未登录)
     if (!token) {
@@ -51,8 +53,7 @@ export function createRouterGuard(router: Router) {
 
     const redirectPath = (from.query.redirect || to.path) as string
     const redirect = decodeURIComponent(redirectPath)
-    const nextData =
-      to.path === redirect ? { ...to, replace: true } : { path: redirect }
+    const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
     next(nextData)
   })
 
