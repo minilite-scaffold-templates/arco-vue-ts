@@ -26,11 +26,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       alias: [
         {
           find: /\/#\//,
-          replacement: pathResolve('types') + '/',
+          replacement: `${pathResolve('types')}/`,
         },
         {
           find: '@',
-          replacement: pathResolve('src') + '/',
+          replacement: `${pathResolve('src')}/`,
         },
       ],
       dedupe: ['vue'],

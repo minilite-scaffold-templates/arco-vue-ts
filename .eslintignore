@@ -2,3 +2,6 @@
 dist
 /src/__test__/*.js
 /src/__test__/*.ts
+
+!.eslintrc.js
+!.prettierrc.js

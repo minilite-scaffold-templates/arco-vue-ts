@@ -1,16 +1,15 @@
 <template>
-  <div class="space-y-5">
-    <div class="space-y-5">
-      <a-alert :show-icon="false">
-        从这里开始, 搭建基于Arco-ui的模板项目
-      </a-alert>
-    </div>
-    <router-view />
-  </div>
+  <a-layout class="h-screen">
+    <a-layout-sider theme="dark" class="text-white">Sider</a-layout-sider>
+
+    <a-layout>
+      <a-layout-header>Header</a-layout-header>
+      <a-layout-content class="bg-white">Content</a-layout-content>
+      <a-layout-footer>Footer</a-layout-footer>
+    </a-layout>
+  </a-layout>
 </template>
 
 <script lang="ts" setup>
   import {} from 'vue'
 </script>
-
-<style scoped lang="less"></style>

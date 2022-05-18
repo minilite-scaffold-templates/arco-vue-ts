@@ -3,6 +3,7 @@ import { App } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { RedirectRoute } from './base'
 import { Layout } from './constant'
+import { createRouterGuard } from './guard'
 
 export const RootRoute: AppRouteRecordRaw = {
   path: '/',
@@ -59,7 +60,7 @@ const router = createRouter({
 export function setupRouter(app: App) {
   app.use(router)
   // 创建路由守卫
-  // createRouterGuards(router)
+  createRouterGuard(router)
 }
 
 export default router
