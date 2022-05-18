@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import zhCN from '@arco-design/web-vue/es/locale/lang/zh-cn'
 </script>
+
 <script lang="ts">
   export default {
     name: 'App',

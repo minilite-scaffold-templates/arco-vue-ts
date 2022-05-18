@@ -1,5 +1,5 @@
 import { getUserInfo, login } from '@/api/auth/user'
-import store from '@/store'
+import { store } from '@/store'
 import { ACCESS_TOKEN, CURRENT_USER } from '@/store/mutation-types'
 import { encryptBase64 } from '@/utils/encrypt'
 import { createStorage, storage } from '@/utils/Storage'
@@ -65,6 +65,7 @@ const useUserStore = defineStore({
       } catch (e) {
         return Promise.reject(e)
       }
+      return null
     },
 
     // 获取用户信息, 保存用户信息到 Store

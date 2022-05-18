@@ -7,17 +7,18 @@ import ArcoVue from '@arco-design/web-vue'
 import App from './App.vue'
 import '@/assets/style/global.less'
 import '@arco-design/web-vue/dist/arco.less'
-import store from './store'
+import { setupStore } from './store'
 import router, { setupRouter } from './router'
 
 async function boot() {
   const app = createApp(App)
   app.use(ArcoVue)
 
-  app.use(store)
-
   // 挂载路由
   setupRouter(app)
+
+  // 挂载状态管理
+  setupStore(app)
 
   await router.isReady()
 
