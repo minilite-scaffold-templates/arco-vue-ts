@@ -9,7 +9,7 @@
 
 <template>
   <a-config-provider :locale="zhCN">
-    <div class="container m-auto p-10 space-y-5">
+    <div class="m-auto">
       <router-view />
     </div>
   </a-config-provider>
