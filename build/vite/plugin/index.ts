@@ -14,8 +14,6 @@ import configMockPlugin from './mock'
 export default function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const { VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE, VITE_USE_MOCK, VITE_GLOB_PROD_MOCK } = viteEnv
 
-  console.log('VITE_USE_MOCK', VITE_USE_MOCK)
-
   // 生成环境是否开启Mock
   const prodMock = VITE_GLOB_PROD_MOCK
 
@@ -38,19 +36,13 @@ export default function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   vitePlugins.push(configStyleImportPlugin())
 
   // vite-plugin-mock
-  if (VITE_USE_MOCK) {
-    vitePlugins.push(configMockPlugin(isBuild, prodMock))
-  }
 
-  if (isBuild) {
-    // rollup-plugin-gzip
-    vitePlugins.push(configCompressPlugin(VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE))
-  }
+  VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild, prodMock))
 
-  if (isReportMode()) {
-    console.log('is report')
-    vitePlugins.push(configVisualizerPlugin())
-  }
+  // rollup-plugin-gzip
+  isBuild && vitePlugins.push(configCompressPlugin(VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE))
+
+  isReportMode() && vitePlugins.push(configVisualizerPlugin())
 
   return vitePlugins
 }

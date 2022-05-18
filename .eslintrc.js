@@ -68,5 +68,9 @@ module.exports = {
     'prefer-regex-literals': 0,
     'import/no-extraneous-dependencies': 0,
     'no-console': 0,
+    'no-unused-expressions': [2, { allowShortCircuit: true, allowTernary: true }],
+    'import/no-absolute-path': 0,
+    // eslint-disable-next-line no-dupe-keys
+    'vue/custom-event-name-casing': 'off',
   },
 }
