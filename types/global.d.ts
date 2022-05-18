@@ -26,11 +26,6 @@ declare global {
   interface WheelEvent {
     path?: EventTarget[]
   }
-
-  interface ImportMetaEnv extends ViteEnv {
-    __: unknown
-  }
-
   interface ViteEnv {
     VITE_PORT: number
     VITE_USE_MOCK: boolean
@@ -47,6 +42,9 @@ declare global {
     VITE_PROXY: [string, string][]
     VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none'
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean
+  }
+  interface ImportMetaEnv extends ViteEnv {
+    __: unknown
   }
 
   function parseInt(s: string | number, radix?: number): number

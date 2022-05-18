@@ -10,7 +10,7 @@ export enum PageEnum {
 
   // 首页
   BASE_HOME = '/dashboard',
-  //首页跳转默认路由
+  // 首页跳转默认路由
   BASE_HOME_REDIRECT = '/dashboard/index',
 
   // 错误
