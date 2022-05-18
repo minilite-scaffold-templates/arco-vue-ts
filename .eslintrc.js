@@ -34,14 +34,10 @@ module.exports = {
         project: path.resolve(__dirname, './tsconfig.json'),
       },
     },
-    'import/core-modules': [
-      'virtual:windi-base.css',
-      'virtual:windi-components.css',
-      'virtual:windi-utilities.css',
-    ],
+    'import/core-modules': ['virtual:windi-base.css', 'virtual:windi-components.css', 'virtual:windi-utilities.css'],
   },
   rules: {
-    'prettier/prettier': 1,
+    'prettier/prettier': 0,
     // Vue: Recommended rules to be closed or modify
     'vue/require-default-prop': 0,
     'vue/singleline-html-element-content-newline': 0,
