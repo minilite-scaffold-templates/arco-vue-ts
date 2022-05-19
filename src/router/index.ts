@@ -21,6 +21,7 @@ export const DashboardRoute: AppRouteRecordRaw = {
   meta: {
     title: '首页',
   },
+  redirect: '/dashboard/index',
   children: [
     {
       path: '/dashboard/index',

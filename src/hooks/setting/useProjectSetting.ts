@@ -8,32 +8,15 @@ export function useProjectSetting() {
 
   const getNavTheme = computed(() => projectStore.navTheme)
 
-  const getHeaderSetting = computed(() => projectStore.headerSetting)
+  // 获取全局的工具图标大小
+  const getToolIconSize = computed(() => projectStore.toolIconSize)
 
-  const getMultiTabsSetting = computed(() => projectStore.multiTabsSetting)
-
-  const getMenuSetting = computed(() => projectStore.menuSetting)
-
-  const getBreadCrumbSetting = computed(() => projectStore.breadCrumbSetting)
-
-  const getPermissionMode = computed(() => projectStore.permissionMode)
-
-  const getShowFooter = computed(() => projectStore.showFooter)
-
-  const getIsPageAnimate = computed(() => projectStore.isPageAnimate)
-
-  const getPageAnimateType = computed(() => projectStore.pageAnimateType)
+  const showFooter = computed(() => projectStore.showFooter)
 
   return {
     getNavMode,
     getNavTheme,
-    getHeaderSetting,
-    getMultiTabsSetting,
-    getMenuSetting,
-    getBreadCrumbSetting,
-    getPermissionMode,
-    getShowFooter,
-    getIsPageAnimate,
-    getPageAnimateType,
+    getToolIconSize,
+    showFooter,
   }
 }

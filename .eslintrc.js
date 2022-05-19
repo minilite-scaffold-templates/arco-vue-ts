@@ -18,9 +18,10 @@ module.exports = {
     'node': true,
     'vue/setup-compiler-macros': true,
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'vue'],
   extends: [
     // Airbnb JavaScript Style Guide https://github.com/airbnb/javascript
+    'eslint:recommended',
     'airbnb-base',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
@@ -66,7 +67,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'import/no-unresolved': [2],
+    'import/no-unresolved': [2, { commonjs: true, amd: true }],
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-param-reassign': 0,
     'prefer-regex-literals': 0,
@@ -82,5 +83,16 @@ module.exports = {
     'no-restricted-syntax': ['error', 'WithStatement', 'BinaryExpression[operator="in"]'],
     'guard-for-in': 'error',
     'import/no-cycle': [2, { maxDepth: 1 }],
+    'prefer-destructuring': [
+      'error',
+      {
+        array: false,
+        object: false,
+      },
+      {
+        enforceForRenamedProperties: false,
+      },
+    ],
+    'no-lonely-if': 'error',
   },
 }

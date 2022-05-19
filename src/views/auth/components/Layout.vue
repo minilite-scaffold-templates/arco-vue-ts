@@ -11,8 +11,15 @@
         </div>
       </div>
     </div>
-    <div class="w-full md:w-1/3 flex flex-col justify-between md:items-end p-5 md:p-10">
-      <div class="hidden md:block space-x-1"> <a-button type="primary" @click="showLoginForm">登录</a-button><a-button @click="showRegisterForm">注册</a-button> </div>
+    <div class="w-full md:w-1/3">
+      <div class="hidden md:block">
+        <div
+          class="absolute top-0 right-0 p-5 md:items-end md:p-10 flex flex-row justify-center items-center space-x-2"
+        >
+          <a-button type="primary" @click="showLoginForm">登录</a-button>
+          <a-button @click="showRegisterForm">注册</a-button>
+        </div>
+      </div>
       <div class="p-12 m-10 bg-white block md:hidden">
         <LoginForm :register="registerDisplay" @close="closeLoginForm" />
       </div>
@@ -21,7 +28,7 @@
   </div>
 
   <!-- 弹出登录框 -->
-  <div class="fixed flex flex-col items-center justify-center w-full h-screen z-20" :class="loginInvisible">
+  <div class="fixed flex flex-col items-center justify-center w-full h-screen" :class="loginInvisible">
     <div class="m-auto w-200 hidden md:block">
       <div class="bg-white shadow-lg border">
         <a-row>
@@ -56,7 +63,7 @@
 
   // 格式化版权信息
   const COPYRIGHT = computed(() => {
-    return copyright.toUpperCase() // 转大写
+    return copyright && copyright.toUpperCase() // 转大写
   })
 
   const loginInvisible = ref('invisible')
@@ -90,7 +97,7 @@
 <style scoped lang="less">
   .login-container {
     overflow: hidden;
-    min-height: 460px;
+    min-height: 470px;
     width: 100%;
     position: relative;
 

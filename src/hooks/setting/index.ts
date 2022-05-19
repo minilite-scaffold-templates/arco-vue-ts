@@ -4,10 +4,21 @@ import { warn } from '@/utils/log'
 import { getAppEnvConfig } from '@/utils/env'
 
 export const useGlobSetting = (): Readonly<GlobConfig> => {
-  const { VITE_GLOB_APP_TITLE, VITE_GLOB_API_URL, VITE_GLOB_APP_SHORT_NAME, VITE_GLOB_API_URL_PREFIX, VITE_GLOB_UPLOAD_URL, VITE_GLOB_PROD_MOCK, VITE_GLOB_IMG_URL } = getAppEnvConfig()
+  const {
+    VITE_GLOB_APP_TITLE,
+    VITE_GLOB_API_URL,
+    VITE_GLOB_APP_SHORT_NAME,
+    VITE_GLOB_API_URL_PREFIX,
+    VITE_GLOB_UPLOAD_URL,
+    VITE_GLOB_PROD_MOCK,
+    VITE_GLOB_IMG_URL,
+    VITE_GLOB_COPYRIGHT,
+  } = getAppEnvConfig()
 
   if (!/[a-zA-Z_]*/.test(VITE_GLOB_APP_SHORT_NAME)) {
-    warn(`VITE_GLOB_APP_SHORT_NAME Variables can only be characters/underscores, please modify in the environment variables and re-running.`)
+    warn(
+      `VITE_GLOB_APP_SHORT_NAME Variables can only be characters/underscores, please modify in the environment variables and re-running.`
+    )
   }
 
   // Take global configuration
@@ -19,6 +30,7 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     uploadUrl: VITE_GLOB_UPLOAD_URL,
     prodMock: VITE_GLOB_PROD_MOCK,
     imgUrl: VITE_GLOB_IMG_URL,
+    copyright: VITE_GLOB_COPYRIGHT,
   }
   return glob as Readonly<GlobConfig>
 }

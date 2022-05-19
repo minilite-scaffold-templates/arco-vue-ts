@@ -5,7 +5,7 @@ import axios from 'axios'
  * @param {info}params
  * @returns
  */
-export const login = (params: { info: string }): Promise<{ token: string }> => {
+export const login = (params: { info: string }): Promise<any> => {
   return axios.post('/api/auth/user/login', params)
 }
 

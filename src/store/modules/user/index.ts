@@ -54,8 +54,7 @@ const useUserStore = defineStore({
       try {
         const info = encryptBase64(JSON.stringify(params))
         const result = await login({ info })
-        const { token } = result
-        console.log('🚀 ~ file: index.ts ~ line 44 ~ login ~ token', token)
+        const { token } = result.data.data
         if (token) {
           const ex = 7 * 24 * 60 * 60 * 1000
           storage.set(ACCESS_TOKEN, token, ex)
@@ -69,14 +68,26 @@ const useUserStore = defineStore({
     },
 
     // 获取用户信息, 保存用户信息到 Store
-    async getInfo() {
-      try {
-        const result = await getUserInfo()
-        this.setUserInfo(result)
-        return Promise.resolve(result)
-      } catch (e) {
-        return Promise.reject(e)
-      }
+    getInfo() {
+      // const that = this
+      return new Promise((resolve, reject) => {
+        getUserInfo()
+          .then((res) => {
+            console.log('res', res)
+            this.setUserInfo(res.data.data)
+            resolve(res.data.data)
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      })
+    },
+
+    async logout() {
+      this.setToken('')
+      this.setUserInfo('')
+      storage.remove(ACCESS_TOKEN)
+      storage.remove(CURRENT_USER)
     },
   },
 })

@@ -1,43 +1,37 @@
 import { PageEnum } from '@/enums/pageEnum'
+import { useUserStoreWidthOut } from '@/store/modules/user'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { storage } from '@/utils/Storage'
 import { Router } from 'vue-router'
 
-const LOGIN_PATH = PageEnum.BASE_LOGIN
+const LOGIN_PATH = `${PageEnum.BASE_LOGIN}`
 
-export const whitePathList = [LOGIN_PATH] // no redirect whitelist
+const whitePathList = [LOGIN_PATH] // no redirect
 
 export function createRouterGuard(router: Router) {
+  const userStore = useUserStoreWidthOut()
+
   router.beforeEach(async (to, from, next) => {
-    if (from.path === LOGIN_PATH && to.name === 'ErrorPage') {
-      next(PageEnum.BASE_HOME)
-      return
-    }
-
-    // Whitelist can be directly entered
-    if (whitePathList.includes(to.path as PageEnum)) {
-      next()
-      return
-    }
-
+    console.log('from', from)
+    console.log('to', to)
     const token = storage.get(ACCESS_TOKEN)
-
     console.log('token', token)
-
-    // 如果不存在token(未登录)
-    if (!token) {
-      // 如果在路由中设置 meta.ignoreAuth, 可在忽略权限下访问页面
-      if (to.meta.ignoreAuth) {
+    if (token) {
+      if (to.path === '/login') {
+        next(PageEnum.BASE_HOME)
+      } else {
+        await userStore.getInfo()
         next()
-        return
+      }
+    } else {
+      if (whitePathList.includes(to.path)) {
+        next()
+      } else if (to.meta.ignoreAuth) {
+        next()
       }
 
-      // 跳转到 login 页面, 并携带重定向参数
-      const redirectData: {
-        path: string
-        replace: boolean
-        query?: Recordable<string>
-      } = {
+      // 重定向到登录页
+      const redirectData: { path: string; replace: boolean; query?: Recordable<string> } = {
         path: LOGIN_PATH,
         replace: true,
       }
@@ -48,13 +42,7 @@ export function createRouterGuard(router: Router) {
         }
       }
       next(redirectData)
-      return
     }
-
-    const redirectPath = (from.query.redirect || to.path) as string
-    const redirect = decodeURIComponent(redirectPath)
-    const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
-    next(nextData)
   })
 
   router.afterEach((to) => {

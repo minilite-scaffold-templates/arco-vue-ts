@@ -21,7 +21,7 @@ export interface IBreadCrumbSetting {
   showIcon: boolean
 }
 
-export interface ImultiTabsSetting {
+export interface IMultiTabsSetting {
   bgColor: string
   fixed: boolean
   show: boolean
@@ -34,6 +34,7 @@ export interface GlobConfig {
   uploadUrl?: string
   prodMock: boolean
   imgUrl?: string
+  copyright?: string
 }
 
 export interface GlobEnvConfig {
@@ -51,4 +52,6 @@ export interface GlobEnvConfig {
   VITE_GLOB_IMG_URL?: string
   // 生产环境开启mock
   VITE_GLOB_PROD_MOCK: boolean
+  // 版权信息
+  VITE_GLOB_COPYRIGHT: string
 }

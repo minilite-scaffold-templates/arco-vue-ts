@@ -7,19 +7,19 @@
           <icon-close />
         </span>
       </div>
-      <a-form layout="vertical" :model="form" @submit="handleSubmit">
-        <a-form-item field="username">
-          <a-input v-model="form.username" placeholder="输入用户名">
+      <a-form layout="vertical" :model="form" :rules="rules" @submit="handleSubmit">
+        <a-form-item field="username" :hide-label="true">
+          <a-input v-model="form.username" placeholder="输入用户名" autocomplete="off">
             <template #prefix> <icon-user /> </template
           ></a-input>
         </a-form-item>
-        <a-form-item field="password">
-          <a-input v-model="form.password" placeholder="输入密码" type="password">
+        <a-form-item field="password" :hide-label="true">
+          <a-input v-model="form.password" placeholder="输入密码" type="password" autocomplete="off">
             <template #prefix> <icon-lock /> </template
           ></a-input>
         </a-form-item>
         <a-form-item>
-          <a-button html-type="submit" type="primary" long>登录</a-button>
+          <a-button html-type="submit" type="primary" long :loading="loading">登录</a-button>
         </a-form-item>
       </a-form>
 
@@ -39,10 +39,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive } from 'vue'
+  import { reactive, ref } from 'vue'
+  import { Message } from '@arco-design/web-vue'
+  import useUserStore from '@/store/modules/user'
+  import { useRouter, useRoute } from 'vue-router'
+
+  const router = useRouter()
+  const route = useRoute()
+
+  const userStore = useUserStore()
 
   defineProps<{ register: boolean }>()
-
   const emits = defineEmits(['close', 'show-register'])
 
   interface LoginParams {
@@ -55,9 +62,43 @@
     password: '',
   })
 
+  // 表单效验规则
+  const rules = {
+    username: {
+      required: true,
+      message: '请输入用户名',
+    },
+    password: {
+      required: true,
+      message: '请输入密码',
+    },
+  }
+
   // 提交登录
-  const handleSubmit = (val: any) => {
-    console.log('val', val)
+  const loading = ref(false)
+  const handleSubmit = async ({ values, errors }) => {
+    console.log('values:', values, '\nerrors:', errors)
+    if (!errors) {
+      console.log('success')
+      Message.loading({
+        content: '登录中...',
+        duration: 1000,
+      })
+      loading.value = true
+      await userStore.login(values)
+
+      const toPath = decodeURIComponent((route.query?.redirect || '/') as string)
+      console.log('🚀 ~ file: LoginForm.vue ~ line 89 ~ handleSubmit ~ toPath', toPath)
+      Message.success({
+        content: '登录成功!',
+        duration: 1000,
+      })
+      router.replace(toPath).then(() => {
+        if (route.name === 'login') {
+          router.replace('/')
+        }
+      })
+    }
   }
 
   // 关掉登录框
