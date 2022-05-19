@@ -1,6 +1,5 @@
 // axios配置  可自行根据项目进行更改，只需更改该文件即可，其他文件可以不动
 import axios, { AxiosResponse } from 'axios'
-// import { PageEnum } from '@/enums/pageEnum'
 import { useGlobSetting } from '@/hooks/setting'
 import { ContentTypeEnum, RequestEnum, ResultEnum } from '@/enums/httpEnum'
 import { isString } from '@/utils/is/'
@@ -12,23 +11,8 @@ import { joinTimestamp, formatRequestDate } from './helper'
 import { Result } from '/#/http'
 import { RequestOptions } from './types'
 
-// import { useUserStoreWidthOut } from '@/store/modules/user'
-
 const globSetting = useGlobSetting()
 const urlPrefix = globSetting.urlPrefix || ''
-
-// import router from '@/router'
-// import { storage } from '@/utils/Storage'
-
-// let messageReactive: any = null
-
-// const removeMessage = () => {
-//   console.log('123123131231232', messageReactive)
-//   if (messageReactive) {
-//     messageReactive?.destroy()
-//     messageReactive = null
-//   }
-// }
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -41,15 +25,7 @@ const transform: AxiosTransform = {
     // @ts-ignore
     const { $message: Message, $dialog: Modal } = window
 
-    const {
-      isShowMessage = true,
-      isShowErrorMessage,
-      isShowSuccessMessage,
-      successMessageText,
-      errorMessageText,
-      // isTransformResponse,
-      isReturnNativeResponse,
-    } = options
+    const { isShowMessage = true, isShowErrorMessage, isShowSuccessMessage, successMessageText, errorMessageText, isReturnNativeResponse } = options
 
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
@@ -58,43 +34,12 @@ const transform: AxiosTransform = {
 
     const { data } = res
 
-    //  这里 code，data，msg为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, data: result, msg: message, errCode } = data
-    // 不进行任何处理，直接返回
-    // 用于页面代码可能需要直接获取code，data，message这些信息时开启
-    // if (!isTransformResponse) {
-    //   if (errCode === '401') {
-    //     const LoginName = PageEnum.BASE_LOGIN_NAME
-    //     if (router.currentRoute.value.name == LoginName) return
-    //     // 到登录页
-    //     // const timeoutMsg = '登录超时,请重新登录!'
-    //     Modal.warning({
-    //       title: '提示',
-    //       closable: false,
-    //       content: '登录身份已失效，请重新登录!',
-    //       positiveText: '确定',
-    //       onPositiveClick: () => {
-    //         storage.clear()
-    //         router.replace({
-    //           name: LoginName,
-    //           // query: {
-    //           //   redirect: router.currentRoute.value.fullPath,
-    //           // },
-    //         })
-    //         window.location.reload()
-    //         return true
-    //       },
-    //     })
-    //     return
-    //   }
-
-    //   return res ? res.data : { code: '0', data: '' }
-    // }
+    //  这里 code，data，msg为 后台统一的字段，需要在 types/http.d.ts内修改为项目自己的接口返回格式
+    const { code, data: result, msg, errCode } = data
 
     const { reject } = Promise
 
     if (!data) {
-      // return '[HTTP] Request has no return value';
       return reject(data)
     }
 
@@ -104,22 +49,20 @@ const transform: AxiosTransform = {
     if (isShowMessage) {
       if (hasSuccess && (successMessageText || isShowSuccessMessage)) {
         // 是否显示自定义信息提示
-        Message.success(successMessageText || message || '操作成功！')
+        Message.success(successMessageText || msg || '操作成功！')
       } else if (!hasSuccess && (errorMessageText || isShowErrorMessage)) {
         // 是否显示自定义信息提示
-        Message.error(message || errorMessageText || '操作失败！')
+        Message.error(msg || errorMessageText || '操作失败！')
       } else if (!hasSuccess && options.errorMessageMode === 'modal') {
         // errorMessageMode=‘custom-modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
         Modal.info({
           title: '提示',
-          content: message,
-          positiveText: '确定',
-          onPositiveClick: () => {},
+          content: msg,
+          okText: '确定',
+          ok: () => {},
         })
       }
     }
-    // console.log('code', code)
-    // console.log('result', result)
 
     // 接口请求成功，直接返回结果
     if (code === ResultEnum.SUCCESS) {
@@ -127,9 +70,9 @@ const transform: AxiosTransform = {
     }
     // 接口请求错误，统一提示错误信息
     if (code === ResultEnum.ERROR && errCode !== '401') {
-      if (message) {
+      if (msg) {
         Message.error(data.msg)
-        Promise.reject(new Error(message))
+        Promise.reject(new Error(msg))
       } else {
         const msg = '操作失败,系统异常!'
         Message.error(msg)
@@ -138,35 +81,9 @@ const transform: AxiosTransform = {
       return reject()
     }
 
-    // 登录超时
-    // if (code === ResultEnum.TIMEOUT || errCode === '401') {
-    //   const LoginName = PageEnum.BASE_LOGIN_NAME
-    //   if (router.currentRoute.value.name == LoginName) return
-    //   // 到登录页
-    //   // const timeoutMsg = '登录超时,请重新登录!'
-    //   Modal.warning({
-    //     title: '提示',
-    //     closable: false,
-    //     content: '登录身份已失效，请重新登录!',
-    //     positiveText: '确定',
-    //     onPositiveClick: () => {
-    //       storage.clear()
-    //       router.replace({
-    //         name: LoginName,
-    //         // query: {
-    //         //   redirect: router.currentRoute.value.fullPath,
-    //         // },
-    //       })
-    //       window.location.reload()
-    //       return true
-    //     },
-    //   })
-    //   return false
-    // }
-
     // 这里逻辑可以根据项目进行修改
     if (!hasSuccess) {
-      return reject(new Error(message))
+      return reject(new Error(msg))
     }
 
     return result
@@ -223,14 +140,6 @@ const transform: AxiosTransform = {
    * @description: 请求拦截器处理
    */
   requestInterceptors: (config) => {
-    // 请求之前处理config
-    // const userStore = useUserStoreWidthOut()
-    // const token = userStore.getToken
-    // if (token) {
-    //   // jwt token
-    //   config.headers.Authorization = token
-    //   config.headers['Accept-Language'] = 'zh-CN'
-    // }
     return config
   },
 
@@ -248,14 +157,6 @@ const transform: AxiosTransform = {
     const err: string = error.toString()
     console.log('err', err)
 
-    // const createMessage = () => {
-    //   if (messageReactive) {
-    //     removeMessage()
-    //   }
-    //   messageReactive = Message.warning('网络异常,请检查您的网络连接是否正常!', {
-    //     duration: 2000,
-    //   })
-    // }
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
         Message.error('接口请求超时,请刷新页面重试!')
