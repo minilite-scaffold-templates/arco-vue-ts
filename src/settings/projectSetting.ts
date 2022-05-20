@@ -7,7 +7,7 @@ const setting = {
   navTheme: NAV_THEME.LIGHT,
 
   // 默认的工具图标大小
-  toolIconSize: 16,
+  toolIconSize: 18,
 
   showFooter: true,
 }

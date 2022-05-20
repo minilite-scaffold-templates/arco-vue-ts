@@ -9,7 +9,7 @@
 </script>
 
 <template>
-  <a-config-provider :locale="zhCN">
+  <a-config-provider :locale="zhCN" :global="true">
     <div class="m-auto">
       <router-view />
     </div>
