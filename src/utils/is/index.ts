@@ -1,4 +1,4 @@
-const toString = Object.prototype.toString
+const { toString } = Object.prototype
 
 /**
  * @description: 判断值是否未某个类型
@@ -10,6 +10,7 @@ export function is(val: unknown, type: string) {
 /**
  * @description:  是否为函数
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function isFunction<T = Function>(val: unknown): val is T {
   return is(val, 'Function')
 }
@@ -56,12 +57,7 @@ export function isAsyncFunction<T = any>(val: unknown): val is Promise<T> {
  * @description:  是否为promise
  */
 export function isPromise<T = any>(val: unknown): val is Promise<T> {
-  return (
-    is(val, 'Promise') &&
-    isObject(val) &&
-    isFunction(val.then) &&
-    isFunction(val.catch)
-  )
+  return is(val, 'Promise') && isObject(val) && isFunction(val.then) && isFunction(val.catch)
 }
 
 /**

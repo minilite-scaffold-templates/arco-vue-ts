@@ -6,14 +6,11 @@ import type { Result } from '/#/http'
  * @param param1
  * @returns
  */
-export function resultSuccess<T = Recordable>(
-  data: T,
-  { message = 'ok' } = {}
-): Result<T> {
+export function resultSuccess<T = Recordable>(data: T, { msg = 'ok' } = {}): Result<T> {
   return {
     code: 200,
     data,
-    message,
+    msg,
     type: 'success',
   }
 }
@@ -26,19 +23,14 @@ export function resultSuccess<T = Recordable>(
  * @param param3
  * @returns
  */
-export function resultPageSuccess<T>(
-  page: number,
-  pageSize: number,
-  list: T[],
-  { message = 'ok' } = {}
-) {
+export function resultPageSuccess<T>(page: number, pageSize: number, list: T[], { msg = 'ok' } = {}) {
   return {
     ...resultSuccess({
       page,
       pageSize,
       list,
     }),
-    message,
+    msg,
   }
 }
 
@@ -48,14 +40,11 @@ export function resultPageSuccess<T>(
  * @param param1
  * @returns
  */
-export function resultError(
-  message: 'Request failed',
-  { code = 0, data = null } = {}
-): Result<null> {
+export function resultError(msg: 'Request failed', { code = 0, data = null } = {}): Result<null> {
   return {
     code,
     data,
-    message,
+    msg,
     type: 'error',
   }
 }
@@ -92,8 +81,6 @@ export interface requestParams {
  * @param {headers:{token?:string}}
  * @returns {string|undefined}
  */
-export function getRequestToken({
-  headers,
-}: requestParams): string | undefined {
+export function getRequestToken({ headers }: requestParams): string | undefined {
   return headers?.token
 }

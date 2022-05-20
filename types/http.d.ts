@@ -1,6 +1,7 @@
 export interface Result<T = any> {
-  code: number
+  code: string | number
   type?: 'success' | 'error' | 'warning'
-  message: string
+  msg: string
   data?: T
+  errCode?: string | number
 }

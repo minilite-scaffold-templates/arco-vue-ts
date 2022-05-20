@@ -21,6 +21,7 @@ export const DashboardRoute: AppRouteRecordRaw = {
   meta: {
     title: '首页',
   },
+  redirect: '/dashboard/index',
   children: [
     {
       path: '/dashboard/index',
@@ -42,13 +43,8 @@ export const LoginRoute: AppRouteRecordRaw = {
   },
 }
 
-//普通路由 无需验证权限
-export const constantRouter: any[] = [
-  RootRoute,
-  LoginRoute,
-  RedirectRoute,
-  DashboardRoute,
-]
+// 普通路由 无需验证权限
+export const constantRouter: any[] = [RootRoute, LoginRoute, RedirectRoute, DashboardRoute]
 
 const router = createRouter({
   history: createWebHashHistory(),
