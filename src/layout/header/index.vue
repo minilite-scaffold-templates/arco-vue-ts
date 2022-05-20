@@ -8,7 +8,7 @@
         <IconMenuFold v-else :size="toolIconSize" />
       </div>
     </section>
-
+    <AppMenu v-if="mode === 'top'" :mode="mode" />
     <Profile />
   </a-layout-header>
   <a-page-header
@@ -33,6 +33,7 @@
   import { IconMenuFold, IconMenuUnfold } from '@arco-design/web-vue/es/icon'
   import { RouteLocationMatched, useRoute } from 'vue-router'
   import Profile from './profile.vue'
+  import { AppMenu } from '../components/Menu'
 
   const route = useRoute()
 
@@ -67,7 +68,7 @@
       type: Boolean,
     },
   })
-
+  const mode = 'left'
   const emits = defineEmits(['update-collapsed'])
 
   const onCollapse = () => {

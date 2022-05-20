@@ -1,6 +1,7 @@
 <template>
   <a-layout class="h-screen">
     <a-layout-sider
+      v-if="mode === 'left'"
       :theme="novTheme"
       :default-collapsed="false"
       :width="220"
@@ -9,6 +10,8 @@
       :collapsible="true"
       :hide-trigger="true"
     >
+      <div class="logo" />
+      <AppMenu :mode="mode" />
       <template #trigger>
         <div class="text-right w-full flex flex-row justify-end items-center px-5">
           <div class="cursor-pointer" @click="updateCollapsed">
@@ -20,10 +23,12 @@
     </a-layout-sider>
     <a-layout>
       <Header :collapsed="collapsed" @update-collapsed="updateCollapsedFromHeader" />
-      <a-layout-content class="bg-white p-5">
-        <router-view />
-      </a-layout-content>
-      <Footer />
+      <a-layout>
+        <a-layout-content class="bg-white p-5">
+          <router-view />
+        </a-layout-content>
+        <Footer />
+      </a-layout>
     </a-layout>
   </a-layout>
 </template>
@@ -32,8 +37,9 @@
   import { NAV_MODE, NAV_THEME } from '@/enums/pageEnum'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { IconMenuFold, IconMenuUnfold } from '@arco-design/web-vue/es/icon'
-
   import { ComputedRef, ref } from 'vue'
+
+  import { AppMenu } from './components/Menu'
   import Header from './header'
   import Footer from './footer'
 
@@ -47,6 +53,7 @@
   const novTheme = ref<ComputedRef<NAV_THEME>>(getNavTheme)
 
   const collapsed = ref(false)
+  const mode = 'left'
 
   const updateCollapsed = () => {
     collapsed.value = !collapsed.value
@@ -55,3 +62,11 @@
     collapsed.value = val
   }
 </script>
+
+<style scoped>
+  .logo {
+    height: 37px;
+    margin: 12px 8px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+</style>
