@@ -34,3 +34,9 @@ export enum NAV_THEME {
   LIGHT = 'light',
   DARK = 'dark',
 }
+
+// 布局宽度
+export enum LAYOUT_WIDTH {
+  FLUID = 'fluid',
+  BOXED = 'boxed',
+}

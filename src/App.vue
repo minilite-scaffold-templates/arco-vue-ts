@@ -10,8 +10,6 @@
 
 <template>
   <a-config-provider :locale="zhCN" :global="true">
-    <div class="m-auto">
-      <router-view />
-    </div>
+    <router-view />
   </a-config-provider>
 </template>

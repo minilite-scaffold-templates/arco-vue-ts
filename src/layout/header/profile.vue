@@ -1,29 +1,27 @@
 <template>
-  <section class="flex flex-row justify-center items-center pr-5">
-    <a-dropdown class="w-36" position="tr">
-      <div class="cursor-pointer py-3">{{ username }} <icon-down /></div>
-      <template #content>
-        <a-doption @click="gotoProfile">
-          <template #icon>
-            <icon-user />
-          </template>
-          <template #default>个人中心</template>
-        </a-doption>
-        <a-doption>
-          <template #icon>
-            <icon-settings />
-          </template>
-          <template #default>设置</template>
-        </a-doption>
-        <a-doption @click="logout">
-          <template #icon>
-            <icon-export />
-          </template>
-          <template #default>退出</template></a-doption
-        >
-      </template>
-    </a-dropdown>
-  </section>
+  <a-dropdown class="w-36" position="tr" trigger="hover">
+    <div class="cursor-pointer py-3">{{ username }} <icon-down /></div>
+    <template #content>
+      <a-doption @click="gotoProfile">
+        <template #icon>
+          <icon-user />
+        </template>
+        <template #default>个人中心</template>
+      </a-doption>
+      <a-doption>
+        <template #icon>
+          <icon-settings />
+        </template>
+        <template #default>设置</template>
+      </a-doption>
+      <a-doption @click="logout">
+        <template #icon>
+          <icon-export />
+        </template>
+        <template #default>退出</template></a-doption
+      >
+    </template>
+  </a-dropdown>
 </template>
 
 <script lang="ts" setup>
