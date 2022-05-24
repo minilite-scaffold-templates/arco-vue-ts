@@ -4,7 +4,7 @@
     v-model:selected-keys="selectedKeys"
     :style="{ width: '100%' }"
     :mode="modeValue"
-    @menuItemClick="onClickMenuItem"
+    @menu-item-click="onClickMenuItem"
   >
     <template v-for="v in routerMenuList">
       <a-sub-menu v-if="v?.children?.length" :key="v.path">
