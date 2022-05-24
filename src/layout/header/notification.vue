@@ -66,20 +66,25 @@
   import { reactive } from 'vue'
   import { getMessageList } from '@/api/auth/header'
 
+  interface MessageList {
+    id: number
+    status: number
+    detail: ''
+    title: ''
+    subTitle: ''
+    time: ''
+  }
   interface NotificationParam {
     count: number // 消息数量
     popoverVisible: boolean
+    messageList: MessageList[]
   }
-  interface MessageList {
-    status: number
-    detail: ''
-  }
+
   const showMax = 3
-  const messageList: MessageList = []
   const notificationParam = reactive<NotificationParam>({
     count: 9,
     popoverVisible: false,
-    messageList,
+    messageList: [],
   })
 
   // 获取消息列表
@@ -96,7 +101,7 @@
   }
 
   // 点击具体消息
-  const onItemClick = async () => {}
+  const onItemClick = async (item) => console.log(item)
 </script>
 
 <style scoped lang="less">
