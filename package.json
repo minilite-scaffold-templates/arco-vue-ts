@@ -24,7 +24,9 @@
     "vue-router": "4"
   },
   "devDependencies": {
-    "@arco-design/web-vue": "^2.27.0",
+    "@arco-design/web-vue": "^2.28.0",
+    "@arco-plugins/vite-vue": "^1.1.0",
+    "@arco-themes/vue-velzon-theme": "^0.0.1",
     "@commitlint/config-conventional": "^16.2.4",
     "@types/crypto-js": "^4.1.1",
     "@types/lodash": "^4.14.182",

@@ -31,6 +31,7 @@ export const DashboardRoute: AppRouteRecordRaw = {
       component: () => import('@/views/dashboard/index.vue'),
       meta: {
         title: '仪表盘',
+        hidden: true,
       },
     },
   ],
@@ -56,6 +57,8 @@ export const AccontsRoute: AppRouteRecordRaw = {
 }
 
 export const routerMenuList = [DashboardRoute, AccontsRoute]
+
+export const routerList: any[] = [DashboardRoute]
 
 export const UserRoute: AppRouteRecordRaw = {
   path: '/user',

@@ -11,15 +11,18 @@ export function useProjectSetting() {
   // 获取全局的工具图标大小
   const getToolIconSize = computed(() => projectStore.toolIconSize)
 
-  const showFooter = computed(() => projectStore.showFooter)
+  const getFooterDisplay = computed(() => projectStore.footerDisplay)
 
   const getLayoutWidth = computed(() => projectStore.layoutWidth)
+
+  const getHeaderHeight = computed(() => projectStore.headerHeight)
 
   return {
     getNavMode,
     getNavTheme,
     getToolIconSize,
-    showFooter,
+    getFooterDisplay,
     getLayoutWidth,
+    getHeaderHeight,
   }
 }

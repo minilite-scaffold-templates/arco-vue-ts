@@ -1,5 +1,5 @@
 <template>
-  <a-dropdown class="w-36" position="tr" trigger="hover">
+  <a-dropdown class="w-36" :position="navMode === NAV_MODE.LEFT ? 'tr' : 'tl'" trigger="hover">
     <div class="cursor-pointer py-3">{{ username }} <icon-down /></div>
     <template #content>
       <a-doption @click="gotoProfile">
@@ -29,6 +29,9 @@
   import useUserStore from '@/store/modules/user'
   import { Message } from '@arco-design/web-vue'
   import { useRouter, useRoute } from 'vue-router'
+  import { NAV_MODE } from '@/enums/pageEnum'
+
+  defineProps<{ navMode: NAV_MODE }>()
 
   const userStore = useUserStore()
   const router = useRouter()

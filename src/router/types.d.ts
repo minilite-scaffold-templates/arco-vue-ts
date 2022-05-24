@@ -49,6 +49,7 @@ declare global {
     props?: Recordable
     fullPath?: string
     redirect?: string
+    hidden?: Meta.hidden
   }
 }
 

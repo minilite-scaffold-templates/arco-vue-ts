@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import windiCSS from 'vite-plugin-windicss'
+import configArcoTheme from './theme'
 import configStyleImportPlugin from './styleImport'
 import configCompressPlugin from './compress'
 import configHtmlPlugin from './html'
@@ -28,6 +29,9 @@ export default function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     // vite-plugin-windicss
     windiCSS(),
   ]
+
+  // vite-arco-theme-plugin
+  vitePlugins.push(configArcoTheme())
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild))

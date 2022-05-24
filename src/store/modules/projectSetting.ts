@@ -1,17 +1,18 @@
 import { defineStore } from 'pinia'
 import { store } from '@/store'
-import projectSetting from '@/settings/projectSetting'
+import projectSetting, { IHeaderHeightOption } from '@/settings/projectSetting'
 import { NAV_THEME, NAV_MODE, LAYOUT_WIDTH } from '@/enums/pageEnum'
 
 interface ProjectSettingState {
   navMode: NAV_MODE // 导航模式
   navTheme: NAV_THEME // 导航主题
   toolIconSize: number // 工具图标大小
-  showFooter: boolean
+  footerDisplay: boolean // 显示页脚
   layoutWidth: LAYOUT_WIDTH // 布局宽度
+  headerHeight: IHeaderHeightOption
 }
 
-const { navMode, navTheme, toolIconSize, showFooter, layoutWidth } = projectSetting
+const { navMode, navTheme, toolIconSize, footerDisplay, layoutWidth, headerHeight } = projectSetting
 
 const useProjectSettingStore = defineStore({
   id: 'app-project-setting',
@@ -19,8 +20,9 @@ const useProjectSettingStore = defineStore({
     navMode,
     navTheme,
     toolIconSize,
-    showFooter,
+    footerDisplay,
     layoutWidth,
+    headerHeight,
   }),
   getters: {
     getNavMode(): NAV_MODE {
@@ -32,11 +34,14 @@ const useProjectSettingStore = defineStore({
     getToolIconSize(): number {
       return this.toolIconSize
     },
-    getFooterShowing(): boolean {
-      return this.showFooter
+    getFooterDisplay(): boolean {
+      return this.footerDisplay
     },
     getLayoutWidth(): LAYOUT_WIDTH {
       return this.layoutWidth
+    },
+    getHeaderHeight(): IHeaderHeightOption {
+      return this.headerHeight
     },
   },
   actions: {
@@ -53,11 +58,15 @@ const useProjectSettingStore = defineStore({
     },
 
     setFooterDisplay(value: boolean) {
-      this.showFooter = value
+      this.footerDisplay = value
     },
 
     setLayoutWidth(value: LAYOUT_WIDTH) {
       this.layoutWidth = value
+    },
+
+    setHeaderHeight(value: IHeaderHeightOption) {
+      this.headerHeight = value
     },
   },
 })

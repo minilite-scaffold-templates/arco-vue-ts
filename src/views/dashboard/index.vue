@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>this is dashboard</div>
 </template>
 
 <script lang="ts" setup name="DashboardIndex">
