@@ -20,7 +20,7 @@ export const DashboardRoute: AppRouteRecordRaw = {
   component: Layout,
   meta: {
     title: '首页',
-    icon: 'icon-dashboard',
+    icon: 'IconCalendar',
   },
   children: [
     {
@@ -39,7 +39,7 @@ export const AccontsRoute: AppRouteRecordRaw = {
   component: Layout,
   meta: {
     title: '账号',
-    icon: 'icon-Acconts',
+    icon: 'IconCalendar',
   },
   children: [
     {
