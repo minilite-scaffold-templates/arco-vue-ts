@@ -24,7 +24,7 @@ declare global {
     affix?: boolean
 
     // tab上的图标
-    icon?: string
+    icon?: any
 
     // 跳转地址
     frameSrc?: string

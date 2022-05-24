@@ -22,6 +22,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { Icon } from '@/utils/icons'
   import { onMounted, defineProps, ref, watch } from 'vue'
   import { routerMenuList } from '@/router/index'
   import { useRoute, useRouter } from 'vue-router'

@@ -1,6 +1,8 @@
 import { PageEnum } from '@/enums/pageEnum'
 import { App } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { IconApps } from '@arco-design/web-vue/es/icon'
+import { renderIcon } from '@/utils'
 import { RedirectRoute } from './base'
 import { Layout } from './constant'
 import { createRouterGuard } from './guard'
@@ -20,7 +22,7 @@ export const DashboardRoute: AppRouteRecordRaw = {
   component: Layout,
   meta: {
     title: '首页',
-    icon: 'IconCalendar',
+    icon: renderIcon(IconApps),
   },
   children: [
     {
@@ -39,7 +41,7 @@ export const AccontsRoute: AppRouteRecordRaw = {
   component: Layout,
   meta: {
     title: '账号',
-    icon: 'IconCalendar',
+    icon: 'IconApps',
   },
   children: [
     {
