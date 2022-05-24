@@ -1,5 +1,6 @@
 <template>
-  <a-layout-header class="flex flex-row h-16 justify-between items-center border-b border-gray-200">
+  <a-layout-header class="flex flex-row h-16 justify-between items-center border-b border-gray-100">
+    <!--菜单收起-->
     <section v-if="navMode === NAV_MODE.LEFT" class="flex flex-row justify-start items-center">
       <div class="cursor-pointer pl-5 text-gray-500" @click="onCollapse">
         <IconArrowRight v-if="collapsed" :size="toolIconSize" />
@@ -18,6 +19,11 @@
         <IconAlignRight v-else :size="toolIconSize" />
       </div>
     </section>
+    <!--个人中心-->
+    <section class="flex flex-row items-center space-x-4">
+      <div><Notification /></div>
+      <div><Profile /></div
+    ></section>
   </a-layout-header>
 </template>
 
@@ -27,6 +33,7 @@
   import { IconAlignLeft, IconAlignRight, IconArrowRight, IconArrowLeft } from '@arco-design/web-vue/es/icon'
   import { NAV_MODE } from '@/enums/pageEnum'
   import Profile from './profile.vue'
+  import Notification from './notification.vue'
 
   const { getToolIconSize } = useProjectSetting()
 

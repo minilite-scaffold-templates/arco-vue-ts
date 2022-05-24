@@ -17,6 +17,7 @@ export interface UserLoginParams {
 export interface IUserState {
   token: string
   username: string
+  roleName: string
   avatar: string
   permissions: any[]
   info: any
@@ -29,6 +30,7 @@ const useUserStore = defineStore({
     token: Storage.get(ACCESS_TOKEN, ''),
     username: '',
     avatar: '',
+    roleName: '',
     permissions: [],
     info: Storage.get(CURRENT_USER, {}),
   }),
