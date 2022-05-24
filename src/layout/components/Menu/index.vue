@@ -1,47 +1,24 @@
 <template>
-  <a-menu :default-open-keys="['1']" :default-selected-keys="['0_3']" :style="{ width: '100%' }" :mode="modeValue">
-    <a-menu-item key="0_1" disabled>
-      <IconHome />
-      Menu 1
-    </a-menu-item>
-    <a-menu-item key="0_2">
-      <IconCalendar />
-      Menu 2
-    </a-menu-item>
-    <a-menu-item key="0_3">
-      <IconCalendar />
-      Menu 3
-    </a-menu-item>
-    <a-sub-menu key="1">
-      <template #title>
-        <span><IconCalendar />Navigation 1</span>
-      </template>
-      <a-menu-item key="1_1">Menu 1</a-menu-item>
-      <a-menu-item key="1_2">Menu 2</a-menu-item>
-      <a-sub-menu key="2" title="Navigation 2">
-        <a-menu-item key="2_1">Menu 1</a-menu-item>
-        <a-menu-item key="2_2">Menu 2</a-menu-item>
+  <a-menu :style="{ width: '100%' }" :mode="modeValue">
+    <template v-for="v in routerMenuList">
+      <a-sub-menu v-if="v?.children?.length" :key="v.path">
+        <template #title>
+          <span> <Icon :icon="v.meta.icon" />{{ v.meta.title }}</span>
+        </template>
+        <a-menu-item v-for="v1 in v.children" :key="v.path + v1.path">
+          <span :style="{ marginLeft: '12px' }">
+            {{ v1.meta.title }}
+          </span>
+        </a-menu-item>
       </a-sub-menu>
-      <a-sub-menu key="3" title="Navigation 3">
-        <a-menu-item key="3_1">Menu 1</a-menu-item>
-        <a-menu-item key="3_2">Menu 2</a-menu-item>
-        <a-menu-item key="3_3">Menu 3</a-menu-item>
-      </a-sub-menu>
-    </a-sub-menu>
-    <a-sub-menu key="4">
-      <template #title>
-        <span><IconCalendar />Navigation 4</span>
-      </template>
-      <a-menu-item key="4_1">Menu 1</a-menu-item>
-      <a-menu-item key="4_2">Menu 2</a-menu-item>
-      <a-menu-item key="4_3">Menu 3</a-menu-item>
-    </a-sub-menu>
+    </template>
   </a-menu>
 </template>
 
 <script lang="ts" setup>
   import { onMounted, defineProps, ref } from 'vue'
-  import { IconHome, IconCalendar } from '@arco-design/web-vue/es/icon'
+  import { routerMenuList } from '@/router/index'
+  // import { MenuList } from '@/store/modules/user/types'
 
   const props = defineProps({
     mode: {
@@ -52,6 +29,8 @@
 
   const modeValue = ref<any>('')
 
+  console.log('121212111212121', routerMenuList)
+
   // 数据在下面定义
   // const collapsed = ref(false);
 
@@ -59,8 +38,10 @@
   const checkModeValue = () => {
     if (props.mode === 'left') {
       modeValue.value = 'vertical'
-    } else {
+    } else if (props.mode === 'horizontal') {
       modeValue.value = 'horizontal'
+    } else {
+      modeValue.value = 'right'
     }
   }
 

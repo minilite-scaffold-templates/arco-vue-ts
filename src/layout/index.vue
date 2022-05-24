@@ -12,6 +12,7 @@
         :hide-trigger="true"
         class="border-r border-gray-200"
       >
+        <AppMenu :mode="menuMode" />
       </a-layout-sider>
       <a-layout>
         <Header :nav-mode="navMode" :collapsed="collapsed" @update-collapsed="updateCollapsedFromHeader" />
@@ -63,6 +64,7 @@
   import { RouteLocationMatched, useRoute, useRouter } from 'vue-router'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { ComputedRef, ref, computed } from 'vue'
+  import { AppMenu } from './components/Menu'
 
   import Header from './header'
   import Footer from './footer'
@@ -79,7 +81,7 @@
   }
 
   const { getNavTheme, getNavMode, getLayoutWidth } = useProjectSetting()
-
+  const menuMode = ref('left')
   const navMode = ref<ComputedRef<NAV_MODE>>(getNavMode)
   console.log('🚀 ~ file: index.vue ~ line 30 ~ navMode', navMode)
 
