@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useProjectSettingStore } from '@/store/modules/projectSetting'
+import useProjectSettingStore from '@/store/modules/projectSetting'
 
 export function useProjectSetting() {
   const projectStore = useProjectSettingStore()
@@ -13,10 +13,13 @@ export function useProjectSetting() {
 
   const showFooter = computed(() => projectStore.showFooter)
 
+  const getLayoutWidth = computed(() => projectStore.layoutWidth)
+
   return {
     getNavMode,
     getNavTheme,
     getToolIconSize,
     showFooter,
+    getLayoutWidth,
   }
 }

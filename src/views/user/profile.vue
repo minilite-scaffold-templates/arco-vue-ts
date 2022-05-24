@@ -2,7 +2,7 @@
   <div></div>
 </template>
 
-<script lang="ts" setup name="DashboardIndex">
+<script lang="ts" setup name="UserProfile">
   import {} from 'vue'
 </script>
 

@@ -21,7 +21,6 @@ export const DashboardRoute: AppRouteRecordRaw = {
   meta: {
     title: '首页',
   },
-  redirect: '/dashboard/index',
   children: [
     {
       path: '/dashboard/index',
@@ -29,6 +28,25 @@ export const DashboardRoute: AppRouteRecordRaw = {
       component: () => import('@/views/dashboard/index.vue'),
       meta: {
         title: '仪表盘',
+      },
+    },
+  ],
+}
+
+export const UserRoute: AppRouteRecordRaw = {
+  path: '/user',
+  name: 'User',
+  component: Layout,
+  meta: {
+    title: '我的',
+  },
+  children: [
+    {
+      path: '/user/profile',
+      name: 'UserProfile',
+      component: () => import('@/views/user/profile.vue'),
+      meta: {
+        title: '个人中心',
       },
     },
   ],
@@ -44,7 +62,7 @@ export const LoginRoute: AppRouteRecordRaw = {
 }
 
 // 普通路由 无需验证权限
-export const constantRouter: any[] = [RootRoute, LoginRoute, RedirectRoute, DashboardRoute]
+export const constantRouter: any[] = [RootRoute, LoginRoute, RedirectRoute, DashboardRoute, UserRoute]
 
 const router = createRouter({
   history: createWebHashHistory(),
