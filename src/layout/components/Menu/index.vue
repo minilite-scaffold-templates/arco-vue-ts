@@ -22,10 +22,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { Icon } from '@/utils/icons'
-  import { onMounted, defineProps, ref, watch } from 'vue'
-  import { routerMenuList } from '@/router/index'
   import { useRoute, useRouter } from 'vue-router'
+  import { onMounted, ref, watch } from 'vue'
+  import { routerMenuList } from '@/router/index'
+  import { Icon } from '@/utils/icons'
+
   // import { MenuList } from '@/store/modules/user/types'
 
   const props = defineProps({
