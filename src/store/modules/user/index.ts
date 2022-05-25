@@ -1,4 +1,5 @@
 import { getUserInfo, login } from '@/api/auth/user'
+import { removeRouteListener } from '@/router/listener'
 import { store } from '@/store'
 import { ACCESS_TOKEN, CURRENT_USER } from '@/store/mutation-types'
 import { encryptBase64 } from '@/utils/encrypt'
@@ -88,6 +89,8 @@ const useUserStore = defineStore({
       this.setUserInfo('')
       storage.remove(ACCESS_TOKEN)
       storage.remove(CURRENT_USER)
+
+      removeRouteListener()
     },
   },
 })

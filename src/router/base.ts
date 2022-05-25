@@ -1,7 +1,8 @@
+import { RouteRecordRaw } from 'vue-router'
 import { Layout, Page404, RedirectName } from './constant'
 
 // 重定向页面路由
-export const RedirectRoute: AppRouteRecordRaw = {
+export const RedirectRoute: RouteRecordRaw = {
   path: '/redirect',
   name: RedirectName,
   component: Layout,
@@ -23,7 +24,7 @@ export const RedirectRoute: AppRouteRecordRaw = {
 }
 
 // 错误页面路由
-export const ErrorPageRoute: AppRouteRecordRaw = {
+export const ErrorPageRoute: RouteRecordRaw = {
   path: '/:path(.*)*',
   name: '404',
   component: Layout,

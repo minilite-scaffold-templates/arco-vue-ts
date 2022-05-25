@@ -10,6 +10,7 @@ import configHtmlPlugin from './html'
 import configVisualizerPlugin from './visualizer'
 import { isReportMode } from '../../utils'
 import configMockPlugin from './mock'
+import configSvgIcon from './svg'
 
 // 创建Vite插件
 export default function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
@@ -36,11 +37,13 @@ export default function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild))
 
+  // vite-svg-icons
+  vitePlugins.push(configSvgIcon())
+
   // configStyleImportPlugin
   vitePlugins.push(configStyleImportPlugin())
 
   // vite-plugin-mock
-
   VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild, prodMock))
 
   // rollup-plugin-gzip

@@ -1,13 +1,14 @@
 import { PageEnum } from '@/enums/pageEnum'
 import { App } from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
-import { IconApps } from '@arco-design/web-vue/es/icon'
-import { renderIcon } from '@/utils'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+
 import { RedirectRoute } from './base'
 import { Layout } from './constant'
 import { createRouterGuard } from './guard'
 
-export const RootRoute: AppRouteRecordRaw = {
+import appRoutes from './routes'
+
+export const RootRoute: RouteRecordRaw = {
   path: '/',
   name: 'Root',
   redirect: PageEnum.BASE_HOME,
@@ -16,51 +17,7 @@ export const RootRoute: AppRouteRecordRaw = {
   },
 }
 
-export const DashboardRoute: AppRouteRecordRaw = {
-  path: '/dashboard',
-  name: 'Dashboard',
-  component: Layout,
-  meta: {
-    title: '首页',
-    icon: renderIcon(IconApps),
-  },
-  children: [
-    {
-      path: '/dashboard/index',
-      name: 'DashboardIndex',
-      component: () => import('@/views/dashboard/index.vue'),
-      meta: {
-        title: '仪表盘',
-        hidden: true,
-      },
-    },
-  ],
-}
-export const AccontsRoute: AppRouteRecordRaw = {
-  path: '/acconts',
-  name: 'Acconts',
-  component: Layout,
-  meta: {
-    title: '账号',
-    icon: 'IconApps',
-  },
-  children: [
-    {
-      path: '/acconts/index',
-      name: 'AccontsIndex',
-      component: () => import('@/views/acconts/index.vue'),
-      meta: {
-        title: '账号管理',
-      },
-    },
-  ],
-}
-
-export const routerMenuList = [DashboardRoute, AccontsRoute]
-
-export const routerList: any[] = [DashboardRoute]
-
-export const UserRoute: AppRouteRecordRaw = {
+export const UserRoute: RouteRecordRaw = {
   path: '/user',
   name: 'User',
   component: Layout,
@@ -79,7 +36,7 @@ export const UserRoute: AppRouteRecordRaw = {
   ],
 }
 
-export const LoginRoute: AppRouteRecordRaw = {
+export const LoginRoute: RouteRecordRaw = {
   path: '/login',
   name: 'Login',
   component: () => import('@/views/auth/login.vue'),
@@ -89,18 +46,11 @@ export const LoginRoute: AppRouteRecordRaw = {
 }
 
 // 普通路由 无需验证权限
-export const constantRouter: any[] = [
-  RootRoute,
-  LoginRoute,
-  RedirectRoute,
-  DashboardRoute,
-  UserRoute,
-  ...routerMenuList,
-]
+export const constantRoutes: any[] = [RootRoute, LoginRoute, RedirectRoute, UserRoute, ...appRoutes]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: constantRouter,
+  routes: constantRoutes,
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),
 })

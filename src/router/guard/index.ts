@@ -3,6 +3,7 @@ import { useUserStoreWidthOut } from '@/store/modules/user'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { storage } from '@/utils/Storage'
 import { Router } from 'vue-router'
+import { setRouteEmitter } from '../listener'
 
 const LOGIN_PATH = `${PageEnum.BASE_LOGIN}`
 
@@ -14,13 +15,16 @@ export function createRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     console.log('from', from)
     console.log('to', to)
+
+    setRouteEmitter(to)
+
     const token = storage.get(ACCESS_TOKEN)
     console.log('token', token)
     if (token) {
       if (to.path === '/login') {
         next(PageEnum.BASE_HOME)
       } else {
-        await userStore.getInfo()
+        // await userStore.getInfo()
         next()
       }
     } else {

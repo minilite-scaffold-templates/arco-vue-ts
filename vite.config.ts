@@ -31,6 +31,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           find: '@/',
           replacement: `${pathResolve('src')}/`,
         },
+        {
+          find: 'vue',
+          replacement: 'vue/dist/vue.esm-bundler.js', // compile template
+        },
       ],
       dedupe: ['vue'],
     },

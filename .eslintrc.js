@@ -38,7 +38,12 @@ module.exports = {
         extensions: ['.js', 'jsx', '.ts', '.tsx'],
       },
     },
-    'import/core-modules': ['virtual:windi-base.css', 'virtual:windi-components.css', 'virtual:windi-utilities.css'],
+    'import/core-modules': [
+      'virtual:windi-base.css',
+      'virtual:windi-components.css',
+      'virtual:windi-utilities.css',
+      'virtual:svg-icons-register',
+    ],
   },
   rules: {
     'prettier/prettier': 0,

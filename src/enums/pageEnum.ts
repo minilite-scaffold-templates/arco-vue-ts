@@ -33,10 +33,15 @@ export enum NAV_MODE {
 export enum NAV_THEME {
   LIGHT = 'light',
   DARK = 'dark',
+  // PRIMARY = 'primary',
 }
 
 // 布局宽度
 export enum LAYOUT_WIDTH {
   FLUID = 'fluid',
   BOXED = 'boxed',
+}
+
+export enum MENU_MODE {
+  horizontal = 'horizontal',
 }

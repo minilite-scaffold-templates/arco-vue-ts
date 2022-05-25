@@ -2,30 +2,30 @@
   <a-menu
     v-model:open-keys="openKeys"
     v-model:selected-keys="selectedKeys"
-    :style="{ width: '100%' }"
+    :style="{ width: '100%', margin: 'auto' }"
     :mode="modeValue"
     @menu-item-click="onClickMenuItem"
   >
-    <template v-for="v in routerMenuList">
+    <!-- <template v-for="v in routerMenuList">
       <a-sub-menu v-if="v?.children?.length" :key="v.path">
         <template #title>
           <span> <Icon :icon="v.meta.icon" />{{ v.meta.title }}</span>
         </template>
         <a-menu-item v-for="v1 in v.children" :key="v1.path">
-          <span :style="{ marginLeft: '12px' }">
+          <span :style="{ marginLeft: '10px' }">
             {{ v1.meta.title }}
           </span>
         </a-menu-item>
       </a-sub-menu>
-    </template>
+    </template> -->
   </a-menu>
 </template>
 
 <script lang="ts" setup>
   import { useRoute, useRouter } from 'vue-router'
   import { onMounted, ref, watch } from 'vue'
-  import { routerMenuList } from '@/router/index'
-  import { Icon } from '@/utils/icons'
+  // import { routerMenuList } from '@/router/index'
+  // import { Icon } from '@/utils/icons'
 
   // import { MenuList } from '@/store/modules/user/types'
 
@@ -37,8 +37,6 @@
   })
 
   const modeValue = ref<any>('')
-
-  console.log('121212111212121', routerMenuList)
 
   // 数据在下面定义
   // const collapsed = ref(false);
@@ -69,7 +67,6 @@
       openKeys.value = [`/${route.fullPath.split('/')[1]}`]
     }
     selectedKeys.value = [route.fullPath]
-    console.log('1322323232323', selectedKeys.value)
   }
 
   watch(route, () => menuChange())

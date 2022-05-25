@@ -29,7 +29,7 @@
         </div>
 
         <!-- MENU -->
-        <AppMenu :mode="menuMode" />
+        <AppMenu :collapsed="collapsed" />
       </a-layout-sider>
       <a-layout>
         <Header
@@ -90,7 +90,7 @@
   import { IHeaderHeightOption } from '@/settings/projectSetting'
   import { useGlobSetting } from '@/hooks/setting'
   import Logo from '@/components/Logo'
-  import { AppMenu } from './components/Menu'
+  import AppMenu from '@/layout/components/Menu/menu.vue'
   import Header from './header'
   import Breadcrumb from './breadcrumb/index.vue'
   import Footer from './footer'
@@ -102,7 +102,6 @@
     router.push(path)
   }
 
-  const menuMode = ref('left')
   const { title } = useGlobSetting()
 
   const { getNavTheme, getNavMode, getLayoutWidth, getHeaderHeight, getFooterDisplay } = useProjectSetting()

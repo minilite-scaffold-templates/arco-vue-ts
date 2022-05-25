@@ -25,19 +25,22 @@
           <div class="text-xs text-gray-500"> 选择: 居左、居右 或 水平</div>
         </div>
         <div>
-          <a-grid :cols="3" :col-gap="16" :row-gap="16">
+          <a-grid :cols="3" :col-gap="25">
             <a-grid-item
               v-for="(i, index) in navModeList"
               :key="index"
               class="space-y-1 cursor-pointer relative"
               @click="selectNavMode(i)"
             >
-              <div
-                :class="i === activeNavMode ? 'border-primary' : 'border-gray-200'"
-                class="w-full border h-20 rounded flex flex justify-center items-center"
-              >
-                <p></p>
-              </div>
+              <SvgIcon
+                :icon-class="i"
+                :class-name="
+                  i === activeNavMode
+                    ? 'border-primary w-full h-20 border rounded flex flex justify-center items-center'
+                    : 'border-gray-200 w-full h-20 border rounded flex flex justify-center items-center'
+                "
+              />
+
               <p class="text-center font-bold">{{ i }}</p>
               <div v-if="i === activeNavMode" class="absolute w-5 h-5 right-1 top-0 text-primary">
                 <icon-check-circle-fill :size="16" />
@@ -54,19 +57,21 @@
           <div class="text-xs text-gray-500"> 选择: light(浅色) 或 dark(黑色)</div>
         </div>
         <div>
-          <a-grid :cols="3" :col-gap="16" :row-gap="16">
+          <a-grid :cols="3" :col-gap="25">
             <a-grid-item
               v-for="(i, index) in navThemeList"
               :key="index"
               class="space-y-1 cursor-pointer relative"
               @click="selectNavTheme(i)"
             >
-              <div
-                :class="i === activeNavTheme ? 'border-primary' : 'border-gray-200'"
-                class="w-full border h-20 rounded flex flex justify-center items-center"
-              >
-                <p></p>
-              </div>
+              <SvgIcon
+                :icon-class="i"
+                :class-name="
+                  i === activeNavTheme
+                    ? 'border-primary w-full h-20 border rounded flex flex justify-center items-center'
+                    : 'border-gray-200 w-full h-20 border rounded flex flex justify-center items-center'
+                "
+              />
               <p class="text-center font-bold">{{ i }}</p>
               <div v-if="i === activeNavTheme" class="absolute w-5 h-5 right-1 top-0 text-primary">
                 <icon-check-circle-fill :size="16" />
@@ -83,19 +88,21 @@
           <div class="text-xs text-gray-500"> 选择: fluid(流式) 或 boxed(盒式)</div>
         </div>
         <div>
-          <a-grid :cols="3" :col-gap="16" :row-gap="16">
+          <a-grid :cols="3" :col-gap="25">
             <a-grid-item
               v-for="(i, index) in layoutWidthList"
               :key="index"
               class="space-y-1 cursor-pointer relative"
               @click="selectLayoutWidth(i)"
             >
-              <div
-                :class="i === activeLayoutWidth ? 'border-primary' : 'border-gray-200'"
-                class="w-full border h-20 rounded flex flex justify-center items-center"
-              >
-                <p></p>
-              </div>
+              <SvgIcon
+                :icon-class="i"
+                :class-name="
+                  i === activeLayoutWidth
+                    ? 'border-primary w-full h-20 border rounded flex flex justify-center items-center'
+                    : 'border-gray-200 w-full h-20 border rounded flex flex justify-center items-center'
+                "
+              />
               <p class="text-center font-bold">{{ i }}</p>
               <div v-if="i === activeLayoutWidth" class="absolute w-5 h-5 right-1 top-0 text-primary">
                 <icon-check-circle-fill :size="16" />
@@ -133,6 +140,7 @@
   import useProjectSettingStore from '@/store/modules/projectSetting'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { IHeaderHeightOption, headerHeightOptions } from '@/settings/projectSetting'
+  import SvgIcon from '@/components/Svg/index.vue'
 
   const navModeList = ref(Object.values(NAV_MODE))
   const layoutWidthList = ref(Object.values(LAYOUT_WIDTH))
