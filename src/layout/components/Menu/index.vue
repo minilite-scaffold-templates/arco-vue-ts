@@ -26,6 +26,7 @@
   import { onMounted, ref, watch } from 'vue'
   import { routerMenuList } from '@/router/index'
   import { Icon } from '@/utils/icons'
+  import { MENU_MODE } from '@/enums/pageEnum'
 
   // import { MenuList } from '@/store/modules/user/types'
 
@@ -38,8 +39,6 @@
 
   const modeValue = ref<any>('')
 
-  console.log('121212111212121', routerMenuList)
-
   // 数据在下面定义
   // const collapsed = ref(false);
   const route = useRoute()
@@ -50,12 +49,10 @@
 
   // 函数写在这下面
   const checkModeValue = () => {
-    if (props.mode === 'left') {
+    if (props.mode === MENU_MODE.VERTICAL) {
       modeValue.value = 'vertical'
-    } else if (props.mode === 'horizontal') {
+    } else if (props.mode === MENU_MODE.HORIZONTAL) {
       modeValue.value = 'horizontal'
-    } else {
-      modeValue.value = 'right'
     }
   }
 
@@ -69,7 +66,6 @@
       openKeys.value = [`/${route.fullPath.split('/')[1]}`]
     }
     selectedKeys.value = [route.fullPath]
-    console.log('1322323232323', selectedKeys.value)
   }
 
   watch(route, () => menuChange())
