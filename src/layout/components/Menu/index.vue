@@ -29,8 +29,6 @@
   import { Icon } from '@/utils/icons'
   import { MENU_MODE } from '@/enums/pageEnum'
 
-  // import { MenuList } from '@/store/modules/user/types'
-
   const props = defineProps({
     mode: {
       type: String,
