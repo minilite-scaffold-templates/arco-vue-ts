@@ -29,7 +29,7 @@
         </div>
 
         <!-- MENU -->
-        <AppMenu :mode="menuMode" />
+        <AppMenu :mode="NAV_MODE.LEFT" :collapsed="collapsed" />
       </a-layout-sider>
       <a-layout>
         <Header
@@ -41,8 +41,10 @@
 
         <div v-if="navMode === NAV_MODE.HORIZONTAL">
           <!-- MENU -->
+          <AppMenu :mode="NAV_MODE.HORIZONTAL" :collapsed="collapsed" />
         </div>
         <Breadcrumb :go="go" />
+
         <a-layout-content class="p-5 bg-gray-100">
           <router-view />
         </a-layout-content>
@@ -71,6 +73,7 @@
           </div>
         </div>
         <!-- MENU -->
+        <AppMenu :mode="NAV_MODE.RIGHT" :collapsed="collapsed" />
       </a-layout-sider>
 
       <!-- 自定义主题 -->
@@ -102,7 +105,6 @@
     router.push(path)
   }
 
-  const menuMode = ref('left')
   const { title } = useGlobSetting()
 
   const { getNavTheme, getNavMode, getLayoutWidth, getHeaderHeight, getFooterDisplay } = useProjectSetting()

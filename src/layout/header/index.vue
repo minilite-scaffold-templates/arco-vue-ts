@@ -3,6 +3,11 @@
     class="flex flex-row justify-between items-center border-b border-gray-100 bg-white"
     :class="headerHeight.value"
   >
+    <section v-if="navMode === NAV_MODE.HORIZONTAL" class="p-5 flex flex-row items-center">
+      <div>
+        <Logo :width="32" :height="32" />
+      </div>
+    </section>
     <section v-if="navMode === NAV_MODE.LEFT" class="flex flex-row justify-start items-center">
       <div class="cursor-pointer pl-5 text-gray-500" @click="onCollapse">
         <IconArrowRight v-if="collapsed" :size="toolIconSize" />
@@ -34,6 +39,7 @@
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { IconAlignLeft, IconAlignRight, IconArrowRight, IconArrowLeft } from '@arco-design/web-vue/es/icon'
   import { NAV_MODE } from '@/enums/pageEnum'
+  import Logo from '@/components/Logo'
   import Profile from './profile.vue'
   import Notification from './notification.vue'
 
