@@ -1,11 +1,27 @@
 import { PageEnum } from '@/enums/pageEnum'
 import { App } from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { IconApps, IconBook } from '@arco-design/web-vue/es/icon'
 import { renderIcon } from '@/utils'
 import { RedirectRoute } from './base'
 import { Layout } from './constant'
 import { createRouterGuard } from './guard'
+
+const modules = import.meta.globEager('./modules/**/*.ts')
+
+const routeModuleList: RouteRecordRaw[] = []
+
+Object.keys(modules).forEach((key) => {
+  const mod = modules[key].default || {}
+  const modList = Array.isArray(mod) ? [...mod] : [mod]
+  routeModuleList.push(...modList)
+})
+
+function sortRoute(a, b) {
+  return (a.meta?.sort || 0) - (b.meta?.sort || 0)
+}
+
+routeModuleList.sort(sortRoute)
 
 export const RootRoute: AppRouteRecordRaw = {
   path: '/',
@@ -87,6 +103,9 @@ export const LoginRoute: AppRouteRecordRaw = {
     title: '登录',
   },
 }
+
+// 需要验证权限
+export const asyncRoutes = []
 
 // 普通路由 无需验证权限
 export const constantRouter: any[] = [

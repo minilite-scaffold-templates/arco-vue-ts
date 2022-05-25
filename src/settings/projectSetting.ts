@@ -36,5 +36,8 @@ const setting = {
 
   // 是否显示页脚
   footerDisplay: true,
+
+  // 菜单权限模式 FIXED 前端固定路由  BACK 动态获取
+  permissionMode: 'FIXED',
 }
 export default setting

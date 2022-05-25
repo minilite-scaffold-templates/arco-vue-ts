@@ -10,9 +10,10 @@ interface ProjectSettingState {
   footerDisplay: boolean // 显示页脚
   layoutWidth: LAYOUT_WIDTH // 布局宽度
   headerHeight: IHeaderHeightOption
+  permissionMode: string // 权限模式
 }
 
-const { navMode, navTheme, toolIconSize, footerDisplay, layoutWidth, headerHeight } = projectSetting
+const { navMode, navTheme, toolIconSize, footerDisplay, layoutWidth, headerHeight, permissionMode } = projectSetting
 
 const useProjectSettingStore = defineStore({
   id: 'app-project-setting',
@@ -23,6 +24,7 @@ const useProjectSettingStore = defineStore({
     footerDisplay,
     layoutWidth,
     headerHeight,
+    permissionMode,
   }),
   getters: {
     getNavMode(): NAV_MODE {
@@ -67,6 +69,10 @@ const useProjectSettingStore = defineStore({
 
     setHeaderHeight(value: IHeaderHeightOption) {
       this.headerHeight = value
+    },
+
+    getPermissionMode(): string {
+      return this.permissionMode
     },
   },
 })
