@@ -4,15 +4,16 @@
     v-model:selected-keys="selectedKeys"
     :style="{ width: '100%' }"
     :mode="modeValue"
+    :collapsed="collapsed"
     @menu-item-click="onClickMenuItem"
   >
     <template v-for="v in routerMenuList">
       <a-sub-menu v-if="v?.children?.length" :key="v.path">
         <template #title>
-          <span> <Icon :icon="v.meta.icon" />{{ v.meta.title }}</span>
+          <span :style="{ marginLeft: collapsed ? '12px' : '0' }"> <Icon :icon="v.meta.icon" />{{ v.meta.title }}</span>
         </template>
         <a-menu-item v-for="v1 in v.children" :key="v1.path">
-          <span :style="{ marginLeft: '12px' }">
+          <span>
             {{ v1.meta.title }}
           </span>
         </a-menu-item>
@@ -34,6 +35,10 @@
     mode: {
       type: String,
       default: '',
+    },
+    collapsed: {
+      type: Boolean,
+      default: false,
     },
   })
 

@@ -29,7 +29,7 @@
         </div>
 
         <!-- MENU -->
-        <AppMenu :mode="NAV_MODE.LEFT" />
+        <AppMenu :mode="NAV_MODE.LEFT" :collapsed="collapsed" />
       </a-layout-sider>
       <a-layout>
         <Header
@@ -41,7 +41,7 @@
 
         <div v-if="navMode === NAV_MODE.HORIZONTAL">
           <!-- MENU -->
-          <AppMenu :mode="NAV_MODE.HORIZONTAL" />
+          <AppMenu :mode="NAV_MODE.HORIZONTAL" :collapsed="collapsed" />
         </div>
         <Breadcrumb :go="go" />
 
@@ -73,7 +73,7 @@
           </div>
         </div>
         <!-- MENU -->
-        <AppMenu :mode="NAV_MODE.RIGHT" />
+        <AppMenu :mode="NAV_MODE.RIGHT" :collapsed="collapsed" />
       </a-layout-sider>
 
       <!-- 自定义主题 -->
