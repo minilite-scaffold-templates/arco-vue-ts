@@ -1,6 +1,8 @@
 import { PageEnum } from '@/enums/pageEnum'
 import { App } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { IconApps } from '@arco-design/web-vue/es/icon'
+import { renderIcon } from '@/utils'
 import { RedirectRoute } from './base'
 import { Layout } from './constant'
 import { createRouterGuard } from './guard'
@@ -20,6 +22,7 @@ export const DashboardRoute: AppRouteRecordRaw = {
   component: Layout,
   meta: {
     title: '首页',
+    icon: renderIcon(IconApps),
   },
   children: [
     {
@@ -28,10 +31,34 @@ export const DashboardRoute: AppRouteRecordRaw = {
       component: () => import('@/views/dashboard/index.vue'),
       meta: {
         title: '仪表盘',
+        hidden: true,
       },
     },
   ],
 }
+export const AccontsRoute: AppRouteRecordRaw = {
+  path: '/acconts',
+  name: 'Acconts',
+  component: Layout,
+  meta: {
+    title: '账号',
+    icon: 'IconApps',
+  },
+  children: [
+    {
+      path: '/acconts/index',
+      name: 'AccontsIndex',
+      component: () => import('@/views/acconts/index.vue'),
+      meta: {
+        title: '账号管理',
+      },
+    },
+  ],
+}
+
+export const routerMenuList = [DashboardRoute, AccontsRoute]
+
+export const routerList: any[] = [DashboardRoute]
 
 export const UserRoute: AppRouteRecordRaw = {
   path: '/user',
@@ -62,7 +89,14 @@ export const LoginRoute: AppRouteRecordRaw = {
 }
 
 // 普通路由 无需验证权限
-export const constantRouter: any[] = [RootRoute, LoginRoute, RedirectRoute, DashboardRoute, UserRoute]
+export const constantRouter: any[] = [
+  RootRoute,
+  LoginRoute,
+  RedirectRoute,
+  DashboardRoute,
+  UserRoute,
+  ...routerMenuList,
+]
 
 const router = createRouter({
   history: createWebHashHistory(),

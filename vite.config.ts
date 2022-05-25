@@ -3,7 +3,6 @@ import { loadEnv } from 'vite'
 import { resolve } from 'path'
 import { wrapperEnv } from './build/utils'
 import createVitePlugins from './build/vite/plugin'
-import modifyVars from './build/theme/arco/modifyVars'
 import OUTPUT_DIR from './build/constant'
 
 function pathResolve(dir: string): string {
@@ -48,7 +47,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         less: {
-          modifyVars,
+          //   modifyVars,   // 暂停使用
           javascriptEnabled: true,
         },
       },

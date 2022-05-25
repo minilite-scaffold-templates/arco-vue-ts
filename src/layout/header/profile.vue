@@ -33,6 +33,9 @@
   import useUserStore from '@/store/modules/user'
   import { Message } from '@arco-design/web-vue'
   import { useRouter, useRoute } from 'vue-router'
+  import { NAV_MODE } from '@/enums/pageEnum'
+
+  defineProps<{ navMode: NAV_MODE }>()
 
   const userStore = useUserStore()
   const router = useRouter()

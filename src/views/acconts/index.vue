@@ -1,8 +1,8 @@
 <template>
-  <div>this is dashboard</div>
+  <div></div>
 </template>
 
-<script lang="ts" setup name="DashboardIndex">
+<script lang="ts" setup name="AccontsIndex">
   import {} from 'vue'
 </script>
 
