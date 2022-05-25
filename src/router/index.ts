@@ -1,7 +1,6 @@
-import { PageEnum } from '@/enums/pageEnum'
 import { App } from 'vue'
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-
+import { PageEnum } from '@/enums/pageEnum'
 import { RedirectRoute } from './base'
 import { Layout } from './constant'
 import { createRouterGuard } from './guard'
@@ -44,6 +43,9 @@ export const LoginRoute: RouteRecordRaw = {
     title: '登录',
   },
 }
+
+// 需要验证权限
+export const asyncRoutes = []
 
 // 普通路由 无需验证权限
 export const constantRoutes: any[] = [RootRoute, LoginRoute, RedirectRoute, UserRoute, ...appRoutes]

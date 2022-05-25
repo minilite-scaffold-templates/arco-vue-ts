@@ -4,15 +4,16 @@
     v-model:selected-keys="selectedKeys"
     :style="{ width: '100%', margin: 'auto' }"
     :mode="modeValue"
+    :collapsed="collapsed"
     @menu-item-click="onClickMenuItem"
   >
     <!-- <template v-for="v in routerMenuList">
       <a-sub-menu v-if="v?.children?.length" :key="v.path">
         <template #title>
-          <span> <Icon :icon="v.meta.icon" />{{ v.meta.title }}</span>
+          <span :style="{ marginLeft: collapsed ? '12px' : '0' }"> <Icon :icon="v.meta.icon" />{{ v.meta.title }}</span>
         </template>
         <a-menu-item v-for="v1 in v.children" :key="v1.path">
-          <span :style="{ marginLeft: '10px' }">
+          <span>
             {{ v1.meta.title }}
           </span>
         </a-menu-item>
@@ -26,13 +27,16 @@
   import { onMounted, ref, watch } from 'vue'
   // import { routerMenuList } from '@/router/index'
   // import { Icon } from '@/utils/icons'
-
-  // import { MenuList } from '@/store/modules/user/types'
+  import { MENU_MODE } from '@/enums/pageEnum'
 
   const props = defineProps({
     mode: {
       type: String,
       default: '',
+    },
+    collapsed: {
+      type: Boolean,
+      default: false,
     },
   })
 
@@ -48,12 +52,10 @@
 
   // 函数写在这下面
   const checkModeValue = () => {
-    if (props.mode === 'left') {
+    if (props.mode === MENU_MODE.VERTICAL) {
       modeValue.value = 'vertical'
-    } else if (props.mode === 'horizontal') {
+    } else if (props.mode === MENU_MODE.HORIZONTAL) {
       modeValue.value = 'horizontal'
-    } else {
-      modeValue.value = 'right'
     }
   }
 

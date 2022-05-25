@@ -41,8 +41,10 @@
 
         <div v-if="navMode === NAV_MODE.HORIZONTAL">
           <!-- MENU -->
+          <AppMenu :mode="NAV_MODE.HORIZONTAL" :collapsed="collapsed" />
         </div>
         <Breadcrumb :go="go" />
+
         <a-layout-content class="p-5 bg-gray-100">
           <router-view />
         </a-layout-content>
@@ -71,6 +73,7 @@
           </div>
         </div>
         <!-- MENU -->
+        <AppMenu :mode="NAV_MODE.RIGHT" :collapsed="collapsed" />
       </a-layout-sider>
 
       <!-- 自定义主题 -->

@@ -17,6 +17,8 @@ export function useProjectSetting() {
 
   const getHeaderHeight = computed(() => projectStore.headerHeight)
 
+  const getPermissionMode = computed(() => projectStore.permissionMode)
+
   return {
     getNavMode,
     getNavTheme,
@@ -24,5 +26,6 @@ export function useProjectSetting() {
     getFooterDisplay,
     getLayoutWidth,
     getHeaderHeight,
+    getPermissionMode,
   }
 }

@@ -38,6 +38,7 @@
         }
       })
 
+      // 根据渲染菜单树
       const renderSubMenu = () => {
         function travel(_routes: RouteRecordRaw[], nodes = []) {
           _routes &&

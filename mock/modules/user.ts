@@ -25,6 +25,7 @@ const getUserInfo = {
       userId: '1',
       username: 'JackWong',
       realName: 'Admin',
+      roleName: '管理员',
       avatar: '',
       token,
       permissions: [

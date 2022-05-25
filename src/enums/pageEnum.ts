@@ -42,6 +42,11 @@ export enum LAYOUT_WIDTH {
   BOXED = 'boxed',
 }
 
+// 菜单布局
 export enum MENU_MODE {
-  horizontal = 'horizontal',
+  POP = 'pop',
+  HORIZONTAL = 'horizontal',
+  VERTICAL = 'vertical',
+  POPBUTTON = 'popButton',
+  UNDEFINED = 'undefined',
 }
