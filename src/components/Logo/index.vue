@@ -5,8 +5,10 @@
 <script lang="ts" setup>
   import {} from 'vue'
   import Logo from '@/assets/logo.png'
+  import setting from '@/settings/projectSetting'
 
-  defineProps<{ width: number; height: number }>()
+  const width = setting.logoSize
+  const height = setting.logoSize
 </script>
 
 <style scoped lang="less"></style>

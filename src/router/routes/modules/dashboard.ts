@@ -6,11 +6,12 @@ const dashboardRoute: RouteRecordRaw = {
   path: '/dashboard',
   name: 'Dashboard',
   component: Layout,
+  redirect: '/dashboard/index',
   meta: {
     title: '首页',
     locale: 'menu.dashboard',
     requiresAuth: true,
-    icon: 'icon-dashboard',
+    icon: 'icon-home',
     hidden: false,
     order: 0,
   },

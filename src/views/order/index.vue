@@ -1,5 +1,5 @@
 <template>
-  <div>this is order</div>
+  <page-content>Order</page-content>
 </template>
 
 <script lang="ts" setup name="OrderIndex">

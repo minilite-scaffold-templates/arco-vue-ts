@@ -1,5 +1,7 @@
 <template>
-  <page-Content> hh </page-Content>
+  <div class="p-5">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts" setup>

@@ -1,9 +1,10 @@
 <template>
-  <page-Content> hh </page-Content>
+  <PageLayout />
 </template>
 
 <script lang="ts" setup>
   import {} from 'vue'
+  import PageLayout from '../pageLayout.vue'
 </script>
 
 <style scoped lang="less"></style>

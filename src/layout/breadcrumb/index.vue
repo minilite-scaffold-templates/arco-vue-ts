@@ -1,7 +1,5 @@
 <template>
-  <section
-    class="z-10 shadow shadow-gray-200 h-8 p-5 border-b-gray-100 flex flex-row justify-between items-center bg-white"
-  >
+  <section class="z-10 shadow shadow-gray-200 h-8 p-5 flex flex-row justify-between items-center bg-white">
     <div>
       {{ routeItems[routeItems.length - 1].meta.title }}
     </div>

@@ -4,23 +4,32 @@ import { NAV_THEME, NAV_MODE, LAYOUT_WIDTH } from '@/enums/pageEnum'
 export interface IHeaderHeightOption {
   text: string
   value: string
+  cssValue: string
 }
 export const headerHeightOptions: IHeaderHeightOption[] = [
   {
     text: '小',
     value: 'h-12',
+    cssValue: '3rem',
   },
   {
     text: '中',
     value: 'h-16',
+    cssValue: '4rem',
   },
   {
     text: '大',
     value: 'h-20',
+    cssValue: '5rem',
   },
 ]
 
 const setting = {
+  breadcrumbHeight: 40,
+  footerHeight: 41,
+
+  logoSize: 28,
+
   // 导航模式
   navMode: NAV_MODE.LEFT,
   // 导航主题

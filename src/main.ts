@@ -6,7 +6,8 @@ import 'virtual:svg-icons-register'
 import { createApp } from 'vue'
 import ArcoVue from '@arco-design/web-vue'
 import ArcoVueIcon from '@arco-design/web-vue/es/icon'
-import SvgIcon from '@/components/Svg/index.vue' // 引入组件
+import SvgIcon from '@/components/Svg' // 引入组件
+import PageContent from '@/components/PageContent'
 
 import App from './App.vue'
 // import '@arco-design/web-vue/dist/arco.less'
@@ -21,6 +22,7 @@ async function boot() {
   app.use(ArcoVueIcon)
 
   app.component('SvgIcon', SvgIcon)
+  app.component('PageContent', PageContent)
 
   // 挂载路由
   setupRouter(app)

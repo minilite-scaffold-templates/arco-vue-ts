@@ -1,5 +1,7 @@
 <template>
-  <page-Content> hh </page-Content>
+  <a-layout-content class="">
+    <router-view />
+  </a-layout-content>
 </template>
 
 <script lang="ts" setup>

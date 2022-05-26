@@ -1,9 +1,8 @@
 import { PageEnum } from '@/enums/pageEnum'
-import { useUserStoreWidthOut } from '@/store/modules/user'
-import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute'
+// import { useUserStoreWidthOut } from '@/store/modules/user'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { storage } from '@/utils/Storage'
-import { Router, RouteRecordRaw } from 'vue-router'
+import { Router } from 'vue-router'
 import { setRouteEmitter } from '../listener'
 
 const LOGIN_PATH = `${PageEnum.BASE_LOGIN}`
@@ -11,8 +10,8 @@ const LOGIN_PATH = `${PageEnum.BASE_LOGIN}`
 const whitePathList = [LOGIN_PATH] // no redirect
 
 export function createRouterGuard(router: Router) {
-  const userStore = useUserStoreWidthOut()
-  const asyncRouteStore = useAsyncRouteStoreWidthOut()
+  // const userStore = useUserStoreWidthOut()
+
   router.beforeEach(async (to, from, next) => {
     console.log('from', from)
     console.log('to', to)
@@ -48,20 +47,6 @@ export function createRouterGuard(router: Router) {
       }
       next(redirectData)
     }
-
-    if (asyncRouteStore.getIsDynamicAddedRoute) {
-      next()
-      return
-    }
-
-    const userInfo = await userStore.getInfo()
-
-    const routes = await asyncRouteStore.generateRoutes(userInfo)
-
-    // 动态添加可访问路由表
-    routes.forEach((item) => {
-      router.addRoute(item as unknown as RouteRecordRaw)
-    })
   })
 
   router.afterEach((to) => {

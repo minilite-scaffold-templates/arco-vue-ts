@@ -6,6 +6,7 @@
   export default {
     name: 'App',
   }
+  // document.body.setAttribute('arco-theme', 'dark')
 </script>
 
 <template>

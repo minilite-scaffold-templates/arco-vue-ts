@@ -5,32 +5,16 @@
       :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'container border-gray-100 border-r border-l' : ''"
     >
       <!-- 侧边栏 -->
-      <a-layout-sider
-        v-if="navMode === NAV_MODE.LEFT"
-        :theme="navTheme"
-        :default-collapsed="false"
-        :width="220"
-        :collapsed-width="80"
-        :collapsed="collapsed"
-        :collapsible="true"
-        :hide-trigger="true"
-        class="border-r border-gray-100"
-      >
-        <!-- LOGO -->
-        <div class="flex flex-col justify-center" :class="headerHeight.value">
-          <div
-            class="flex flex-row items-center p-3 space-x-3 cursor-pointer"
-            :class="collapsed ? 'justify-center' : 'justify-start'"
-            @click="go('/')"
-          >
-            <Logo :width="32" :height="32" />
-            <div v-if="!collapsed" :class="navTheme === NAV_THEME.DARK ? 'text-white' : ''"> {{ title }}</div>
-          </div>
-        </div>
+      <template v-if="navMode === NAV_MODE.LEFT">
+        <Sider
+          :nav-mode="navMode"
+          :nav-theme="navTheme"
+          :collapsed="collapsed"
+          :header-height="headerHeight"
+          :go="go"
+        />
+      </template>
 
-        <!-- MENU -->
-        <AppMenu :collapsed="collapsed" />
-      </a-layout-sider>
       <a-layout>
         <Header
           :header-height="headerHeight"
@@ -39,42 +23,24 @@
           @update-collapsed="updateCollapsedFromHeader"
         />
 
-        <div v-if="navMode === NAV_MODE.HORIZONTAL">
+        <div v-if="navMode === NAV_MODE.HORIZONTAL" class="border-b border-gray-100">
           <!-- MENU -->
           <AppMenu :mode="NAV_MODE.HORIZONTAL" :collapsed="collapsed" />
         </div>
         <Breadcrumb :go="go" />
-
-        <a-layout-content class="p-5 bg-gray-100">
-          <router-view />
-        </a-layout-content>
+        <Content />
         <Footer v-if="footerDisplay" />
       </a-layout>
 
-      <a-layout-sider
-        v-if="navMode === NAV_MODE.RIGHT"
-        :theme="navTheme"
-        :default-collapsed="false"
-        :width="220"
-        :collapsed-width="60"
-        :collapsed="collapsed"
-        :collapsible="true"
-        :hide-trigger="true"
-        class="border-l border-gray-100"
-      >
-        <div class="flex flex-col justify-center" :class="headerHeight.value">
-          <div
-            class="flex flex-row items-center p-3 space-x-3 cursor-pointer"
-            :class="collapsed ? 'justify-center' : 'justify-start'"
-            @click="go('/')"
-          >
-            <Logo :width="32" :height="32" />
-            <div v-if="!collapsed" :class="navTheme === NAV_THEME.DARK ? 'text-white' : ''"> {{ title }}</div>
-          </div>
-        </div>
-        <!-- MENU -->
-        <AppMenu :mode="NAV_MODE.RIGHT" :collapsed="collapsed" />
-      </a-layout-sider>
+      <template v-if="navMode === NAV_MODE.RIGHT">
+        <Sider
+          :nav-mode="navMode"
+          :nav-theme="navTheme"
+          :collapsed="collapsed"
+          :header-height="headerHeight"
+          :go="go"
+        />
+      </template>
 
       <!-- 自定义主题 -->
       <CustomizeThemeSetting />
@@ -91,21 +57,21 @@
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { LAYOUT_WIDTH, NAV_MODE, NAV_THEME } from '@/enums/pageEnum'
   import { IHeaderHeightOption } from '@/settings/projectSetting'
-  import { useGlobSetting } from '@/hooks/setting'
-  import Logo from '@/components/Logo'
-  import AppMenu from '@/layout/components/Menu/menu.vue'
+  import AppMenu from '@/layout/components/Menu'
   import Header from './header'
+  import Sider from './sider'
   import Breadcrumb from './breadcrumb/index.vue'
+  import Content from './content'
   import Footer from './footer'
   import CustomizeThemeSetting from './customizeThemeSetting'
 
   const router = useRouter()
 
-  const go = (path: string) => {
+  type GoFuncType = (path: string) => void
+
+  const go: GoFuncType = (path: string) => {
     router.push(path)
   }
-
-  const { title } = useGlobSetting()
 
   const { getNavTheme, getNavMode, getLayoutWidth, getHeaderHeight, getFooterDisplay } = useProjectSetting()
 

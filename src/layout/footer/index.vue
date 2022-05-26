@@ -1,5 +1,5 @@
 <template>
-  <a-layout-footer class="p-3 flex flex-row justify-end items-center">
+  <a-layout-footer class="p-3 flex flex-row justify-end items-center border-t border-gray-200">
     <div class="text-xs text-gray-600">{{ COPYRIGHT }}</div></a-layout-footer
   >
 </template>

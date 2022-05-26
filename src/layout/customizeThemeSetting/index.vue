@@ -32,7 +32,7 @@
               class="space-y-1 cursor-pointer relative"
               @click="selectNavMode(i)"
             >
-              <SvgIcon
+              <svg-icon
                 :icon-class="i"
                 :class-name="
                   i === activeNavMode
@@ -64,7 +64,7 @@
               class="space-y-1 cursor-pointer relative"
               @click="selectNavTheme(i)"
             >
-              <SvgIcon
+              <svg-icon
                 :icon-class="i"
                 :class-name="
                   i === activeNavTheme
@@ -95,7 +95,7 @@
               class="space-y-1 cursor-pointer relative"
               @click="selectLayoutWidth(i)"
             >
-              <SvgIcon
+              <svg-icon
                 :icon-class="i"
                 :class-name="
                   i === activeLayoutWidth
@@ -127,7 +127,7 @@
       <section class="space-y-3">
         <div class="font-bold">是否显示页脚 </div>
         <div>
-          <a-switch v-model="footerDisplay" @change="changeFooterDisplay" />
+          <a-switch v-model="activeFooterHeight" @change="changeFooterDisplay" />
         </div>
       </section>
     </section>
@@ -140,7 +140,6 @@
   import useProjectSettingStore from '@/store/modules/projectSetting'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { IHeaderHeightOption, headerHeightOptions } from '@/settings/projectSetting'
-  import SvgIcon from '@/components/Svg/index.vue'
 
   const navModeList = ref(Object.values(NAV_MODE))
   const layoutWidthList = ref(Object.values(LAYOUT_WIDTH))
@@ -152,8 +151,7 @@
   const navTheme = ref<ComputedRef<NAV_THEME>>(getNavTheme)
   const layoutWidth = ref<ComputedRef<LAYOUT_WIDTH>>(getLayoutWidth)
   const footerDisplay = ref<ComputedRef<boolean>>(getFooterDisplay)
-  const headerHeight = ref<ComputedRef<IHeaderHeightOption>>(getHeaderHeight)
-  console.log('🚀 ~ file: index.vue ~ line 148 ~ headerHeight', headerHeight)
+  console.log('🚀 ~ file: index.vue ~ line 155 ~ footerDisplay', footerDisplay.value)
 
   const projectSettingStore = useProjectSettingStore()
 
@@ -195,8 +193,10 @@
   }
 
   // 设置显示/隐藏页脚
+  const activeFooterHeight = ref<boolean>(footerDisplay.value)
   const changeFooterDisplay = (val: boolean) => {
     projectSettingStore.setFooterDisplay(val)
+    activeFooterHeight.value = val
   }
 
   const close = () => {

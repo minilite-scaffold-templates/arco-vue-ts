@@ -48,7 +48,9 @@ const useUserStore = defineStore({
       this.token = token
     },
     setUserInfo(info: any) {
+      console.log('info in setUserInfo', info)
       this.info = info
+      storage.set(CURRENT_USER, info)
     },
 
     // 登录
@@ -62,6 +64,9 @@ const useUserStore = defineStore({
           const ex = 7 * 24 * 60 * 60 * 1000
           storage.set(ACCESS_TOKEN, token, ex)
           this.setToken(token)
+
+          await this.getInfo()
+
           return Promise.resolve(result)
         }
       } catch (e) {

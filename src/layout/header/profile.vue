@@ -1,8 +1,8 @@
 <template>
-  <section class="flex flex-row justify-center items-center pr-5">
+  <section class="flex flex-row justify-center items-center">
     <a-dropdown class="w-36" position="tr">
-      <div class="cursor-pointer py-3"
-        ><div>{{ username }}</div> <div>{{ roleName }}</div></div
+      <div class="cursor-pointer space-y-1"
+        ><div>{{ username }}</div> <div class="text-gray-400 text-xs">{{ roleName }}</div></div
       >
       <template #content>
         <a-doption @click="gotoProfile">
@@ -37,12 +37,14 @@
 
   defineProps<{ navMode: NAV_MODE }>()
 
-  const userStore = useUserStore()
   const router = useRouter()
   const route = useRoute()
 
-  const { username } = userStore.info
-  const { roleName } = userStore.info
+  const userStore = useUserStore()
+  const { info } = userStore
+  console.log('🚀 ~ file: profile.vue ~ line 45 ~ info', info)
+
+  const { username, roleName } = info
 
   const logout = () => {
     userStore.logout().then(() => {

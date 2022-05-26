@@ -1,7 +1,7 @@
 <script lang="tsx">
-  // import { listenerRouteChange } from '@/router/listener'
-  import { compile, defineComponent, ref, h, watch } from 'vue'
-  import { RouteRecordRaw, useRouter, useRoute } from 'vue-router'
+  import { compile, defineComponent, ref, h } from 'vue'
+  import { RouteRecordRaw, useRouter } from 'vue-router'
+  import { listenerRouteChange } from '@/router/listener'
   import useMenuTree from './useMenuTree'
 
   export default defineComponent({
@@ -10,11 +10,14 @@
         type: Boolean,
         default: false,
       },
+      mode: {
+        type: String,
+      },
     },
     setup(props) {
       console.log('props', props)
 
-      const route = useRoute()
+      // const route = useRoute()
 
       const router = useRouter()
       const { menuTree } = useMenuTree()
@@ -28,15 +31,22 @@
       }
 
       // 监听当前路由变化
-      watch(route, (val) => {
-        console.log('开始监听')
-        if (val.meta.requiresAuth && !val.meta.hideInMenu) {
-          const key = val.matched[val.matched.length - 1]?.name as string
-          selectedKey.value = [key]
+      // watch(route, (val) => {
+      //   console.log('开始监听')
+      //   if (val.meta.requiresAuth && !val.meta.hideInMenu) {
+      //     const key = val.matched[val.matched.length - 1]?.name as string
+      //     selectedKey.value = [key]
 
-          // 更新menu
+      //     // 更新menu
+      //   }
+      // })
+
+      listenerRouteChange((newRoute) => {
+        if (newRoute.meta.requiresAuth && !newRoute.meta.hideInMenu) {
+          const key = newRoute.matched[newRoute.matched.length - 1]?.name as string
+          selectedKey.value = [key]
         }
-      })
+      }, true)
 
       // 根据渲染菜单树
       const renderSubMenu = () => {
@@ -48,6 +58,7 @@
               const node =
                 element?.children && element?.children.length !== 0 ? (
                   <a-sub-menu
+                    class=""
                     key={element?.name}
                     v-slots={{
                       icon,
@@ -59,7 +70,7 @@
                 ) : (
                   <a-menu-item
                     key={element?.name}
-                    class="w-full m-auto"
+                    class="w-full m-auto "
                     v-slots={{ icon }}
                     onClick={() => goto(element)}
                   >
@@ -77,10 +88,21 @@
       }
 
       return () => (
-        <a-menu class="m-auto" auto-open={true} selected-keys={selectedKey.value}>
+        <a-menu mode={props.mode} class="m-auto" auto-open={true} selected-keys={selectedKey.value}>
           {renderSubMenu()}
         </a-menu>
       )
     },
   })
 </script>
+
+<style lang="less">
+  .arco-menu-item {
+    background-color: #ff0000;
+  }
+
+  .arco-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+</style>

@@ -1,3 +1,3 @@
-import AppMenu from './index.vue'
+import AppMenu from './menu.vue'
 
-export { AppMenu }
+export default AppMenu

@@ -1,0 +1,49 @@
+<template>
+  <a-layout-sider
+    :theme="navTheme"
+    :default-collapsed="false"
+    :width="220"
+    :collapsed-width="80"
+    :collapsed="collapsed"
+    :collapsible="true"
+    :hide-trigger="true"
+    class="border-gray-100"
+    :class="navMode === NAV_MODE.LEFT ? 'border-r ' : 'border-l'"
+  >
+    <!-- LOGO -->
+    <div class="flex flex-col justify-center" :class="headerHeight.value">
+      <div
+        class="flex flex-row items-center p-3 space-x-3 cursor-pointer"
+        :class="collapsed ? 'justify-center' : 'justify-start'"
+        @click="go('/')"
+      >
+        <Logo />
+        <div v-if="!collapsed" :class="navTheme === NAV_THEME.DARK ? 'text-white' : ''"> {{ title }}</div>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <AppMenu :collapsed="collapsed" :mode="`${MENU_MODE.VERTICAL}`" />
+  </a-layout-sider>
+</template>
+
+<script lang="ts" setup>
+  import {} from 'vue'
+  import AppMenu from '@/layout/components/Menu'
+  import Logo from '@/components/Logo'
+  import { NAV_MODE, NAV_THEME, MENU_MODE } from '@/enums/pageEnum'
+  import { IHeaderHeightOption } from '@/settings/projectSetting'
+  import { useGlobSetting } from '@/hooks/setting'
+
+  const { title } = useGlobSetting()
+
+  defineProps<{
+    collapsed: boolean
+    navMode: NAV_MODE
+    navTheme: NAV_THEME
+    headerHeight: IHeaderHeightOption
+    go: any
+  }>()
+</script>
+
+<style scoped lang="less"></style>

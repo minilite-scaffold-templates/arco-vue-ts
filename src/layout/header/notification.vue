@@ -3,7 +3,8 @@
   <div>
     <a-popover v-model="notificationParam.popoverVisible" position="bottom" trigger="click">
       <div class="cursor-pointer">
-        <a-badge :count="notificationParam.count" dot> <icon-notification size="24" @click="openMessageBox" /> </a-badge
+        <a-badge :count="notificationParam.count" dot>
+          <icon-notification :size="toolIconSize" @click="openMessageBox" /> </a-badge
       ></div>
       <template #content>
         <a-list :bordered="false">
@@ -63,8 +64,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive } from 'vue'
+  import { ComputedRef, reactive, ref } from 'vue'
   import { getMessageList } from '@/api/auth/header'
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
+
+  const { getToolIconSize } = useProjectSetting()
+  const toolIconSize = ref<ComputedRef<number>>(getToolIconSize)
 
   interface MessageList {
     id: number
