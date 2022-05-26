@@ -1,4 +1,4 @@
-import type { RouteRecordRaw, RouteMeta } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import { defineComponent } from 'vue'
 
 export type Component<T = any> =
@@ -6,18 +6,18 @@ export type Component<T = any> =
   | (() => Promise<typeof import('*.vue')>)
   | (() => Promise<T>)
 
-// interface RouteMeta {
-//     title?: string
-//     roles?: string[] // Controls roles that have access to the page
-//     requiresAuth?: boolean // Whether login is required to access the current page (every route must declare)
-//     icon?: string // The icon show in the side menu
-//     locale?: string // The locale name show in side menu and breadcrumb
-//     hideInMenu?: boolean // If true, it is not displayed in the side menu
-//     hideChildrenInMenu?: boolean // if set true, the children are not displayed in the side menu
-//     order?: number // Sort routing menu items. If set key, the higher the value, the more forward it is
-//     noAffix?: boolean // if set true, the tag will not affix in the tab-bar
-//     ignoreCache?: boolean // if set true, the page will not be cached
-// }
+interface RouteMeta {
+  title?: string
+  roles?: string[]
+  requiresAuth?: boolean
+  icon?: string
+  locale?: string
+  hideInMenu?: boolean
+  hideChildrenInMenu?: boolean
+  order?: number
+  noAffix?: boolean
+  ignoreCache?: boolean
+}
 // 扩展Meta类型
 export interface Meta extends RouteMeta {
   // 名称
@@ -35,7 +35,7 @@ export interface Meta extends RouteMeta {
   affix?: boolean
 
   // tab上的图标
-  icon?: any
+  icon?: string
 
   // 跳转地址
   frameSrc?: string
@@ -48,6 +48,22 @@ export interface Meta extends RouteMeta {
 
   // 隐藏面包屑
   hideBreadcrumb?: boolean
+
+  roles?: string[] // 控制对页具有访问权限的角色
+
+  requiresAuth?: boolean // 是否需要登录才能访问当前页面(每个路由都必须声明)
+
+  locale?: string // 区域名称显示在边菜单和面包屑中
+
+  hideInMenu?: boolean // 如果为true，则不会显示在侧边菜单中
+
+  hideChildrenInMenu?: boolean // 如果设置为true，子菜单不会显示在侧边菜单中
+
+  order?: number // 排序路由菜单项。如果set key，值越高，越正向
+
+  noAffix?: boolean // 如果设置为true，标签将不会添加到选项卡栏中
+
+  ignoreCache?: boolean // 如果设置为true，页面将不会被缓存
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
