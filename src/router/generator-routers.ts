@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
 import { Layout, ParentLayout } from '@/router/constant'
-import type { AppRouteRecordRaw } from '@/router/types'
 import { adminMenus } from '@/api/system/menu'
 import { constantRouterIcon } from './router-icons'
 
