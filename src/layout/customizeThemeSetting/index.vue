@@ -16,7 +16,9 @@
     :mask-closable="true"
     @cancel="close"
   >
-    <template #title> 自定义主题设置 </template>
+    <template #title>
+      <div class=""> 自定义主题设置 </div>
+    </template>
     <section class="p-2 space-y-7">
       <!-- 布局方式 -->
       <section class="space-y-3">
@@ -257,5 +259,8 @@
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  .theme-drawer :deep(.arco-drawer-header) {
   }
 </style>

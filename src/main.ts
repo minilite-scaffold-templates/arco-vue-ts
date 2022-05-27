@@ -11,7 +11,7 @@ import PageContent from '@/components/PageContent'
 
 import App from './App.vue'
 // import '@arco-design/web-vue/dist/arco.less'
-import '@/assets/style/global.css'
+import '@/assets/style/global.less'
 
 import { setupStore } from './store'
 import router, { setupRouter } from './router'

@@ -1,17 +1,34 @@
 <template>
   <!-- 登录页面布局 -->
-  <div class="fixed top-0 left-0 z-0 flex flex-row w-full h-screen">
-    <div class="hidden md:block w-2/3 bg-white flex flex-col justify-between h-full border-r">
-      <div class="text-xs md:text-black w-full h-full flex flex-col justify-between">
+  <div class="fixed top-0 left-0 z-0 flex flex-row w-full h-screen login-layout">
+    <div class="hidden md:block w-2/3 flex flex-col justify-between h-full border-r relative">
+      <div class="absolute h-full w-full bg-gradient-to-br from-teal-300 to-indigo-800"> </div>
+      <div
+        class="absolute text-xs md:text-black w-full h-full flex flex-col justify-between"
+        :style="{
+          'background-image': `url(${CoverPattern})`,
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat',
+        }"
+      >
         <div class="p-10 text-black text-lg font-mono">
           {{ title }}
         </div>
-        <div class="text-right p-5 text-gray-500">
+        <div class="text-right p-5 text-white text-xs">
           {{ COPYRIGHT }}
         </div>
       </div>
     </div>
-    <div class="w-full md:w-1/3">
+    <div class="w-full reactive md:w-1/3">
+      <div
+        class="absolute h-full w-full bg-gray-100 right-panel rotate-90"
+        :style="{
+          'background-image': `url(${CoverPattern})`,
+          'background-size': 'cover',
+          'transform': 'rotate(180deg)',
+        }"
+      >
+      </div>
       <div class="hidden md:block">
         <div
           class="absolute top-0 right-0 p-5 md:items-end md:p-10 flex flex-row justify-center items-center space-x-2"
@@ -20,7 +37,7 @@
           <a-button @click="showRegisterForm">注册</a-button>
         </div>
       </div>
-      <div class="p-12 m-10 bg-white block md:hidden">
+      <div class="p-12 absolute m-10 bg-white block md:hidden">
         <LoginForm :register="registerDisplay" @close="closeLoginForm" />
       </div>
       <div class="block md:hidden text-gray-500 text-center"> {{ COPYRIGHT }}</div>
@@ -30,11 +47,20 @@
   <!-- 弹出登录框 -->
   <div class="fixed flex flex-col items-center justify-center w-full h-screen" :class="loginInvisible">
     <div class="m-auto w-200 hidden md:block">
-      <div class="bg-white shadow-lg border">
+      <div class="bg-white shadow-lg">
         <a-row>
           <a-col :span="12">
-            <section class="h-full p-10 text-black font-bold space-y-3 font-mono">
-              <div class="text-3xl">
+            <section class="text-black font-bold space-y-3 font-mono relative">
+              <div
+                class="absolute w-full h-full"
+                :style="{
+                  'background-image': `url(${ModalPattern})`,
+                  'background-size': 'cover',
+                  'background-repeat': 'no-repeat',
+                }"
+              >
+              </div>
+              <div class="text-3xl absolute p-10">
                 <a href="/">{{ title }}</a>
               </div>
               <div class="text-sm"> </div>
@@ -54,6 +80,8 @@
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
+  import CoverPattern from '@/assets/images/cover-pattern.png'
+  import ModalPattern from '@/assets/images/face-masks.jpg'
   import { useGlobSetting } from '../../../hooks/setting'
   import LoginForm from './LoginForm.vue'
   import RegisterForm from './RegisterForm.vue'

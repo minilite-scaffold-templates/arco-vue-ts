@@ -22,11 +22,13 @@
       </div>
     </div>
     <section v-if="navMode === NAV_MODE.LEFT" class="flex flex-row justify-between items-center w-full px-5">
-      <div class="cursor-pointer text-gray-500" @click="onCollapse">
+      <div class="cursor-pointer text-gray-500 space-x-8" @click="onCollapse">
         <IconArrowRight v-if="collapsed" :size="toolIconSize" />
         <IconAlignLeft v-else :size="toolIconSize" />
       </div>
+
       <div class="flex flex-row justify-end items-center space-x-8">
+        <a-input-search :style="{ width: '220px' }" placeholder="点击搜索..." class="cursor-pointer" />
         <Notification />
         <Profile :nav-mode="navMode" />
       </div>
