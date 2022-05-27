@@ -1,13 +1,13 @@
 <template>
   <section class="flex flex-row justify-center items-center">
-    <a-dropdown class="w-36" position="tr">
+    <a-dropdown class="w-36" position="br">
       <div class="cursor-pointer space-y-1"
         ><div>{{ username }}</div> <div class="text-gray-400 text-xs">{{ roleName }}</div></div
       >
       <template #content>
         <a-doption @click="gotoProfile">
           <template #icon>
-            <icon-user />
+            <icon-user :size="toolIconSize" />
           </template>
           <template #default>个人中心</template>
         </a-doption>
@@ -29,11 +29,15 @@
 </template>
 
 <script lang="ts" setup>
-  import {} from 'vue'
+  import { ref, ComputedRef } from 'vue'
   import useUserStore from '@/store/modules/user'
   import { Message } from '@arco-design/web-vue'
   import { useRouter, useRoute } from 'vue-router'
   import { NAV_MODE } from '@/enums/pageEnum'
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
+
+  const { getToolIconSize } = useProjectSetting()
+  const toolIconSize = ref<ComputedRef<number>>(getToolIconSize)
 
   defineProps<{ navMode: NAV_MODE }>()
 
