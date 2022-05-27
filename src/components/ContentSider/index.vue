@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" class="p-5 bg-white">
+  <div :style="style" class="border-l border-dashed bg-white">
     <slot name="body"></slot>
   </div>
 </template>

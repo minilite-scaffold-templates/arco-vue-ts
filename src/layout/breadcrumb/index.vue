@@ -1,5 +1,6 @@
 <template>
-  <section class="z-10 shadow shadow-gray-200 h-8 p-5 flex flex-row justify-between items-center bg-white">
+  <div :class="navMode !== NAV_MODE.HORIZONTAL && headerFixed ? 'layout-breadcrumb-with-header-fixed' : ''"></div>
+  <section class="z-5 shadow shadow-gray-200 h-8 p-5 flex flex-row justify-between items-center bg-white">
     <div>
       {{ routeItems[routeItems.length - 1].meta.title }}
     </div>
@@ -16,13 +17,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { NAV_MODE } from '@/enums/pageEnum'
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
+  import { IHeaderHeightOption } from '@/settings/projectSetting'
+  import { computed, ref, ComputedRef } from 'vue'
   import type { RouteLocationMatched } from 'vue-router'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
 
-  defineProps<{ go: any }>()
+  const { getHeaderHeight, getHeaderFixed } = useProjectSetting()
+
+  const headerHeight = ref<ComputedRef<IHeaderHeightOption>>(getHeaderHeight)
+  const headerHeightCssValue = headerHeight.value.cssValue
+
+  const headerFixed = ref<ComputedRef<boolean>>(getHeaderFixed)
+
+  defineProps<{ navMode: NAV_MODE }>()
 
   const route = useRoute()
+  const router = useRouter()
+
+  const go = (path: string) => {
+    router.push(path)
+  }
 
   // 生成当前菜单项
   const generatorCurrentRouteItems: any = (routerMap: RouteLocationMatched[]) => {
@@ -47,4 +63,10 @@
   })
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+  .layout-breadcrumb {
+    &-with-header-fixed {
+      margin-top: v-bind(headerHeightCssValue);
+    }
+  }
+</style>

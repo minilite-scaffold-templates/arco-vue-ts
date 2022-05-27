@@ -1,7 +1,7 @@
 <template>
   <div class="border-gray-100" :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'm-auto container' : ''">
     <a-layout
-      class="h-screen"
+      class="h-screen overflow-x-hidden"
       :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'container border-gray-100 border-r border-l' : ''"
     >
       <!-- 侧边栏 -->
@@ -20,14 +20,20 @@
           :header-height="headerHeight"
           :nav-mode="navMode"
           :collapsed="collapsed"
+          :fixed="headerFixed"
           @update-collapsed="updateCollapsedFromHeader"
         />
 
-        <div v-if="navMode === NAV_MODE.HORIZONTAL" class="border-b border-gray-100">
-          <!-- MENU -->
-          <AppMenu :mode="NAV_MODE.HORIZONTAL" :collapsed="collapsed" />
+        <!-- 水平方向显示 MENU -->
+        <div
+          v-if="navMode === NAV_MODE.HORIZONTAL"
+          class="border-b border-gray-100"
+          :class="headerFixed ? 'layout-menu-with-header-fixed' : ''"
+        >
+          <AppMenu :mode="`${MENU_MODE.HORIZONTAL}`" :collapsed="collapsed" />
         </div>
-        <Breadcrumb :go="go" />
+
+        <Breadcrumb :nav-mode="navMode" />
         <Content />
         <Footer v-if="footerDisplay" />
       </a-layout>
@@ -55,7 +61,7 @@
   import { ComputedRef, ref } from 'vue'
   import { useRouter } from 'vue-router'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
-  import { LAYOUT_WIDTH, NAV_MODE, NAV_THEME } from '@/enums/pageEnum'
+  import { LAYOUT_WIDTH, NAV_MODE, NAV_THEME, MENU_MODE } from '@/enums/pageEnum'
   import { IHeaderHeightOption } from '@/settings/projectSetting'
   import AppMenu from '@/layout/components/Menu'
   import Header from './header'
@@ -73,12 +79,15 @@
     router.push(path)
   }
 
-  const { getNavTheme, getNavMode, getLayoutWidth, getHeaderHeight, getFooterDisplay } = useProjectSetting()
+  const { getNavTheme, getNavMode, getLayoutWidth, getHeaderHeight, getFooterDisplay, getHeaderFixed } =
+    useProjectSetting()
 
   const headerHeight = ref<ComputedRef<IHeaderHeightOption>>(getHeaderHeight)
+  const headerHeightCssValue = headerHeight.value.cssValue
+
+  const headerFixed = ref<ComputedRef<boolean>>(getHeaderFixed)
 
   const navMode = ref<ComputedRef<NAV_MODE>>(getNavMode)
-  console.log('🚀 ~ file: index.vue ~ line 30 ~ navMode', navMode)
 
   const navTheme = ref<ComputedRef<NAV_THEME>>(getNavTheme)
 
@@ -93,4 +102,10 @@
   }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+  .layout-menu {
+    &-with-header-fixed {
+      margin-top: v-bind(headerHeightCssValue);
+    }
+  }
+</style>

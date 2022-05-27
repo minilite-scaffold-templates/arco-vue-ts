@@ -25,23 +25,36 @@ export const headerHeightOptions: IHeaderHeightOption[] = [
 ]
 
 const setting = {
-  breadcrumbHeight: 40,
-  footerHeight: 41,
+  // 侧边栏宽度
+  sidebarWidth: 220,
 
+  // 面包屑高度
+  breadcrumbHeight: 40,
+
+  // 底部高度
+  footerHeight: 49,
+
+  // Logo大小
   logoSize: 28,
 
   // 导航模式
   navMode: NAV_MODE.LEFT,
+
   // 导航主题
   navTheme: NAV_THEME.LIGHT,
+
   // 布局宽度
   layoutWidth: LAYOUT_WIDTH.FLUID,
+
   // 默认的工具图标大小
   toolIconSize: 18,
 
   // 状态栏高度
   headerHeightOptions,
   headerHeight: headerHeightOptions[1],
+
+  // 状态栏是否固定
+  headerFixed: false,
 
   // 是否显示页脚
   footerDisplay: true,

@@ -96,13 +96,4 @@
   })
 </script>
 
-<style lang="less">
-  .arco-menu-item {
-    background-color: #ff0000;
-  }
-
-  .arco-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-</style>
+<style lang="less"></style>

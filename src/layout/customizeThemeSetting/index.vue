@@ -125,10 +125,27 @@
       </section>
 
       <section class="space-y-3">
-        <div class="font-bold">是否显示页脚 </div>
+        <div class="font-bold">侧边栏宽度(px) </div>
         <div>
-          <a-switch v-model="activeFooterHeight" @change="changeFooterDisplay" />
+          <a-slider
+            v-model="activeSidebarWidth"
+            :default-value="sidebarWidth"
+            :min="160"
+            :max="300"
+            :style="{ width: '200px' }"
+            @change="changeSidebarWidth"
+          />
         </div>
+      </section>
+
+      <section class="space-y-3">
+        <div class="font-bold">顶部状态栏是否固定 </div>
+        <a-switch v-model="activeHeaderFixed" @change="changeHeaderFixed" />
+      </section>
+
+      <section class="space-y-3">
+        <div class="font-bold">是否显示页脚 </div>
+        <a-switch v-model="activeFooterHeight" @change="changeFooterDisplay" />
       </section>
     </section>
   </a-drawer>
@@ -139,13 +156,23 @@
   import { LAYOUT_WIDTH, NAV_THEME, NAV_MODE } from '@/enums/pageEnum'
   import useProjectSettingStore from '@/store/modules/projectSetting'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
-  import { IHeaderHeightOption, headerHeightOptions } from '@/settings/projectSetting'
+  import settings, { IHeaderHeightOption, headerHeightOptions } from '@/settings/projectSetting'
+
+  const { sidebarWidth } = settings
 
   const navModeList = ref(Object.values(NAV_MODE))
   const layoutWidthList = ref(Object.values(LAYOUT_WIDTH))
   const navThemeList = ref(Object.values(NAV_THEME))
 
-  const { getLayoutWidth, getNavTheme, getNavMode, getFooterDisplay, getHeaderHeight } = useProjectSetting()
+  const {
+    getLayoutWidth,
+    getNavTheme,
+    getNavMode,
+    getFooterDisplay,
+    getHeaderHeight,
+    getHeaderFixed,
+    getSidebarWidth,
+  } = useProjectSetting()
 
   const navMode = ref<ComputedRef<NAV_MODE>>(getNavMode)
   const navTheme = ref<ComputedRef<NAV_THEME>>(getNavTheme)
@@ -182,7 +209,7 @@
     projectSettingStore.setNavTheme(item)
   }
 
-  // 设置Header高度
+  // 设置顶部状态库高度
   const activeHeaderHeight = ref<IHeaderHeightOption['value']>(getHeaderHeight.value.value)
   const changeHeaderHeight = (val: string) => {
     const currentItem = headerHeightOptions.find((item: IHeaderHeightOption) => item.value === val)
@@ -190,6 +217,20 @@
       activeHeaderHeight.value = currentItem?.value
       projectSettingStore.setHeaderHeight(currentItem)
     }
+  }
+
+  // 侧边栏宽度
+  const activeSidebarWidth = ref<number>(getSidebarWidth.value)
+  const changeSidebarWidth = (val: number) => {
+    activeSidebarWidth.value = val
+    projectSettingStore.setSidebarWidth(val)
+  }
+
+  // 设置是否固定顶部状态栏
+  const activeHeaderFixed = ref<boolean>(getHeaderFixed.value)
+  const changeHeaderFixed = (val: boolean) => {
+    activeHeaderFixed.value = val
+    projectSettingStore.setHeaderFixed(val)
   }
 
   // 设置显示/隐藏页脚

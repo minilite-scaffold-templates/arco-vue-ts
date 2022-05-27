@@ -3,112 +3,18 @@
     <a-grid-item :span="{ xs: 1, sm: 2, md: 2, lg: 4 }">
       <div class="p-5 space-y-5">
         <Welcome />
-        <a-grid :cols="{ xs: 1, sm: 2, md: 4 }" :col-gap="16" :row-gap="16">
-          <a-grid-item :span="1">
-            <div class="p-5 border border-gray-100 bg-white space-y-3 rounded-md bg-success">
-              <div class="text-gray-700"> 今日访问</div>
-              <div class="flex flex-row justify-between items-center">
-                <div class="space-y-2">
-                  <div class="font-semibold text-2xl"> 11,267 </div>
-                  <div>
-                    <a-link :hoverable="false">查看详情</a-link>
-                  </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-100 p-3">
-                  <a-typography-text type="success">
-                    <icon-eye :size="30" />
-                  </a-typography-text>
-                </div>
-              </div>
-            </div>
-          </a-grid-item>
-          <a-grid-item :span="1">
-            <div class="p-5 border border-gray-100 bg-white space-y-3 rounded-md">
-              <div class="text-gray-700"> 今日入院</div>
-              <div class="flex flex-row justify-between items-center">
-                <div class="space-y-2">
-                  <div class="font-semibold text-2xl"> 128 </div>
-                  <div>
-                    <a-link :hoverable="false">查看详情</a-link>
-                  </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-100 p-3">
-                  <a-typography-text type="primary">
-                    <icon-import :size="30" />
-                  </a-typography-text>
-                </div>
-              </div>
-            </div>
-          </a-grid-item>
-          <a-grid-item :span="1">
-            <div class="p-5 border border-gray-100 bg-white space-y-3 rounded-md">
-              <div class="text-gray-700"> 今日出院</div>
-              <div class="flex flex-row justify-between items-center">
-                <div class="space-y-2">
-                  <div class="font-semibold text-2xl"> 11,267 </div>
-                  <div>
-                    <a-link :hoverable="false">查看详情</a-link>
-                  </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-100 p-3">
-                  <a-typography-text type="warning">
-                    <icon-export :size="30" />
-                  </a-typography-text>
-                </div>
-              </div>
-            </div>
-          </a-grid-item>
-          <a-grid-item :span="1">
-            <div class="p-5 border border-gray-100 bg-white space-y-3 rounded-md">
-              <div class="text-gray-700">总住院患者</div>
-              <div class="flex flex-row justify-between items-center">
-                <div class="space-y-2">
-                  <div class="font-semibold text-2xl"> 11,267 </div>
-                  <div>
-                    <a-link :hoverable="false">查看详情</a-link>
-                  </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-100 p-3">
-                  <a-typography-text>
-                    <icon-layers :size="30" />
-                  </a-typography-text>
-                </div>
-              </div>
-            </div>
-          </a-grid-item>
-        </a-grid>
+        <OverviewCardList :data-list="dataList" />
       </div>
     </a-grid-item>
     <a-grid-item :span="{ xs: 0, sm: 0, md: 0, lg: 1 }">
       <ContentSider>
         <template #body>
-          <!-- News -->
-          <section>
-            <a-card :bordered="false" title="What's News?" class="news-card">
-              <template #extra>
-                <a-link>查看更多</a-link>
-              </template>
-              <a-list :bordered="false" size="small">
-                <a-list-item>
-                  <a-list-item-meta
-                    title="Beijing Bytedance Technology Co., Ltd."
-                    description="Beijing ByteDance Technology Co., Ltd. is an enterprise located in China."
-                  >
-                  </a-list-item-meta>
-                </a-list-item>
-                <a-list-item>
-                  <a-list-item-meta
-                    title="Beijing Bytedance Technology Co., Ltd."
-                    description="Beijing ByteDance Technology Co., Ltd. is an enterprise located in China."
-                  >
-                  </a-list-item-meta>
-                </a-list-item>
-              </a-list>
-            </a-card>
+          <section class="p-5 space-y-5">
+            <!-- News -->
+            <ListInCard title="新药列表" :data-list="newsList" />
+
+            <!-- Members -->
+            <ListInCard title="最近活跃用户" :data-list="memberList" />
           </section>
         </template>
       </ContentSider>
@@ -119,6 +25,109 @@
 <script lang="ts" setup name="DashboardIndex">
   import Welcome from '@/components/Welcome'
   import ContentSider from '@/components/ContentSider/index.vue'
+  import { ref } from 'vue'
+  import OverviewCardList from '@/components/Overview/CardList.vue'
+  import ListInCard from '@/components/Overview/ListInCard.vue'
+
+  const dataList = ref<any>([
+    {
+      id: 1,
+      name: '今日访问',
+      type: 'success',
+      path: '/',
+      data: 1895,
+      icon: 'icon-eye',
+      iconSize: 28,
+    },
+    {
+      id: 2,
+      name: '今日入院',
+      type: 'primary',
+      path: '/',
+      data: 128,
+      icon: 'icon-import',
+      iconSize: 28,
+    },
+    {
+      id: 3,
+      name: '今日出院',
+      type: 'warning',
+      path: '/',
+      data: 89,
+      icon: 'icon-export',
+      iconSize: 28,
+    },
+    {
+      id: 4,
+      name: '总住院患者',
+      type: 'secondary',
+      path: '/',
+      data: 681,
+      icon: 'icon-layers',
+      iconSize: 28,
+    },
+  ])
+
+  const newsList = ref<any[]>([
+    {
+      id: 1,
+      title: 'Fludeoxyglucose F18',
+      description: 'Hepatobiliary System and Pancreas, Reattachment',
+    },
+    {
+      id: 2,
+      title: 'Alcohol',
+      description: 'Bypass R Fem Art to Peron Art with Autol Vn, Open Approach',
+    },
+    // {
+    //   id: 3,
+    //   title: 'DOBUTAMINE HYDROCHLORIDE',
+    //   description: 'Restrict L Com Iliac Art w Fenestr Dev 1 or 2, Perc Endo',
+    // },
+    // {
+    //   id: 4,
+    //   title: 'Fentanyl Citrate',
+    //   description: 'Insertion of Pedcl Stabl Dev into T-lum Jt, Perc Approach',
+    // },
+    // {
+    //   id: 5,
+    //   title: 'Phytolacca decandra, Gnaphalium polycephalum',
+    //   description: 'Release Left Frontal Bone, Percutaneous Approach',
+    // },
+  ])
+
+  const memberList = ref<any[]>([
+    {
+      id: 1,
+      title: 'Raymund',
+      description: 'randrysek0@salon.com',
+      avatar: 'https://themesbrand.com/velzon/html/default/assets/images/users/avatar-1.jpg',
+    },
+    {
+      id: 2,
+      title: 'Alene',
+      description: 'aliepmann1@time.com',
+      avatar: 'https://themesbrand.com/velzon/html/default/assets/images/users/avatar-2.jpg',
+    },
+    {
+      id: 3,
+      title: 'Lenee',
+      description: 'lschwandt2@livejournal.com',
+      avatar: 'https://themesbrand.com/velzon/html/default/assets/images/users/avatar-3.jpg',
+    },
+    {
+      id: 4,
+      title: 'Hermann',
+      description: 'hhynam3@gnu.org',
+      avatar: 'https://themesbrand.com/velzon/html/default/assets/images/users/avatar-4.jpg',
+    },
+    {
+      id: 5,
+      title: 'Candie',
+      description: 'cshapiro4@stumbleupon.com',
+      avatar: 'https://themesbrand.com/velzon/html/default/assets/images/users/avatar-6.jpg',
+    },
+  ])
 </script>
 
 <style scoped lang="less">
@@ -126,6 +135,6 @@
     // border: none;
   }
   .overview-card :deep(.arco-card-header) {
-    border: none;
+    // border: none;
   }
 </style>

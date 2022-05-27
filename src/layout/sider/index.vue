@@ -2,7 +2,7 @@
   <a-layout-sider
     :theme="navTheme"
     :default-collapsed="false"
-    :width="220"
+    :width="sidebarWidth"
     :collapsed-width="80"
     :collapsed="collapsed"
     :collapsible="true"
@@ -23,19 +23,24 @@
     </div>
 
     <!-- MENU -->
-    <AppMenu :collapsed="collapsed" :mode="`${MENU_MODE.VERTICAL}`" />
+    <AppMenu :collapsed="collapsed" :nav-mode="navMode" :mode="`${MENU_MODE.VERTICAL}`" />
   </a-layout-sider>
 </template>
 
 <script lang="ts" setup>
-  import {} from 'vue'
+  import { ComputedRef, ref } from 'vue'
   import AppMenu from '@/layout/components/Menu'
   import Logo from '@/components/Logo'
   import { NAV_MODE, NAV_THEME, MENU_MODE } from '@/enums/pageEnum'
   import { IHeaderHeightOption } from '@/settings/projectSetting'
   import { useGlobSetting } from '@/hooks/setting'
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
 
   const { title } = useGlobSetting()
+
+  const { getSidebarWidth } = useProjectSetting()
+
+  const sidebarWidth = ref<ComputedRef<number>>(getSidebarWidth)
 
   defineProps<{
     collapsed: boolean

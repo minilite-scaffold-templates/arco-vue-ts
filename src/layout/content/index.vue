@@ -1,5 +1,7 @@
 <template>
-  <PageLayout />
+  <a-layout-content>
+    <PageLayout />
+  </a-layout-content>
 </template>
 
 <script lang="ts" setup>

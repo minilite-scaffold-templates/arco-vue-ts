@@ -1,31 +1,41 @@
 <template>
   <a-layout-header
-    class="flex flex-row justify-between items-center border-b border-gray-100 bg-white"
-    :class="headerHeight.value"
+    class="layout-header border-b border-gray-100 bg-white flex flex-row justify-start items-center z-10 bg-white"
+    :class="
+      fixed
+        ? navMode === NAV_MODE.HORIZONTAL
+          ? 'w-full fixed top-0'
+          : 'header-fixed-with-sidebar fixed top-0'
+        : 'w-full'
+    "
   >
-    <section v-if="navMode === NAV_MODE.HORIZONTAL" class="p-5 flex flex-row items-center space-x-3">
-      <Logo />
-      <div>
-        {{ title }}
+    <div v-if="navMode === NAV_MODE.HORIZONTAL" class="px-5 flex flex-row justify-between items-center w-full">
+      <div class="flex flex-row justify-start items-center space-x-3">
+        <Logo />
+        <div>
+          {{ title }}
+        </div>
       </div>
-    </section>
-    <section v-if="navMode === NAV_MODE.LEFT" class="flex flex-row justify-between items-center">
-      <div class="cursor-pointer pl-5 text-gray-500" @click="onCollapse">
+      <div class="flex flex-row justify-end items-center space-x-8">
+        <Notification />
+        <Profile :nav-mode="navMode" />
+      </div>
+    </div>
+    <section v-if="navMode === NAV_MODE.LEFT" class="flex flex-row justify-between items-center w-full px-5">
+      <div class="cursor-pointer text-gray-500" @click="onCollapse">
         <IconArrowRight v-if="collapsed" :size="toolIconSize" />
         <IconAlignLeft v-else :size="toolIconSize" />
       </div>
+      <div class="flex flex-row justify-end items-center space-x-8">
+        <Notification />
+        <Profile :nav-mode="navMode" />
+      </div>
     </section>
 
-    <!-- 状态栏组件列表 -->
-    <section v-if="navMode === NAV_MODE.LEFT" class="pr-5 flex flex-row justify-center items-center space-x-5">
+    <section v-if="navMode === NAV_MODE.RIGHT" class="w-full flex flex-row justify-end items-center space-x-8 px-5">
       <Notification />
       <Profile :nav-mode="navMode" />
-    </section>
-
-    <section v-if="navMode === NAV_MODE.RIGHT" class="w-full flex flex-row justify-end items-center space-x-5">
-      <Notification />
-      <Profile :nav-mode="navMode" />
-      <div class="cursor-pointer pr-5 text-gray-500" @click="onCollapse">
+      <div class="cursor-pointer text-gray-500" @click="onCollapse">
         <IconArrowLeft v-if="collapsed" :size="toolIconSize" />
         <IconAlignRight v-else :size="toolIconSize" />
       </div>
@@ -34,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ComputedRef, ref } from 'vue'
+  import { ComputedRef, ref, unref } from 'vue'
   import type { IHeaderHeightOption } from '@/settings/projectSetting'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { useGlobSetting } from '@/hooks/setting'
@@ -45,11 +55,22 @@
   import Notification from './notification.vue'
 
   const { title } = useGlobSetting()
-  const { getToolIconSize } = useProjectSetting()
+  const { getToolIconSize, getSidebarWidth } = useProjectSetting()
+
+  const sidebarWidth = unref<ComputedRef<number>>(getSidebarWidth)
+  const sidebarWidthCssValue = `${sidebarWidth}px`
 
   const toolIconSize = ref<ComputedRef<number>>(getToolIconSize)
 
-  const props = defineProps<{ navMode: NAV_MODE; collapsed: boolean; headerHeight: IHeaderHeightOption }>()
+  const props = defineProps<{
+    navMode: NAV_MODE
+    collapsed: boolean
+    headerHeight: IHeaderHeightOption
+    fixed: boolean
+  }>()
+
+  const headerHeightCssValue = unref(props.headerHeight).cssValue
+  console.log('🚀 ~ file: index.vue ~ line 57 ~ headerHeightCssValue', headerHeightCssValue)
 
   const emits = defineEmits(['update-collapsed'])
 
@@ -58,4 +79,12 @@
   }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+  .layout-header {
+    height: v-bind(headerHeightCssValue);
+  }
+
+  .header-fixed-with-sidebar {
+    width: calc(100% - v-bind(sidebarWidthCssValue));
+  }
+</style>

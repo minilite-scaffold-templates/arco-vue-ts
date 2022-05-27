@@ -8,7 +8,8 @@ export function useProjectSetting() {
 
   const getNavTheme = computed(() => projectStore.navTheme)
 
-  // 获取全局的工具图标大小
+  const getSidebarWidth = computed(() => projectStore.sidebarWidth)
+
   const getToolIconSize = computed(() => projectStore.toolIconSize)
 
   const getFooterDisplay = computed(() => projectStore.footerDisplay)
@@ -17,15 +18,19 @@ export function useProjectSetting() {
 
   const getHeaderHeight = computed(() => projectStore.headerHeight)
 
+  const getHeaderFixed = computed(() => projectStore.getHeaderFixed)
+
   const getPermissionMode = computed(() => projectStore.permissionMode)
 
   return {
     getNavMode,
     getNavTheme,
+    getSidebarWidth,
     getToolIconSize,
     getFooterDisplay,
     getLayoutWidth,
     getHeaderHeight,
+    getHeaderFixed,
     getPermissionMode,
   }
 }
