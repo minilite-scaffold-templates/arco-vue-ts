@@ -1,6 +1,7 @@
 import type { RouteRecordRaw, Router } from 'vue-router'
 import { PageEnum } from '@/enums/pageEnum'
-// import { useUserStoreWidthOut } from '@/store/modules/user'
+import { useUserStoreWidthOut } from '@/store/modules/user'
+import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { storage } from '@/utils/Storage'
 import { ErrorPageRoute } from '@/router/base'
@@ -12,13 +13,7 @@ const whitePathList = [LOGIN_PATH] // no redirect
 
 export function createRouterGuard(router: Router) {
   const userStore = useUserStoreWidthOut()
-  const asyncRouteStore = useAsyncRouteStoreWidthOut()
-
   router.beforeEach(async (to, from, next) => {
-    console.log('from', from)
-    console.log('to', to)
-    const Loading = window.$loading || null
-    Loading && Loading.start()
     if (from.path === LOGIN_PATH && to.name === 'errorPage') {
       next(PageEnum.BASE_HOME)
       return
@@ -62,20 +57,8 @@ export function createRouterGuard(router: Router) {
       return
     }
 
-    if (asyncRouteStore.getIsDynamicAddedRoute) {
-      next()
-      return
-    }
-
     const userInfo = await userStore.getInfo()
     console.log('👮‍♀️userInfo', userInfo)
-
-    const routes = await asyncRouteStore.generateRoutes(userInfo)
-
-    // 动态添加可访问路由表
-    routes.forEach((item) => {
-      router.addRoute(item as unknown as RouteRecordRaw)
-    })
 
     // 添加404
     const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name)
@@ -86,9 +69,7 @@ export function createRouterGuard(router: Router) {
     const redirectPath = (from.query.redirect || to.path) as string
     const redirect = decodeURIComponent(redirectPath)
     const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
-    asyncRouteStore.setDynamicAddedRoute(true)
     next(nextData)
-    Loading && Loading.finish()
   })
 
   router.afterEach((to) => {
@@ -108,9 +89,6 @@ export function createRouterGuard(router: Router) {
       }
     }
     asyncRouteStore.setKeepAliveComponents(keepAliveComponents)
-
-    const Loading = window.$loading || null
-    Loading && Loading.finish()
   })
 
   router.onError((error) => {
