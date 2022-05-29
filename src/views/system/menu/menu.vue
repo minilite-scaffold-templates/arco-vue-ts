@@ -237,10 +237,10 @@
     console.log('1232312')
     const treeMenuList = await getMenuList()
     console.log('123231200000000', treeMenuList)
-    const keys = treeMenuList.data.data.list.map((item: any) => item.key)
+    const keys = treeMenuList.list.map((item: any) => item.key)
     console.log('1232312', keys)
     Object.assign(formParams, keys)
-    treeData.value = treeMenuList.data.data.list
+    treeData.value = treeMenuList.list
     loading.value = false
   })
 

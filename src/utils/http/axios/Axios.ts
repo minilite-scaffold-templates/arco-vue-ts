@@ -1,14 +1,11 @@
-/* eslint-disable import/no-unresolved */
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios'
 
 import axios from 'axios'
-import { cloneDeep } from 'lodash'
 import { isFunction } from '@/utils/is'
+import { cloneDeep } from 'lodash-es'
 import { AxiosCanceler } from './axiosCancel'
 
-import type { Result } from '/#/http'
-
-import type { RequestOptions, CreateAxiosOptions } from './types'
+import type { RequestOptions, CreateAxiosOptions, Result } from './types'
 // import { ContentTypeEnum } from '/@/enums/httpEnum';
 
 export * from './axiosTransform'
@@ -86,7 +83,9 @@ export class VAxios {
     }, undefined)
 
     // 请求拦截器错误捕获
-    requestInterceptorsCatch && isFunction(requestInterceptorsCatch) && this.axiosInstance.interceptors.request.use(undefined, requestInterceptorsCatch)
+    requestInterceptorsCatch &&
+      isFunction(requestInterceptorsCatch) &&
+      this.axiosInstance.interceptors.request.use(undefined, requestInterceptorsCatch)
 
     // 响应结果拦截器处理
     this.axiosInstance.interceptors.response.use((res: AxiosResponse<any>) => {
@@ -98,7 +97,9 @@ export class VAxios {
     }, undefined)
 
     // 响应结果拦截器错误捕获
-    responseInterceptorsCatch && isFunction(responseInterceptorsCatch) && this.axiosInstance.interceptors.response.use(undefined, responseInterceptorsCatch)
+    responseInterceptorsCatch &&
+      isFunction(responseInterceptorsCatch) &&
+      this.axiosInstance.interceptors.response.use(undefined, responseInterceptorsCatch)
   }
 
   // /**
@@ -136,6 +137,7 @@ export class VAxios {
     if (beforeRequestHook && isFunction(beforeRequestHook)) {
       conf = beforeRequestHook(conf, opt)
     }
+
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(conf)
@@ -156,13 +158,15 @@ export class VAxios {
           // 请求是否被取消
           const isCancel = axios.isCancel(res)
           if (transformRequestData && isFunction(transformRequestData) && !isCancel) {
-            const ret = transformRequestData(res, opt)
-            // ret !== undefined ? resolve(ret) : reject(new Error('request error!'));
-            // eslint-disable-next-line consistent-return
-            return resolve(ret)
+            try {
+              const ret = transformRequestData(res, opt)
+              resolve(ret)
+            } catch (err) {
+              reject(err || new Error('request error!'))
+            }
+            return
           }
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject(res as unknown as Promise<T>)
+          resolve(res as unknown as Promise<T>)
         })
         .catch((e: Error) => {
           if (requestCatch && isFunction(requestCatch)) {

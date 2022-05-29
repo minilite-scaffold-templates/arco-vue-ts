@@ -1,10 +1,10 @@
-import axios from 'axios'
+import Axios from '@/utils/http/axios'
 
 /**
  * @description: 根据用户id获取用户菜单
  */
 export function adminMenus() {
-  return axios.request({
+  return Axios.request({
     url: 'api/menus',
     method: 'GET',
   })
@@ -15,7 +15,7 @@ export function adminMenus() {
  * @param params
  */
 export function getMenuList(params?) {
-  return axios.request({
+  return Axios.request({
     url: 'api/menu/list',
     method: 'GET',
     params,
