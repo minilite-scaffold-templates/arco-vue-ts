@@ -13,6 +13,7 @@ export const RootRoute: RouteRecordRaw = {
   redirect: PageEnum.BASE_HOME,
   meta: {
     title: 'Root',
+    requiresAuth: true,
   },
 }
 
@@ -22,6 +23,8 @@ export const UserRoute: RouteRecordRaw = {
   component: Layout,
   meta: {
     title: '我的',
+    requiresAuth: true,
+    keepalive: false,
   },
   children: [
     {
@@ -30,6 +33,8 @@ export const UserRoute: RouteRecordRaw = {
       component: () => import('@/views/user/profile.vue'),
       meta: {
         title: '个人中心',
+        requiresAuth: true,
+        keepalive: false,
       },
     },
   ],
@@ -41,6 +46,8 @@ export const LoginRoute: RouteRecordRaw = {
   component: () => import('@/views/auth/login.vue'),
   meta: {
     title: '登录',
+    requiresAuth: true,
+    keepalive: false,
   },
 }
 

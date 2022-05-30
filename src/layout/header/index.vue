@@ -35,7 +35,15 @@
     </section>
 
     <section v-if="navMode === NAV_MODE.RIGHT" class="w-full flex flex-row justify-end items-center space-x-8 px-5">
+      <!-- 引入我的 -->
+
+      <!--搜索框-->
+      <Search />
+      <!--中英切换-->
+      <Language />
+      <!--消息弹窗-->
       <Notification />
+      <!--个人中心-->
       <Profile :nav-mode="navMode" />
       <div class="cursor-pointer text-gray-500" @click="onCollapse">
         <IconArrowLeft v-if="collapsed" :size="toolIconSize" />
@@ -55,6 +63,8 @@
   import Logo from '@/components/Logo'
   import Profile from './profile.vue'
   import Notification from './notification.vue'
+  import Language from './language.vue'
+  import Search from './search.vue'
 
   const { title } = useGlobSetting()
   const { getToolIconSize, getSidebarWidth } = useProjectSetting()

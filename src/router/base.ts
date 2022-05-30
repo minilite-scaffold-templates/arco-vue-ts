@@ -31,6 +31,7 @@ export const ErrorPageRoute: RouteRecordRaw = {
   meta: {
     title: '404',
     hideBreadcrumb: true,
+    keepalive: false,
   },
   children: [
     {

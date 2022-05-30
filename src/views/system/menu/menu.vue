@@ -59,6 +59,7 @@
                   :data="treeData"
                   :expanded-keys="expandedKeys"
                   style="max-height: 650px; overflow: hidden"
+                  @select="selectedTree"
                   @expand="onExpandedKeys"
                 />
               </template>
@@ -112,21 +113,23 @@
             <a-form-item path="auth" style="margin-left: 100px">
               <a-space>
                 <a-button type="primary" :loading="subLoading" @click="formSubmit">保存修改</a-button>
-                <!-- <a-button @click="handleReset">重置</a-button> -->
+                <a-button @click="handleReset">重置</a-button>
               </a-space>
             </a-form-item>
           </a-form>
         </a-card>
       </a-gird-item>
     </a-grid>
+    <CreateDrawer ref="createDrawerRef" :title="drawerTitle" />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { ref, unref, reactive, onMounted, computed } from 'vue'
-  // import { getMenuList } from '@/api/system/menu'
-  // import { getTreeItem } from '@/utils'
+  import { getMenuList } from '@/api/system/menu'
+  import { getTreeItem } from '@/utils'
   import { Message } from '@arco-design/web-vue'
+  import CreateDrawer from './CreateDrawer.vue'
 
   const rules = {
     label: {
@@ -193,24 +196,24 @@
     openCreateDrawer()
   }
 
-  // function selectedTree(keys) {
-  //   if (keys.length) {
-  //     const treeItem = getTreeItem(unref(treeData), keys[0])
-  //     treeItemKey.value = keys
-  //     treeItemTitle.value = treeItem.label
-  //     Object.assign(formParams, treeItem)
-  //     isEditMenu.value = true
-  //   } else {
-  //     isEditMenu.value = false
-  //     treeItemKey.value = []
-  //     treeItemTitle.value = ''
-  //   }
-  // }
+  function selectedTree(keys) {
+    if (keys.length) {
+      const treeItem = getTreeItem(unref(treeData), keys[0])
+      treeItemKey.value = keys
+      treeItemTitle.value = treeItem.label
+      Object.assign(formParams, treeItem)
+      isEditMenu.value = true
+    } else {
+      isEditMenu.value = false
+      treeItemKey.value = []
+      treeItemTitle.value = ''
+    }
+  }
 
-  // function handleReset() {
-  //   const treeItem = getTreeItem(unref(treeData), treeItemKey.value[0])
-  //   Object.assign(formParams, treeItem)
-  // }
+  function handleReset() {
+    const treeItem = getTreeItem(unref(treeData), treeItemKey.value[0])
+    Object.assign(formParams, treeItem)
+  }
 
   function formSubmit() {
     formRef.value.validate((errors: boolean) => {
@@ -232,13 +235,13 @@
 
   onMounted(async () => {
     console.log('1232312')
-    // const treeMenuList = await getMenuList()
-    // console.log('123231200000000', treeMenuList)
-    // const keys = treeMenuList.data.data.list.map((item: any) => item.key)
-    // console.log('1232312', keys)
-    // Object.assign(formParams, keys)
-    // treeData.value = treeMenuList.data.data.list
-    // loading.value = false
+    const treeMenuList = await getMenuList()
+    console.log('123231200000000', treeMenuList)
+    const keys = treeMenuList.list.map((item: any) => item.key)
+    console.log('1232312', keys)
+    Object.assign(formParams, keys)
+    treeData.value = treeMenuList.list
+    loading.value = false
   })
 
   function onExpandedKeys(keys) {

@@ -100,5 +100,6 @@ module.exports = {
     ],
     'no-lonely-if': 'error',
     'no-plusplus': 'off',
+    'consistent-return': 'off',
   },
 }

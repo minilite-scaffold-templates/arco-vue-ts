@@ -8,7 +8,7 @@ import type { Result } from '/#/http'
  */
 export function resultSuccess<T = Recordable>(data: T, { msg = 'ok' } = {}): Result<T> {
   return {
-    code: 200,
+    code: 1,
     data,
     msg,
     type: 'success',
