@@ -15,9 +15,9 @@ export default function useMenuTree() {
     const copyRouter = JSON.parse(JSON.stringify(appRoute.value))
 
     // 对路由列表进行排序
-    copyRouter.sort((a: RouteRecordNormalized, b: RouteRecordNormalized) => {
-      return (a.meta.order || 0) - (b.meta.order || 0)
-    })
+    // copyRouter.sort((a: RouteRecordNormalized, b: RouteRecordNormalized) => {
+    //   return (a.meta.order || 0) - (b.meta.order || 0)
+    // })
 
     function travel(_routes: RouteRecordRaw[], layer: number): any[] {
       if (!_routes) return []

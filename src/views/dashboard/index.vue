@@ -4,6 +4,9 @@
       <div class="p-5 space-y-5">
         <Welcome />
         <OverviewCardList :data-list="dataList" />
+        <div class="bg-white p-5">
+          <Markdown :source="Readme" />
+        </div>
       </div>
     </a-grid-item>
     <a-grid-item :span="{ xs: 0, sm: 0, md: 0, lg: 1 }">
@@ -23,11 +26,13 @@
 </template>
 
 <script lang="ts" setup name="DashboardIndex">
+  import { ref } from 'vue'
+  import Markdown from 'vue3-markdown-it'
   import Welcome from '@/components/Welcome'
   import ContentSider from '@/components/ContentSider/index.vue'
-  import { ref } from 'vue'
   import OverviewCardList from '@/components/Overview/CardList.vue'
   import ListInCard from '@/components/Overview/ListInCard.vue'
+  import Readme from '@/utils/loadReadMe'
 
   const dataList = ref<any>([
     {

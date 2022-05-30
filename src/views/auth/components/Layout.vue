@@ -1,6 +1,6 @@
 <template>
   <!-- 登录页面布局 -->
-  <div class="fixed top-0 left-0 z-0 flex flex-row w-full h-screen login-layout">
+  <div class="fixed top-0 left-0 z-0 flex flex-row w-full h-screen">
     <div class="hidden md:block w-2/3 flex flex-col justify-between h-full border-r relative">
       <div class="absolute h-full w-full bg-gradient-to-br from-teal-300 to-indigo-800"> </div>
       <div
@@ -19,9 +19,9 @@
         </div>
       </div>
     </div>
-    <div class="w-full reactive md:w-1/3">
+    <div class="w-full relative md:w-1/3">
       <div
-        class="absolute h-full w-full bg-gray-100 right-panel rotate-90"
+        class="hidden md:absolute h-full w-full bg-gray-100 right-panel rotate-90"
         :style="{
           'background-image': `url(${CoverPattern})`,
           'background-size': 'cover',
@@ -37,8 +37,10 @@
           <a-button @click="showRegisterForm">注册</a-button>
         </div>
       </div>
-      <div class="p-12 absolute m-10 bg-white block md:hidden">
-        <LoginForm :register="registerDisplay" @close="closeLoginForm" />
+      <div class="p-10 m-auto md:hidden">
+        <div class="bg-white p-10">
+          <LoginForm :register="registerDisplay" @close="closeLoginForm" />
+        </div>
       </div>
       <div class="block md:hidden text-gray-500 text-center"> {{ COPYRIGHT }}</div>
     </div>
@@ -46,28 +48,24 @@
 
   <!-- 弹出登录框 -->
   <div class="fixed flex flex-col items-center justify-center w-full h-screen" :class="loginInvisible">
-    <div class="m-auto w-200 hidden md:block">
-      <div class="bg-white shadow-lg">
+    <div class="m-auto w-200 bg-white md:block">
+      <div class="shadow-lg">
         <a-row>
           <a-col :span="12">
-            <section class="text-black font-bold space-y-3 font-mono relative">
-              <div
-                class="absolute w-full h-full"
-                :style="{
-                  'background-image': `url(${ModalPattern})`,
-                  'background-size': 'cover',
-                  'background-repeat': 'no-repeat',
-                }"
-              >
-              </div>
-              <div class="text-3xl absolute p-10">
+            <section
+              class="text-black font-bold space-y-3 font-mono h-130"
+              :style="{
+                'background-image': `url(${ModalPattern})`,
+                'background-size': 'cover',
+              }"
+            >
+              <div class="text-2xl absolute p-10">
                 <a href="/">{{ title }}</a>
               </div>
-              <div class="text-sm"> </div>
             </section>
           </a-col>
-          <a-col :span="12" class="md:border-l">
-            <div class="p-15 login-container">
+          <a-col :span="12" class="bg-white">
+            <div class="bg-white p-10 login-container">
               <LoginForm :register="registerDisplay" @show-register="showRegister" @close="closeLoginForm" />
               <RegisterForm :show="registerDisplay" @back-to-login="backToLogin" @close="closeLoginForm" />
             </div>
@@ -125,7 +123,7 @@
 <style scoped lang="less">
   .login-container {
     overflow: hidden;
-    min-height: 470px;
+    min-height: 520px;
     width: 100%;
     position: relative;
 

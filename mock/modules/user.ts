@@ -28,12 +28,7 @@ const getUserInfo = {
       roleName: '管理员',
       avatar: '',
       token,
-      permissions: [
-        {
-          label: '仪表盘',
-          value: 'dashboard-index',
-        },
-      ],
+      permissions: [],
     })
   },
 }

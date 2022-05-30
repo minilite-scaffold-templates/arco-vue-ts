@@ -2,7 +2,8 @@ import { PageEnum } from '@/enums/pageEnum'
 // import { useUserStoreWidthOut } from '@/store/modules/user'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { storage } from '@/utils/Storage'
-import { Router } from 'vue-router'
+import { Router, RouteRecordRaw } from 'vue-router'
+import { ErrorPageRoute } from '../base'
 import { setRouteEmitter } from '../listener'
 
 const LOGIN_PATH = `${PageEnum.BASE_LOGIN}`
@@ -13,10 +14,9 @@ export function createRouterGuard(router: Router) {
   // const userStore = useUserStoreWidthOut()
 
   router.beforeEach(async (to, from, next) => {
-    console.log('from', from)
-    console.log('to', to)
-
     setRouteEmitter(to)
+
+    console.log('to', to)
 
     const token = storage.get(ACCESS_TOKEN)
     console.log('token', token)
@@ -25,6 +25,14 @@ export function createRouterGuard(router: Router) {
         next(PageEnum.BASE_HOME)
       } else {
         // await userStore.getInfo()
+
+        // 添加404
+        const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name)
+
+        if (isErrorPage === -1) {
+          router.addRoute(ErrorPageRoute as unknown as RouteRecordRaw)
+        }
+
         next()
       }
     } else {
@@ -51,5 +59,9 @@ export function createRouterGuard(router: Router) {
 
   router.afterEach((to) => {
     document.title = (to?.meta?.title as string) || document.title
+  })
+
+  router.onError((error) => {
+    console.log(error, '路由错误')
   })
 }

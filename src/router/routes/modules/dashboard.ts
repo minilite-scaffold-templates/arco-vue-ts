@@ -27,17 +27,6 @@ const dashboardRoute: RouteRecordRaw = {
         roles: ['*'],
       },
     },
-    {
-      path: 'workplace',
-      name: 'DashboardWorkplace',
-      component: () => import('@/views/dashboard/workplace.vue'),
-      meta: {
-        title: '工作台',
-        locale: 'menu.dashboard.index',
-        requiresAuth: true,
-        roles: ['*'],
-      },
-    },
   ],
 }
 

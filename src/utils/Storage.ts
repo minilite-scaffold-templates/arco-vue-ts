@@ -6,16 +6,14 @@ const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7
  * @param {string=} prefixKey -
  * @param {Object} [storage=localStorage] - sessionStorage | localStorage
  */
-export const createStorage = ({
-  prefixKey = '',
-  storage = localStorage,
-} = {}) => {
+export const createStorage = ({ prefixKey = '', storage = localStorage } = {}) => {
   /**
    * 本地缓存类
    * @class Storage
    */
   const Storage = class {
     private storage = storage
+
     private prefixKey?: string = prefixKey
 
     private getKey(key: string) {
@@ -83,11 +81,7 @@ export const createStorage = ({
      * 如果过期时间为设置，默认关闭浏览器自动删除
      * @example
      */
-    setCookie(
-      name: string,
-      value: any,
-      expire: number | null = DEFAULT_CACHE_TIME
-    ) {
+    setCookie(name: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
       document.cookie = `${this.getKey(name)}=${value}; Max-Age=${expire}`
     }
 
@@ -121,7 +115,7 @@ export const createStorage = ({
       const keys = document.cookie.match(/[^ =;]+(?==)/g)
       if (keys) {
         for (let i = keys.length; i--; ) {
-          document.cookie = keys[i] + '=0;expire=' + new Date(0).toUTCString()
+          document.cookie = `${keys[i]}=0;expire=${new Date(0).toUTCString()}`
         }
       }
     }

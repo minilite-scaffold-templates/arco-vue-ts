@@ -1,6 +1,6 @@
 <template>
   <a-layout-header
-    class="layout-header border-b border-gray-100 bg-white flex flex-row justify-start items-center z-10 bg-white"
+    class="layout-header border-b border-gray-100 flex flex-row justify-start items-center z-10 bg-white"
     :class="
       fixed
         ? navMode === NAV_MODE.HORIZONTAL

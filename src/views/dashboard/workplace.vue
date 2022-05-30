@@ -1,9 +1,0 @@
-<template>
-  <page-Content> hh </page-Content>
-</template>
-
-<script lang="ts" setup>
-  import {} from 'vue'
-</script>
-
-<style scoped lang="less"></style>
