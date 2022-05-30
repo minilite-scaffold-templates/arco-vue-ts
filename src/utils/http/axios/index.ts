@@ -24,7 +24,6 @@ const urlPrefix = globSetting.urlPrefix || ''
 let messageReactive: any = null
 
 const removeMessage = () => {
-  console.log('123123131231232', messageReactive)
   if (messageReactive) {
     messageReactive?.destroy()
     messageReactive = null
@@ -95,7 +94,6 @@ const transform: AxiosTransform = {
     const reject = Promise.reject
 
     if (!data) {
-      // return '[HTTP] Request has no return value';
       return reject(data)
     }
 
@@ -119,9 +117,6 @@ const transform: AxiosTransform = {
         })
       }
     }
-    // console.log('code', code)
-    console.log('result', result)
-    console.log('hasSuccess', hasSuccess)
 
     // 接口请求成功，直接返回结果
     if (code === ResultEnum.SUCCESS) {
@@ -145,7 +140,6 @@ const transform: AxiosTransform = {
       const LoginName = PageEnum.BASE_LOGIN_NAME
       if (router.currentRoute.value.name === LoginName) return
       // 到登录页
-      // const timeoutMsg = '登录超时,请重新登录!'
       Modal.warning({
         title: '提示',
         closable: false,
