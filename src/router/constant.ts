@@ -8,3 +8,6 @@ export const ErrorPageLayout = () => import('@/layout/error.vue')
 
 // 一般页面布局
 export const Layout = () => import('@/layout/index.vue')
+
+// 父级页面布局
+export const ParentLayout = () => import('@/layout/pageLayout.vue')
