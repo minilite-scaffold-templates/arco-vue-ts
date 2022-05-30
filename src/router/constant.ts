@@ -10,4 +10,4 @@ export const ErrorPageLayout = () => import('@/layout/error.vue')
 export const Layout = () => import('@/layout/index.vue')
 
 // 父级页面布局
-export const ParentLayout = () => import('@/layout/parentLayout.vue')
+export const ParentLayout = () => import('@/layout/pageLayout.vue')

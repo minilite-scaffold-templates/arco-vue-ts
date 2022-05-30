@@ -3,7 +3,7 @@ import { resultSuccess } from '../_util'
 const menuList = () => {
   const result: any[] = [
     {
-      label: '首页',
+      title: '首页',
       key: 'dashboard',
       type: 1,
       subtitle: 'dashboard',
@@ -12,7 +12,7 @@ const menuList = () => {
       path: '/dashboard',
       children: [
         {
-          label: '仪表盘',
+          title: '仪表盘',
           key: 'DashboardIndex',
           type: 1,
           subtitle: 'dashboardIndex',
@@ -21,7 +21,7 @@ const menuList = () => {
           path: '/dashboard/index',
         },
         {
-          label: '工作台',
+          title: '工作台',
           key: 'workplace',
           type: 1,
           subtitle: 'workplace',
@@ -32,7 +32,7 @@ const menuList = () => {
       ],
     },
     {
-      label: '订单管理',
+      title: '订单管理',
       key: 'Order',
       type: 1,
       subtitle: 'order',
@@ -41,7 +41,7 @@ const menuList = () => {
       path: '/order',
       children: [
         {
-          label: '订单列表',
+          title: '订单列表',
           key: 'OrderIndex',
           type: 1,
           subtitle: 'orderList',
@@ -52,7 +52,7 @@ const menuList = () => {
       ],
     },
     {
-      label: '系统设置',
+      title: '系统设置',
       key: 'System',
       type: 1,
       subtitle: 'system',
@@ -61,7 +61,7 @@ const menuList = () => {
       path: '/system',
       children: [
         {
-          label: '菜单权限管理',
+          title: '菜单权限管理',
           key: 'SystemMenu',
           type: 1,
           subtitle: 'systemMenu',

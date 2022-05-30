@@ -1,38 +1,42 @@
 <template>
-  <div>
+  <div class="p-4">
     <div>
       <a-card :bordered="false" title="菜单权限管理"> 页面数据为 Mock 示例数据，非真实数据。 </a-card>
     </div>
-    <a-grid class="mt-4" :cols="{ xs: 1, sm: 1, md: 1, lg: 3, xl: 3, xxl: 3 }" :col-gap="12">
-      <a-gird-item :span="1">
+    <a-grid class="mt-4" :cols="3" :col-gap="12">
+      <a-grid-item :span="1">
         <a-card :bordered="false" size="small">
           <template #title>
             <a-space>
-              <a-dropdown trigger="hover" :options="addMenuOptions" @select="selectAddMenu">
+              <a-dropdown trigger="hover" @select="selectAddMenu">
                 <a-button ghost type="primary">
+                  <icon-down />
                   添加菜单
-                  <template #icon>
-                    <div class="flex items-center">
-                      <a-icon size="14">
-                        <icon-down />
-                      </a-icon>
-                    </div>
-                  </template>
                 </a-button>
                 <template #content>
-                  <a-doption>添加顶级菜单</a-doption>
-                  <a-doption>添加子菜单</a-doption>
+                  <a-doption
+                    :value="{
+                      label: '添加顶级菜单',
+                      key: 'home',
+                      value: 'home',
+                      disabled: false,
+                    }"
+                    >添加顶级菜单</a-doption
+                  >
+                  <a-doption
+                    :value="{
+                      label: '添加子菜单',
+                      key: 'son',
+                      value: 'son',
+                      disabled: isAddSon,
+                    }"
+                    >添加子菜单</a-doption
+                  >
                 </template>
               </a-dropdown>
               <a-button ghost type="primary" @click="packHandle">
+                <icon-list />
                 全部{{ expandedKeys.length ? '收起' : '展开' }}
-                <template #icon>
-                  <div class="flex items-center">
-                    <a-icon size="14">
-                      <icon-list />
-                    </a-icon>
-                  </div>
-                </template>
               </a-button>
             </a-space>
           </template>
@@ -52,10 +56,11 @@
               </template>
               <template v-else>
                 <a-tree
+                  :checkable="true"
                   block-node
-                  check-strictly
                   draggable
                   animation
+                  default-expand-all
                   :data="treeData"
                   :expanded-keys="expandedKeys"
                   style="max-height: 650px; overflow: hidden"
@@ -66,8 +71,8 @@
             </div>
           </div>
         </a-card>
-      </a-gird-item>
-      <a-gird-item :span="{ lg: 2, xl: 2, xxl: 2 }">
+      </a-grid-item>
+      <a-grid-item :span="2">
         <a-card :segmented="{ content: 'hard' }" :bordered="false" size="small">
           <template #title>
             <a-space>
@@ -91,7 +96,7 @@
               <span>{{ formParams.type === 1 ? '侧边栏菜单' : '' }}</span>
             </a-form-item>
             <a-form-item label="标题" path="label">
-              <a-input v-model:value="formParams.label" placeholder="请输入标题" />
+              <a-input v-model:value="formParams.title" placeholder="请输入标题" />
             </a-form-item>
             <a-form-item label="副标题" path="subtitle">
               <a-input v-model:value="formParams.subtitle" placeholder="请输入副标题" />
@@ -118,7 +123,7 @@
             </a-form-item>
           </a-form>
         </a-card>
-      </a-gird-item>
+      </a-grid-item>
     </a-grid>
     <CreateDrawer ref="createDrawerRef" :title="drawerTitle" />
   </div>
@@ -163,23 +168,9 @@
     return !treeItemKey.value.length
   })
 
-  const addMenuOptions = ref([
-    {
-      label: '添加顶级菜单',
-      key: 'home',
-      value: 'home',
-    },
-    {
-      label: '添加子菜单',
-      key: 'son',
-      value: 'son',
-      disabled: isAddSon,
-    },
-  ])
-
   const formParams = reactive({
     type: 1,
-    label: '',
+    title: '',
     subtitle: '',
     path: '',
     auth: '',
@@ -200,7 +191,7 @@
     if (keys.length) {
       const treeItem = getTreeItem(unref(treeData), keys[0])
       treeItemKey.value = keys
-      treeItemTitle.value = treeItem.label
+      treeItemTitle.value = treeItem.title
       Object.assign(formParams, treeItem)
       isEditMenu.value = true
     } else {
@@ -234,11 +225,8 @@
   }
 
   onMounted(async () => {
-    console.log('1232312')
     const treeMenuList = await getMenuList()
-    console.log('123231200000000', treeMenuList)
     const keys = treeMenuList.list.map((item: any) => item.key)
-    console.log('1232312', keys)
     Object.assign(formParams, keys)
     treeData.value = treeMenuList.list
     loading.value = false
