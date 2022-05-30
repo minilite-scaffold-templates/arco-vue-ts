@@ -99,5 +99,6 @@ module.exports = {
       },
     ],
     'no-lonely-if': 'error',
+    'consistent-return': 'off',
   },
 }

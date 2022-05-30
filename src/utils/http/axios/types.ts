@@ -37,3 +37,24 @@ export interface CreateAxiosOptions extends AxiosRequestConfig {
   transform?: AxiosTransform
   requestOptions?: RequestOptions
 }
+
+// 上传文件
+export interface UploadFileParams {
+  // 其他参数
+  data?: Recordable
+  // 文件参数接口字段名
+  name?: string
+  // 文件
+  file: File | Blob
+  // 文件名称
+  filename?: string
+  [key: string]: any
+}
+
+export interface Result<T = any> {
+  code: number
+  type?: 'success' | 'error' | 'warning'
+  msg: string
+  data?: T
+  errCode?: string | number
+}
