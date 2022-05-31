@@ -1,7 +1,14 @@
 <template>
   <!--消息弹窗-->
   <div>
-    <a-popover v-model="notificationParam.popoverVisible" position="bottom" trigger="click">
+    <a-popover
+      v-model="notificationParam.popoverVisible"
+      :arrow-style="{ display: 'none' }"
+      position="br"
+      :content-style="{ padding: 0 }"
+      content-class="message-popover"
+      trigger="click"
+    >
       <div class="cursor-pointer">
         <a-badge :count="notificationParam.count" dot>
           <icon-notification :size="toolIconSize" @click="openMessageBox" /> </a-badge
@@ -10,7 +17,7 @@
       <template #content>
         <a-spin :loading="notificationParam.loading" tip="加载中"
           ><div class="min-w-80">
-            <a-list v-if="notificationParam.messageList.length > 0" :bordered="false">
+            <a-list v-if="notificationParam.messageList.length > 0" size="small" :bordered="false">
               <a-list-item
                 v-for="item in notificationParam.messageList"
                 :key="item.id"
@@ -125,6 +132,11 @@
 </script>
 
 <style scoped lang="less">
+  .message-popover {
+    .arco-popover-content {
+      margin-top: 0;
+    }
+  }
   :deep(.arco-list) {
     .arco-list-item {
       min-height: 86px;

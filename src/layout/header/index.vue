@@ -19,6 +19,12 @@
         <div> {{ title }} </div>
       </div>
       <div class="flex flex-row justify-end items-center space-x-8">
+        <!--搜索框-->
+        <Search />
+        <!--中英切换-->
+        <Language />
+        <!--全屏-->
+        <FullScreen />
         <Notification />
         <Profile :nav-mode="navMode" />
       </div>
@@ -35,6 +41,10 @@
 
       <div class="flex flex-row justify-end items-center space-x-8">
         <Search />
+        <!--中英切换-->
+        <Language />
+        <!--全屏-->
+        <FullScreen />
         <Notification />
         <!-- <a-button @click="logout">退出</a-button> -->
         <Profile :nav-mode="navMode" />
@@ -52,6 +62,8 @@
       <Search />
       <!--中英切换-->
       <Language />
+      <!--全屏-->
+      <FullScreen />
       <!--消息弹窗-->
       <Notification />
       <!--个人中心-->
@@ -80,6 +92,7 @@
   import Notification from './notification.vue'
   import Language from './language.vue'
   import Search from './search.vue'
+  import FullScreen from './fullScreen.vue'
 
   // const router = useRouter()
   // const route = useRoute()
