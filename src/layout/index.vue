@@ -33,6 +33,8 @@
           <AppMenu :mode="`${MENU_MODE.HORIZONTAL}`" :collapsed="collapsed" />
         </div>
 
+        <MultiTabs />
+
         <Breadcrumb :nav-mode="navMode" />
         <Content />
         <Footer v-if="footerDisplay" />
@@ -63,13 +65,14 @@
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { LAYOUT_WIDTH, NAV_MODE, NAV_THEME, MENU_MODE } from '@/enums/pageEnum'
   import { IHeaderHeightOption } from '@/settings/projectSetting'
-  import AppMenu from '@/layout/components/Menu'
   import Header from './header'
   import Sider from './sider'
-  import Breadcrumb from './breadcrumb/index.vue'
+  import Breadcrumb from './breadcrumb'
   import Content from './content'
   import Footer from './footer'
   import CustomizeThemeSetting from './customizeThemeSetting'
+  import AppMenu from './components/Menu'
+  import MultiTabs from './components/MultiTabs'
 
   const router = useRouter()
 

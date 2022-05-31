@@ -61,19 +61,24 @@ export function createRouterGuard(router: Router) {
     document.title = (to?.meta?.title as string) || document.title
     const asyncRouteStore = useAsyncRouteStoreWidthOut()
     // 在这里设置需要缓存的组件名称
-    const keepAliveComponents = asyncRouteStore.keepAliveComponents
+    const keepAliveComponents = asyncRouteStore.keepaliveComponents
+
     const currentComName: any = to.matched.find((item) => item.name === to.name)?.name
-    if (currentComName && !keepAliveComponents.includes(currentComName) && to.meta?.keepAlive) {
+    console.log('🚀 ~ file: index.ts ~ line 67 ~ router.afterEach ~ currentComName', currentComName)
+
+    if (currentComName && !keepAliveComponents.includes(currentComName) && to.meta?.keepalive) {
       // 需要缓存的组件
       keepAliveComponents.push(currentComName)
-    } else if (!to.meta?.keepAlive || to.name === 'Redirect') {
+    } else if (!to.meta?.keepalive || to.name === 'Redirect') {
       // 不需要缓存的组件
-      const index = asyncRouteStore.keepAliveComponents.findIndex((name) => name === currentComName)
+      const index = asyncRouteStore.keepaliveComponents.findIndex((name) => name === currentComName)
       if (index !== -1) {
         keepAliveComponents.splice(index, 1)
       }
     }
     asyncRouteStore.setKeepAliveComponents(keepAliveComponents)
+
+    console.log('keepAliveComponents', keepAliveComponents)
   })
 
   router.onError((error) => {

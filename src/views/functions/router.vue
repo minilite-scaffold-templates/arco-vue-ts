@@ -1,5 +1,5 @@
 <template>
-  <div>路由</div>
+  <div></div>
 </template>
 
 <script lang="ts" setup>

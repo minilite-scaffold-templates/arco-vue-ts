@@ -1,6 +1,7 @@
 <template>
-  <div :class="navMode !== NAV_MODE.HORIZONTAL && headerFixed ? 'layout-breadcrumb-with-header-fixed' : ''"></div>
-  <section class="z-5 shadow shadow-gray-200 h-8 p-5 flex flex-row justify-between items-center bg-white">
+  <section
+    class="z-2 shadow shadow-gray-200 border-t border-gray-100 h-8 p-5 flex flex-row justify-between items-center bg-white"
+  >
     <div>
       {{ routeItems[routeItems.length - 1].meta.title }}
     </div>
@@ -24,12 +25,10 @@
   import type { RouteLocationMatched } from 'vue-router'
   import { useRoute, useRouter } from 'vue-router'
 
-  const { getHeaderHeight, getHeaderFixed } = useProjectSetting()
+  const { getHeaderHeight } = useProjectSetting()
 
   const headerHeight = ref<ComputedRef<IHeaderHeightOption>>(getHeaderHeight)
   const headerHeightCssValue = headerHeight.value.cssValue
-
-  const headerFixed = ref<ComputedRef<boolean>>(getHeaderFixed)
 
   defineProps<{ navMode: NAV_MODE }>()
 

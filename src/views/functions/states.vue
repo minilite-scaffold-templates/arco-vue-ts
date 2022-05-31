@@ -1,5 +1,5 @@
 <template>
-  <div>状态管理</div>
+  <div> </div>
 </template>
 
 <script lang="ts" setup>

@@ -24,6 +24,10 @@ export function useProjectSetting() {
 
   const getPermissionMode = computed(() => projectStore.permissionMode)
 
+  const getIsPageAnimate = computed(() => projectStore.isPageAnimate)
+
+  const getPageAnimateType = computed(() => projectStore.pageAnimateType)
+
   return {
     getNavMode,
     getNavTheme,
@@ -35,5 +39,7 @@ export function useProjectSetting() {
     getHeaderHeight,
     getHeaderFixed,
     getPermissionMode,
+    getIsPageAnimate,
+    getPageAnimateType,
   }
 }

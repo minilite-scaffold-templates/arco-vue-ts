@@ -24,7 +24,7 @@ export interface IAsyncRouteState {
   menus: RouteRecordRaw[]
   routers: any[]
   addRouters: any[]
-  keepAliveComponents: string[]
+  keepaliveComponents: string[]
   isDynamicAddedRoute: boolean
 }
 
@@ -50,7 +50,7 @@ export const useAsyncRouteStore = defineStore({
     menus: [],
     routers: constantRoutes,
     addRouters: [],
-    keepAliveComponents: [],
+    keepaliveComponents: [],
     // Whether the route has been dynamically added
     isDynamicAddedRoute: false,
   }),
@@ -78,10 +78,15 @@ export const useAsyncRouteStore = defineStore({
       // 设置动态路由
       this.menus = menus
     },
-    setKeepAliveComponents(compNames) {
+    setKeepAliveComponents(compNames: string[]) {
       // 设置需要缓存的组件
-      this.keepAliveComponents = compNames
+      this.keepaliveComponents = compNames
+      console.log(
+        '🚀 ~ file: asyncRoute.ts ~ line 84 ~ setKeepAliveComponents ~ this.keepaliveComponents',
+        this.keepaliveComponents
+      )
     },
+
     async generateRoutes(data) {
       let accessedRouters
       const permissionsList = data.permissions || []

@@ -1,17 +1,16 @@
 import { defineStore } from 'pinia'
-import { RouteLocationNormalized } from 'vue-router'
+import { RouteLocationNormalized, RouteMeta } from 'vue-router'
+import { storage } from '@/utils/Storage'
+import { TABS_ROUTES } from '@/store/mutation-types'
 
 // 不需要出现在标签页中的路由
 const whiteList = ['Redirect', 'login']
 
 export type RouteItem = Partial<RouteLocationNormalized> & {
   fullPath: string
-  path: string
+  path?: string
   name: string
-  hash: string
-  meta: object
-  params: object
-  query: object
+  meta: Partial<RouteMeta>
 }
 
 export type ITabsListState = {
@@ -36,6 +35,8 @@ const useTabbarStore = defineStore({
       const isExists = this.tabsList.some((item) => item.fullPath === route.fullPath)
       if (!isExists) {
         this.tabsList.push(route)
+        // 保存到storage
+        storage.set(TABS_ROUTES, this.tabsList)
       }
       return true
     },

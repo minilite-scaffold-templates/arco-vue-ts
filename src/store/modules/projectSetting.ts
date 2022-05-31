@@ -18,6 +18,8 @@ interface ProjectSettingState {
   headerHeight: IHeaderHeightOption
   headerFixed: boolean // 状态栏是否固定
   permissionMode: string // 权限模式
+  isPageAnimate: boolean // 是否开启动画
+  pageAnimateType: string // 路由动画类型
 }
 
 const {
@@ -31,6 +33,8 @@ const {
   headerFixed,
   permissionMode,
   multiTabsSetting,
+  isPageAnimate,
+  pageAnimateType,
 } = projectSetting
 
 const useProjectSettingStore = defineStore({
@@ -46,6 +50,8 @@ const useProjectSettingStore = defineStore({
     headerHeight,
     headerFixed,
     permissionMode,
+    isPageAnimate,
+    pageAnimateType,
   }),
   getters: {
     getNavMode(): NAV_MODE {
@@ -74,6 +80,12 @@ const useProjectSettingStore = defineStore({
     },
     getHeaderFixed(): boolean {
       return this.headerFixed
+    },
+    getIsPageAnimate(): boolean {
+      return this.isPageAnimate
+    },
+    getPageAnimateType(): string {
+      return this.pageAnimateType
     },
   },
   actions: {

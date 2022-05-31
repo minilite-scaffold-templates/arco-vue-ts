@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { compile, defineComponent, ref, h } from 'vue'
-  import { RouteRecordRaw, useRouter } from 'vue-router'
   import { listenerRouteChange } from '@/router/listener'
+  import { RouteRecordRaw, useRouter } from 'vue-router'
   import useMenuTree from './useMenuTree'
 
   export default defineComponent({
@@ -17,29 +17,15 @@
     setup(props) {
       console.log('props', props)
 
-      // const route = useRoute()
-
       const router = useRouter()
+
       const { menuTree } = useMenuTree()
 
       const selectedKey = ref<string[]>([])
 
       const goto = (item: RouteRecordRaw) => {
-        router.push({
-          name: item.name,
-        })
+        router.push({ name: item.name })
       }
-
-      // 监听当前路由变化
-      // watch(route, (val) => {
-      //   console.log('开始监听')
-      //   if (val.meta.requiresAuth && !val.meta.hideInMenu) {
-      //     const key = val.matched[val.matched.length - 1]?.name as string
-      //     selectedKey.value = [key]
-
-      //     // 更新menu
-      //   }
-      // })
 
       listenerRouteChange((newRoute) => {
         if (newRoute.meta.requiresAuth && !newRoute.meta.hideInMenu) {
@@ -96,4 +82,14 @@
   })
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+  .arco-menu-dark .arco-menu-inline-header.arco-menu-selected {
+    color: #fff;
+    .arco-icon {
+      color: #fff;
+    }
+  }
+  // .arco-menu-dark .arco-menu-inline-header.arco-menu-selected .arco-icon {
+  //   color: #fff;
+  // }
+</style>

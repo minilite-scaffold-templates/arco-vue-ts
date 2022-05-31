@@ -28,6 +28,9 @@ const setting = {
   // 侧边栏宽度
   sidebarWidth: 220,
 
+  // MultiTabs高度
+  multiTabsHeight: 40,
+
   // 面包屑高度
   breadcrumbHeight: 40,
 
@@ -63,5 +66,11 @@ const setting = {
 
   // 菜单权限模式 FIXED 前端固定路由  BACK 动态获取
   permissionMode: 'FIXED',
+
+  // 是否开启路由动画
+  isPageAnimate: true,
+
+  // 路由动画类型
+  pageAnimateType: 'zoom-fade',
 }
 export default setting

@@ -1,5 +1,5 @@
 <template>
-  <div>请求封装</div>
+  <div></div>
 </template>
 
 <script lang="ts" setup>

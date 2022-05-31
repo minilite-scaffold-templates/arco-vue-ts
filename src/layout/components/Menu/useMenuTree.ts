@@ -1,6 +1,6 @@
 import usePermission from '@/hooks/permission'
 import { computed } from 'vue'
-import { RouteRecordNormalized, RouteRecordRaw, useRouter } from 'vue-router'
+import { RouteRecordRaw, useRouter } from 'vue-router'
 
 const permission = usePermission()
 

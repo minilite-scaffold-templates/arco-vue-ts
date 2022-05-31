@@ -10,7 +10,7 @@
   import setting, { IHeaderHeightOption } from '@/settings/projectSetting'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
 
-  const { footerHeight, breadcrumbHeight } = setting
+  const { footerHeight, breadcrumbHeight, multiTabsHeight } = setting
 
   // 获取header, breadcrumb, footer高度配置
   const { getHeaderHeight, getFooterDisplay } = useProjectSetting()
@@ -20,19 +20,19 @@
 
   let activeFooterHeight = `${footerHeight}px`
   const style = ref({
-    'min-height': `calc(100vh - ${headerHeightCssValue} - ${activeFooterHeight} - ${breadcrumbHeight}px)`,
+    'min-height': `calc(100vh - ${headerHeightCssValue} - ${multiTabsHeight} - ${activeFooterHeight} - ${breadcrumbHeight}px)`,
   })
 
   watch(getFooterDisplay, (val) => {
     activeFooterHeight = val ? `${footerHeight}px` : '0px'
     style.value = {
-      'min-height': `calc(100vh - ${headerHeightCssValue} - ${activeFooterHeight} - ${breadcrumbHeight}px)`,
+      'min-height': `calc(100vh - ${headerHeightCssValue} - ${multiTabsHeight} -${activeFooterHeight} - ${breadcrumbHeight}px)`,
     }
   })
 
   watch(getHeaderHeight, (val) => {
     style.value = {
-      'min-height': `calc(100vh - ${val.cssValue} - ${activeFooterHeight} - ${breadcrumbHeight}px)`,
+      'min-height': `calc(100vh - ${val.cssValue} - ${multiTabsHeight} - ${activeFooterHeight} - ${breadcrumbHeight}px)`,
     }
   })
 </script>
