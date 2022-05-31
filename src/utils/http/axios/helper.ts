@@ -19,6 +19,7 @@ export function joinTimestamp(join: boolean, restful = false): string | object {
  * @description: Format request parameter time
  */
 export function formatRequestDate(params: Recordable) {
+  console.log('🚀 ~ file: helper.ts ~ line 22 ~ formatRequestDate ~ params', params)
   // if (Object.prototype.toString.call(params) !== '[object Object]') {
   //   return
   // }

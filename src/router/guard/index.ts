@@ -1,6 +1,6 @@
 import type { RouteRecordRaw, Router } from 'vue-router'
 import { PageEnum } from '@/enums/pageEnum'
-import { useUserStoreWidthOut } from '@/store/modules/user'
+// import { useUserStoreWidthOut } from '@/store/modules/user'
 import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { storage } from '@/utils/Storage'
@@ -12,8 +12,9 @@ const LOGIN_PATH = `${PageEnum.BASE_LOGIN}`
 const whitePathList = [LOGIN_PATH] // no redirect
 
 export function createRouterGuard(router: Router) {
-  const userStore = useUserStoreWidthOut()
+  // const userStore = useUserStoreWidthOut()
   router.beforeEach(async (to, from, next) => {
+    console.log('🚀 ~ file: index.ts ~ line 17 ~ router.beforeEach ~ from', from)
     setRouteEmitter(to)
 
     console.log('to', to)
