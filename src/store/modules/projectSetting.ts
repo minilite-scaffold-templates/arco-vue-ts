@@ -3,10 +3,15 @@ import { store } from '@/store'
 import projectSetting, { IHeaderHeightOption } from '@/settings/projectSetting'
 import { NAV_THEME, NAV_MODE, LAYOUT_WIDTH } from '@/enums/pageEnum'
 
+type MultiTabsSetting = {
+  show: boolean
+}
+
 interface ProjectSettingState {
   navMode: NAV_MODE // 导航模式
   navTheme: NAV_THEME // 导航主题
   sidebarWidth: number // 侧边栏宽度
+  multiTabsSetting: MultiTabsSetting
   toolIconSize: number // 工具图标大小
   footerDisplay: boolean // 显示页脚
   layoutWidth: LAYOUT_WIDTH // 布局宽度
@@ -25,6 +30,7 @@ const {
   headerHeight,
   headerFixed,
   permissionMode,
+  multiTabsSetting,
 } = projectSetting
 
 const useProjectSettingStore = defineStore({
@@ -33,6 +39,7 @@ const useProjectSettingStore = defineStore({
     navMode,
     navTheme,
     sidebarWidth,
+    multiTabsSetting,
     toolIconSize,
     footerDisplay,
     layoutWidth,
@@ -47,9 +54,11 @@ const useProjectSettingStore = defineStore({
     getNavTheme(): NAV_THEME {
       return this.navTheme
     },
-
     getSidebarWidth(): number {
       return this.sidebarWidth
+    },
+    getMultiTabsSetting(): object {
+      return this.multiTabsSetting
     },
     getToolIconSize(): number {
       return this.toolIconSize
@@ -98,6 +107,10 @@ const useProjectSettingStore = defineStore({
 
     setHeaderFixed(value: boolean) {
       this.headerFixed = value
+    },
+
+    setMultiTabsSetting(value: MultiTabsSetting) {
+      this.multiTabsSetting = value
     },
 
     getPermissionMode(): string {

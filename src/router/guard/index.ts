@@ -54,22 +54,7 @@ export function createRouterGuard(router: Router) {
         }
       }
       next(redirectData)
-      return
     }
-
-    const userInfo = await userStore.getInfo()
-    console.log('👮‍♀️userInfo', userInfo)
-
-    // 添加404
-    const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name)
-    if (isErrorPage === -1) {
-      router.addRoute(ErrorPageRoute as unknown as RouteRecordRaw)
-    }
-
-    const redirectPath = (from.query.redirect || to.path) as string
-    const redirect = decodeURIComponent(redirectPath)
-    const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
-    next(nextData)
   })
 
   router.afterEach((to) => {

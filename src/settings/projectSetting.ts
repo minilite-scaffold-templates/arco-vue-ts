@@ -35,7 +35,7 @@ const setting = {
   footerHeight: 49,
 
   // Logo大小
-  logoSize: 28,
+  logoSize: 36,
 
   // 导航模式
   navMode: NAV_MODE.LEFT,
@@ -45,6 +45,8 @@ const setting = {
 
   // 布局宽度
   layoutWidth: LAYOUT_WIDTH.FLUID,
+
+  multiTabsSetting: { show: true },
 
   // 默认的工具图标大小
   toolIconSize: 18,

@@ -1,40 +1,51 @@
 <template>
   <a-layout-header
-    class="layout-header border-b border-gray-100 flex flex-row justify-start items-center z-10 bg-white"
+    class="border-b border-gray-100 flex flex-row justify-start items-center z-10 bg-white"
     :class="
       fixed
         ? navMode === NAV_MODE.HORIZONTAL
-          ? 'w-full fixed top-0'
-          : 'header-fixed-with-sidebar fixed top-0'
-        : 'w-full'
+          ? `w-full fixed top-0`
+          : `header-fixed-with-sidebar fixed top-0`
+        : `w-full`
     "
   >
-    <div v-if="navMode === NAV_MODE.HORIZONTAL" class="px-5 flex flex-row justify-between items-center w-full">
+    <div
+      v-if="navMode === NAV_MODE.HORIZONTAL"
+      class="px-5 flex flex-row justify-between items-center w-full"
+      :class="headerHeight.value"
+    >
       <div class="flex flex-row justify-start items-center space-x-3">
         <Logo />
-        <div>
-          {{ title }}
-        </div>
+        <div> {{ title }} </div>
       </div>
       <div class="flex flex-row justify-end items-center space-x-8">
         <Notification />
         <Profile :nav-mode="navMode" />
       </div>
     </div>
-    <section v-if="navMode === NAV_MODE.LEFT" class="flex flex-row justify-between items-center w-full px-5">
+    <section
+      v-if="navMode === NAV_MODE.LEFT"
+      class="flex flex-row justify-between items-center w-full px-5"
+      :class="headerHeight.value"
+    >
       <div class="cursor-pointer text-gray-500 space-x-8" @click="onCollapse">
         <IconArrowRight v-if="collapsed" :size="toolIconSize" />
         <IconAlignLeft v-else :size="toolIconSize" />
       </div>
 
       <div class="flex flex-row justify-end items-center space-x-8">
-        <a-input-search :style="{ width: '220px' }" placeholder="点击搜索..." class="cursor-pointer" />
+        <Search />
         <Notification />
+        <!-- <a-button @click="logout">退出</a-button> -->
         <Profile :nav-mode="navMode" />
       </div>
     </section>
 
-    <section v-if="navMode === NAV_MODE.RIGHT" class="w-full flex flex-row justify-end items-center space-x-8 px-5">
+    <section
+      v-if="navMode === NAV_MODE.RIGHT"
+      class="w-full flex flex-row justify-end items-center space-x-8 px-5"
+      :class="headerHeight.value"
+    >
       <!-- 引入我的 -->
 
       <!--搜索框-->
@@ -44,6 +55,7 @@
       <!--消息弹窗-->
       <Notification />
       <!--个人中心-->
+
       <Profile :nav-mode="navMode" />
       <div class="cursor-pointer text-gray-500" @click="onCollapse">
         <IconArrowLeft v-if="collapsed" :size="toolIconSize" />
@@ -55,6 +67,9 @@
 
 <script lang="ts" setup>
   import { ComputedRef, ref, unref } from 'vue'
+  // import { Message } from '@arco-design/web-vue'
+  // import { useRoute, useRouter } from 'vue-router'
+  // import useUserStore from '@/store/modules/user'
   import type { IHeaderHeightOption } from '@/settings/projectSetting'
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
   import { useGlobSetting } from '@/hooks/setting'
@@ -65,6 +80,11 @@
   import Notification from './notification.vue'
   import Language from './language.vue'
   import Search from './search.vue'
+
+  // const router = useRouter()
+  // const route = useRoute()
+
+  // const userStore = useUserStore()
 
   const { title } = useGlobSetting()
   const { getToolIconSize, getSidebarWidth } = useProjectSetting()
@@ -89,12 +109,25 @@
   const onCollapse = () => {
     emits('update-collapsed', !props.collapsed)
   }
+
+  // const logout = () => {
+  //   userStore.logout().then(() => {
+  //     Message.success({
+  //       content: '退出成功!',
+  //     })
+  //     const redirect = route.path
+  //     router.push({
+  //       path: `/login`,
+  //       query: { redirect },
+  //     })
+  //   })
+  // }
 </script>
 
 <style scoped lang="less">
-  .layout-header {
-    height: v-bind(headerHeightCssValue);
-  }
+  // .layout-header {
+  //   height: v-bind(headerHeightCssValue);
+  // }
 
   .header-fixed-with-sidebar {
     width: calc(100% - v-bind(sidebarWidthCssValue));

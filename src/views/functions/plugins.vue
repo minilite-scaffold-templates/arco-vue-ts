@@ -1,8 +1,8 @@
 <template>
-  <page-content>Order</page-content>
+  <div>插件</div>
 </template>
 
-<script lang="ts" setup name="OrderIndex">
+<script lang="ts" setup>
   import {} from 'vue'
 </script>
 

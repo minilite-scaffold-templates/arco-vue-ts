@@ -10,6 +10,8 @@ export function useProjectSetting() {
 
   const getSidebarWidth = computed(() => projectStore.sidebarWidth)
 
+  const getMultiTabsSetting = computed(() => projectStore.multiTabsSetting)
+
   const getToolIconSize = computed(() => projectStore.toolIconSize)
 
   const getFooterDisplay = computed(() => projectStore.footerDisplay)
@@ -26,6 +28,7 @@ export function useProjectSetting() {
     getNavMode,
     getNavTheme,
     getSidebarWidth,
+    getMultiTabsSetting,
     getToolIconSize,
     getFooterDisplay,
     getLayoutWidth,

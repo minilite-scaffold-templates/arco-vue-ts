@@ -88,7 +88,7 @@
       }
 
       return () => (
-        <a-menu mode={props.mode} class="m-auto" auto-open={true} selected-keys={selectedKey.value}>
+        <a-menu mode={props.mode} class="m-auto" level-indent={30} auto-open={true} selected-keys={selectedKey.value}>
           {renderSubMenu()}
         </a-menu>
       )

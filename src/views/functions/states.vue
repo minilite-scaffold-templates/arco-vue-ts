@@ -1,12 +1,9 @@
 <template>
-  <a-layout-content class="">
-    <PageLayout />
-  </a-layout-content>
+  <div>状态管理</div>
 </template>
 
 <script lang="ts" setup>
   import {} from 'vue'
-  import PageLayout from '../pageLayout.vue'
 </script>
 
 <style scoped lang="less"></style>

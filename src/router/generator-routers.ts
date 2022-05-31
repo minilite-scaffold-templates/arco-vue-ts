@@ -1,6 +1,6 @@
 import { adminMenus } from '@/api/system/menu'
 import { RouteRecordRaw } from 'vue-router'
-import { Layout, ParentLayout } from '@/router/constant'
+import { Layout } from '@/router/constant'
 import type { AppRouteRecordRaw } from '@/router/types'
 import { constantRouterIcon } from './router-icons'
 
@@ -91,9 +91,10 @@ export const asyncImportRoute = (routes: AppRouteRecordRaw[] | undefined): void 
       } else {
         item.component = dynamicImport(viewsModules, component as string)
       }
-    } else if (name) {
-      item.component = ParentLayout
     }
+    // else if (name) {
+    //   item.component = ParentLayout
+    // }
     children && asyncImportRoute(children)
   })
 }

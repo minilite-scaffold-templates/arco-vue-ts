@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-row justify-center items-center">
     <a-dropdown class="w-36" position="br">
-      <div class="cursor-pointer space-y-1"
+      <div class="cursor-pointer"
         ><div>{{ username }}</div> <div class="text-gray-400 text-xs">{{ roleName }}</div></div
       >
       <template #content>
@@ -11,12 +11,12 @@
           </template>
           <template #default>个人中心</template>
         </a-doption>
-        <a-doption>
+        <!-- <a-doption>
           <template #icon>
             <icon-settings />
           </template>
           <template #default>设置</template>
-        </a-doption>
+        </a-doption> -->
         <a-doption @click="logout">
           <template #icon>
             <icon-export />
