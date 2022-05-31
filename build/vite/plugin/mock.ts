@@ -1,4 +1,3 @@
-import { resolve } from 'path'
 import { viteMockServe } from 'vite-plugin-mock'
 
 /**
@@ -14,9 +13,8 @@ export default function configMockPlugin(isBuild: boolean, prodMock: boolean) {
     localEnabled: !isBuild,
     prodEnabled: isBuild && prodMock,
     injectCode: `
-    import setupProdMockServer  from '../mock/_createProductionServer'
+    import setupProdMockServer  from '../mock/_createProdServer'
     setupProdMockServer()
     `,
-    injectFile: resolve('src/main.ts'),
   })
 }

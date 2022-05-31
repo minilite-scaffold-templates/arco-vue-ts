@@ -1,6 +1,6 @@
-import { resultSuccess } from 'mock/_util'
 import Mock from 'mockjs'
 import { MockMethod } from 'vite-plugin-mock'
+import { resultSuccess } from '../_util'
 
 const Random = Mock.Random
 const token = Random.string('upper', 32, 32)

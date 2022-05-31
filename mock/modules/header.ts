@@ -1,5 +1,5 @@
-import { resultSuccess } from 'mock/_util'
 import { MockMethod } from 'vite-plugin-mock'
+import { resultSuccess } from '../_util'
 
 // 获取消息列表
 const getMessageList = {
