@@ -7,8 +7,8 @@
     :collapsed="collapsed"
     :collapsible="true"
     :hide-trigger="true"
-    class="border-gray-100"
-    :class="navMode === NAV_MODE.LEFT ? 'border-r ' : 'border-l'"
+    class=""
+    :class="navMode === NAV_MODE.LEFT ? ' ' : ''"
   >
     <!-- LOGO -->
     <div class="flex flex-col justify-center" :class="headerHeight.value">
@@ -23,7 +23,7 @@
     </div>
 
     <!-- MENU -->
-    <AppMenu :collapsed="collapsed" :nav-mode="navMode" :mode="`${MENU_MODE.VERTICAL}`" />
+    <AppMenu :collapsed="collapsed" :nav-mode="navMode" :mode="MENU_MODE.VERTICAL" />
   </a-layout-sider>
 </template>
 

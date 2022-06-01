@@ -47,6 +47,5 @@ export enum MENU_MODE {
   POP = 'pop',
   HORIZONTAL = 'horizontal',
   VERTICAL = 'vertical',
-  POPBUTTON = 'popButton',
-  UNDEFINED = 'undefined',
+  POP_BUTTON = 'popButton',
 }

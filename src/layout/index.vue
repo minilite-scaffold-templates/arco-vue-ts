@@ -1,8 +1,8 @@
 <template>
-  <div class="border-gray-100" :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'm-auto container' : ''">
+  <div class="" :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'm-auto container' : ''">
     <a-layout
       class="h-screen overflow-x-hidden"
-      :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'container border-gray-100 border-r border-l' : ''"
+      :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'container border-gray-100 ' : ''"
     >
       <!-- 侧边栏 -->
       <template v-if="navMode === NAV_MODE.LEFT">
@@ -30,7 +30,7 @@
           class="border-b border-gray-100"
           :class="headerFixed ? 'layout-menu-with-header-fixed' : ''"
         >
-          <AppMenu :mode="`${MENU_MODE.HORIZONTAL}`" :collapsed="collapsed" />
+          <AppMenu :mode="MENU_MODE.HORIZONTAL" :collapsed="collapsed" />
         </div>
 
         <MultiTabs />

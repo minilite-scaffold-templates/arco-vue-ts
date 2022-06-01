@@ -8,7 +8,7 @@
       type: String,
     },
     setup(props) {
-      return () => <div>{h(compile(`<${props.icon} size="${props.size}" type="${props.type}" />`))}</div>
+      return () => <span>{h(compile(`<${props.icon} size="${props.size}" type="${props.type}" />`))}</span>
     },
   })
 </script>
