@@ -7,8 +7,8 @@
     :collapsed="collapsed"
     :collapsible="true"
     :hide-trigger="true"
-    class=""
-    :class="navMode === NAV_MODE.LEFT ? ' ' : ''"
+    class="border-gray-100"
+    :class="navMode === NAV_MODE.LEFT ? 'border-r' : ''"
   >
     <!-- LOGO -->
     <div class="flex flex-col justify-center" :class="headerHeight.value">

@@ -47,7 +47,7 @@ const setting = {
   navTheme: NAV_THEME.LIGHT,
 
   // 布局宽度
-  layoutWidth: LAYOUT_WIDTH.FLUID,
+  layoutWidth: LAYOUT_WIDTH.BOXED,
 
   multiTabsSetting: { show: true },
 
