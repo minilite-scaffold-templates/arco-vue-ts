@@ -2,7 +2,7 @@
   <div class="" :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'm-auto container' : ''">
     <a-layout
       class="h-screen overflow-x-hidden"
-      :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'container border-gray-100 ' : ''"
+      :class="layoutWidth === LAYOUT_WIDTH.BOXED ? 'container border-gray-100' : ''"
     >
       <!-- 侧边栏 -->
       <template v-if="navMode === NAV_MODE.LEFT">
@@ -33,10 +33,10 @@
           <AppMenu :mode="MENU_MODE.HORIZONTAL" :collapsed="collapsed" />
         </div>
 
-        <MultiTabs />
-
+        <MultiTabs :fixed="headerFixed" :nav-mode="navMode" :header-height="headerHeight" />
         <Breadcrumb :nav-mode="navMode" />
         <Content />
+
         <Footer v-if="footerDisplay" />
       </a-layout>
 

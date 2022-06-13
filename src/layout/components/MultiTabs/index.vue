@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-1 layout-multi-tabs">
+  <div :class="!fixed ? 'bg-white p-1 layout-multi-tab' : 'bg-white p-1 fixed-header'">
     <Draggable :list="tabsList" animation="200" ghost-class="ghost" item-key="fullPath" class="flex space-x-1">
       <template #item="{ element }">
         <a-button
@@ -31,14 +31,22 @@
   import type { RouteItem } from '@/store/modules/tabbar'
   import useTabbarStore from '@/store/modules/tabbar'
   import { useRoute, useRouter } from 'vue-router'
-  import { PageEnum } from '@/enums/pageEnum'
+  import { NAV_MODE, PageEnum } from '@/enums/pageEnum'
   import { storage } from '@/utils/Storage'
   import { TABS_ROUTES } from '@/store/mutation-types'
   import { Message } from '@arco-design/web-vue'
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute'
   import { useGo } from '@/hooks/web/usePage'
+  import { IHeaderHeightOption } from '@/settings/projectSetting'
 
   const go = useGo()
+
+  const props = defineProps<{ fixed: boolean; headerHeight: IHeaderHeightOption; navMode: NAV_MODE }>()
+
+  const headerHeightCssValue = computed(() => {
+    console.log('props.headerHeight.cssValue', props.headerHeight.cssValue)
+    return props.headerHeight.cssValue
+  })
 
   // MultiTabs 白名单 (这些路由不进 MultiTabs)
   const whiteList: string[] = [PageEnum.BASE_LOGIN_NAME, PageEnum.REDIRECT_NAME, PageEnum.ERROR_PAGE_NAME]
@@ -127,8 +135,8 @@
 </script>
 
 <style scoped lang="less">
-  .layout-multi-tabs {
-    // height: 40px;
+  .fixed-header {
+    margin-top: v-bind(headerHeightCssValue);
   }
 
   .ghost {
